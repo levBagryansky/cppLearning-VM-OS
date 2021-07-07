@@ -6,7 +6,7 @@ using namespace std;
 int Factorial(int x); //calculate factorial
 bool IsPalindrom(string str); //check if a word is palindrom
 vector<string> PalindromFilter(vector<string> words, int minLength); //filter string
-                                                                 //by palindrom and lengft
+//by palindrom and lengft
 
 
 int main() {
