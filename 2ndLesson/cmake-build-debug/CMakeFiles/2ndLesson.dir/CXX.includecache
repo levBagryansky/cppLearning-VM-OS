@@ -6,8 +6,10 @@
 
 #IncludeRegexTransform: 
 
-E:/cppLerning/2ndLesson/main.cpp
+/home/tardis3/cppLerning/2ndLesson/main.cpp
 iostream
+-
+set
 -
 map
 -

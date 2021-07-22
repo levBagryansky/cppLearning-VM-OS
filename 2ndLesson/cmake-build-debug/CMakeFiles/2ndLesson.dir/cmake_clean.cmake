@@ -1,9 +1,7 @@
 file(REMOVE_RECURSE
-  "2ndLesson.exe"
-  "2ndLesson.exe.manifest"
+  "2ndLesson"
   "2ndLesson.pdb"
-  "CMakeFiles/2ndLesson.dir/main.cpp.obj"
-  "lib2ndLesson.dll.a"
+  "CMakeFiles/2ndLesson.dir/main.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.
