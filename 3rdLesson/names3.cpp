@@ -1,31 +1,44 @@
+// то же, что и names1, однако для Person теперь написан конструктор.
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <string>
 #include <map>
-#define first 0
-#define second 1
+//#define first 0
+//#define second 1
 
 using namespace std;
 
+int find_i(const vector<int>& v, int x);
 string createStrOfElements (const vector<string>& v); // создает строку "(v[l-1], v[l-1], .. v[0])"
 void deleteRepeats (vector<string>& v); // убирает повторяющиеся(подряд) жлементы массива и удаляет последний элемент
+
 
 
 // Реализуйте класс для человека, поддерживающий историю изменений человеком своих фамилии и имени.
 class Person {
 public:
-    void ChangeFirstName(int year, const string& new_first_name) {
-
-        nameHystory[year][first] = new_first_name;
+    Person(string first_name, string second_name, int year){
+        birthyear = year;
+        nameHystory[year][first] = first_name;
+        nameHystory[year][second] = second_name;
         changeFirstNameYears.push_back(year);
+        changeSecondNameYears.push_back(year);
+    }
 
+    void ChangeFirstName(int year, const string& new_first_name) {
+        if (year > birthyear) {
+            nameHystory[year][first] = new_first_name;
+            changeFirstNameYears.push_back(year);
+        }
         // добавить факт изменения имени на first_name в год year
     }
     void ChangeLastName(int year, const string& new_last_name) {
-        nameHystory[year][second] = new_last_name;
-        changeSecondNameYears.push_back(year);
-;
+        if (year > birthyear) {
+            nameHystory[year][second] = new_last_name;
+            changeSecondNameYears.push_back(year);
+        }
         // добавить факт изменения фамилии на last_name в год year
     }
 
@@ -36,7 +49,7 @@ public:
         string second_name = GetNumberName(year, changeSecondNameYears, second);
 
         if (first_name.empty() && second_name.empty())
-            return "Incognito";
+            return "No person";
         if (second_name.empty())
             return first_name + " with unknown last name";
         if (first_name.empty())
@@ -66,7 +79,7 @@ public:
         deleteRepeats(second_names);
 
         if (first_name.empty() && second_name.empty())
-            return "Incognito";
+            return "No person";
         if (second_name.empty())
             return first_name + ' ' + createStrOfElements(first_names) + "with unknown last name";
         if (first_name.empty())
@@ -79,12 +92,13 @@ public:
     }
 
 private:
-    map<int, string[2]> nameHystory;
+    int birthyear;   // год рождения
+    map<int, string[2]> nameHystory; // год - имя, фамилия
 
     vector<int> changeFirstNameYears;  // года, хранящие изменения имен.
     vector<int> changeSecondNameYears; // года, хранящие изменения фамилий.
 
-    string GetNumberName(int year, vector<int>& changeNameY, int nameNumber){
+    string GetNumberName(int year, vector<int>& changeNameY, int nameNumber) {
         if (changeNameY.empty())
             return "";
         sort(changeNameY.begin(), changeNameY.end());
@@ -101,15 +115,53 @@ private:
     // приватные поля
 };
 
-int main(){
-    Person person;
 
-    person.ChangeFirstName(1900, "Eugene");
-    person.ChangeLastName(1900, "Sokolov");
-    person.ChangeLastName(1910, "Sokolov");
-    person.ChangeFirstName(1920, "Evgeny");
-    person.ChangeLastName(1930, "Sokolov");
-    cout << person.GetFullNameWithHistory(1940) << endl;
+class ReversibleString
+{
+public:
+    ReversibleString(const string& str)
+    {
+        data = str;
+    }
+
+    ReversibleString()
+    {
+        data = "";
+    }
+
+    void Reverse()
+    {
+        reverse(data.begin(), data.end());
+    }
+
+    string ToString() const
+    {
+        return data;
+    }
+
+private:
+    string data;
+};
+
+
+struct Incognizable
+{
+    int first = 0;
+    int last = 0;
+};
+
+
+int main() {
+    Person person("Polina", "Sergeeva", 1960);
+    for (int year : {1959, 1960}) {
+        cout << person.GetFullNameWithHistory(year) << endl;
+    }
+
+    person.ChangeFirstName(1965, "Appolinaria");
+    person.ChangeLastName(1967, "Ivanova");
+    for (int year : {1965, 1967}) {
+        cout << person.GetFullNameWithHistory(year) << endl;
+    }
 
     return 0;
 
@@ -147,4 +199,3 @@ void deleteRepeats (vector<string>& v)
     }
 
 }
-
