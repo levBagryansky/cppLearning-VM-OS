@@ -116,41 +116,6 @@ private:
 };
 
 
-class ReversibleString
-{
-public:
-    ReversibleString(const string& str)
-    {
-        data = str;
-    }
-
-    ReversibleString()
-    {
-        data = "";
-    }
-
-    void Reverse()
-    {
-        reverse(data.begin(), data.end());
-    }
-
-    string ToString() const
-    {
-        return data;
-    }
-
-private:
-    string data;
-};
-
-
-struct Incognizable
-{
-    int first = 0;
-    int last = 0;
-};
-
-
 int main() {
     Person person("Polina", "Sergeeva", 1960);
     for (int year : {1959, 1960}) {
