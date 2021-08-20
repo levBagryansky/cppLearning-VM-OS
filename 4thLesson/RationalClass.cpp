@@ -48,6 +48,10 @@ class Rational {
 public:
     //Rational(){;}
     Rational(int numerator = 0, int denominator = 1){
+        if (denominator == 0){
+            throw invalid_argument("Denominator must not be 0");
+        }
+
         int gcf = calculateGCF(numerator, denominator);
         p = numerator / gcf;
         q = denominator / gcf;
@@ -103,8 +107,11 @@ Rational operator* (const Rational& r1, const Rational& r2){
 }
 
 Rational operator/ (const Rational& r1, const Rational& r2){
-    int newNumerator = r1.Numerator() * r2.Denominator();
     int newDenominator = r1.Denominator() * r2.Numerator();
+    if (newDenominator == 0)
+        throw domain_error("You cannot divide by 0");
+
+    int newNumerator = r1.Numerator() * r2.Denominator();
     return Rational(newNumerator, newDenominator);
 }
 
@@ -173,6 +180,19 @@ int main() {
             cout << "Wrong amount of items in the map" << endl;
             return 3;
         }
+    }
+    try {
+        Rational r(1, 0);
+        cout << "Doesn't throw in case of zero denominator" << endl;
+        return 4;
+    } catch (invalid_argument&) {
+    }
+
+    try {
+        auto x = Rational(1, 2) / Rational(0, 1);
+        cout << "Doesn't throw in case of division by zero" << endl;
+        return 5;
+    } catch (domain_error&) {
     }
 
     cout << "OK" << endl;
