@@ -80,6 +80,8 @@ public:
             dataBase[date].erase(event);
             cout << "Deleted successfully" << endl;
         }
+
+        return true;
     }
 
     int  DeleteDate(const Date& date){
