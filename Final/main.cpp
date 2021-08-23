@@ -36,18 +36,28 @@ istream& operator>> (istream& is, Date& d){
     int year, month, day;
     char c1, c2;
     //cout << "in << operator" << endl;
-    is >> year >> c1 >> month >> c2 >> day;
+    string date_string;
+    is >> date_string;
+    stringstream date_stream(date_string);
+    date_stream >> year >> c1 >> month >> c2 >> day;
     //cout << year << '-' << month << '-' << month << endl;
 
-    if (c1 == c2 == '-')
-        throw runtime_error("Wrong date format: " + year +
-                            c1 + month + c2 + day);
-    if (month < 1 || month > 12)
-        throw runtime_error("Month value is invalid: " + month);
+    if (!(c1 == c2 && c2 == '-')) {
+        stringstream ss;
+        ss << "Wrong date format: " << date_string;
+        throw runtime_error(ss.str());
+    }
+    if (month < 1 || month > 12) {
+        stringstream ss;
+        ss << "Month value is invalid: " << month;
+        throw runtime_error(ss.str());
+    }
 
-    if (day < 1 || day > 31)
-        throw runtime_error("Day value is invalid: " + day);
-
+    if (day < 1 || day > 31) {
+        stringstream ss;
+        ss << "Day value is invalid: " << day;
+        throw runtime_error(ss.str());
+    }
     d = Date(year, month, day);
 
     return is;
@@ -99,9 +109,13 @@ public:
 
     }
 
-    void Find(const Date& date) const{
-        for (const string& event: dataBase.at(date)){
-            cout << event << endl;
+    void Find(const Date& date) const {
+        try {
+            for (const string &event: dataBase.at(date)) {
+                cout << event << endl;
+            }
+        } catch(out_of_range& oofr_err) {
+            ;
         }
     }
 
@@ -125,6 +139,33 @@ bool verifyCommand(string command){
     return false;
 }
 
+void do_command(string command, Database& db, stringstream& stream){
+    if (command == "Print")
+        db.Print();
+    else if (command == "Find") {
+        Date date;
+        stream >> date;
+        db.Find(date);
+    } else if (command == "Del") {
+        Date date;
+        stream >> date;
+        if (stream.peek() > 0) {
+            string event;
+            stream >> event;
+            db.DeleteEvent(date, event);
+        } else {
+            //cout << "In Delete Date branch" << endl;
+            db.DeleteDate(date);
+        }
+    } else if (command == "Add") {
+        Date date;
+        string event;
+        stream >> date >> event;
+        db.AddEvent(date, event);
+
+    }
+}
+
 int main() {
     Database db;
 
@@ -135,30 +176,11 @@ int main() {
         stream >> command;
         //cout << "Command is: " << command << endl;
         if (verifyCommand(command)) {
-            if (command == "Print")
-                db.Print();
-            else if  (command == "Find"){
-                Date date;
-                stream >> date;
-                db.Find(date);
-            }else if (command == "Del"){
-                Date date;
-                stream >> date;
-                if (stream.peek() > 0){
-                    string event;
-                    stream >> event;
-                    db.DeleteEvent(date, event);
-                } else{
-                    //cout << "In Delete Date branch" << endl;
-                    db.DeleteDate(date);
-                }
-            }else if (command == "Add"){
-                Date date;
-                string event;
-                stream >> date >> event;
-                db.AddEvent(date, event);
+            try {
+                do_command(command, db, stream);
+            }catch (runtime_error& re){
+                cout << re.what() << endl;
             }
-
         }else
             cout << "Unknown command: " << command << endl;
     }
