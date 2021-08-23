@@ -40,6 +40,12 @@ istream& operator>> (istream& is, Date& d){
     is >> date_string;
     stringstream date_stream(date_string);
     date_stream >> year >> c1 >> month >> c2 >> day;
+    if (date_stream.peek() >= 0){
+        stringstream ss;
+        ss << "Wrong date format: " << date_string;
+        throw runtime_error(ss.str());
+    }
+
     //cout << year << '-' << month << '-' << month << endl;
 
     if (!(c1 == c2 && c2 == '-')) {
@@ -63,7 +69,7 @@ istream& operator>> (istream& is, Date& d){
     return is;
 }
 
-ostream& operator<< (ostream& os, Date d){
+ostream& operator<< (ostream& os,const Date& d){
     os << setw(4) << setfill('0') << d.GetYear() << '-' <<
     setw(2) << setfill('0') << d.GetMonth() << '-' <<
     setw(2) << setfill('0') << d.GetDay();
@@ -180,9 +186,12 @@ int main() {
                 do_command(command, db, stream);
             }catch (runtime_error& re){
                 cout << re.what() << endl;
+                break;
             }
-        }else
-            cout << "Unknown command: " << command << endl;
+        }else {
+            cout << "Unknown command: " << command ;
+            break;
+        }
     }
 
     return 0;
