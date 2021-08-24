@@ -87,10 +87,11 @@ bool operator< (const Date& lhs, const Date& rhs){
 class Database {
 public:
     void AddEvent(const Date& date, const string& event){
-        dataBase[date].insert(event);
+        if (event != "")
+            dataBase[date].insert(event);
     }
     bool DeleteEvent(const Date& date, const string& event){
-        if (dataBase[date].count(event) == 0)
+        if (dataBase.count(date) == 0 || dataBase[date].count(event) == 0)
             cout << "Event not found" << endl;
         else {
             dataBase[date].erase(event);
@@ -189,7 +190,7 @@ int main() {
                 break;
             }
         }else {
-            cout << "Unknown command: " << command ;
+            cout << "Unknown command: " << command << endl;
             break;
         }
     }
