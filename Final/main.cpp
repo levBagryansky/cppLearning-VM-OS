@@ -39,7 +39,14 @@ istream& operator>> (istream& is, Date& d){
     string date_string;
     is >> date_string;
     stringstream date_stream(date_string);
-    date_stream >> year >> c1 >> month >> c2 >> day;
+    date_stream >> year >> c1 >> month >> c2;
+    if (date_stream.peek() < 0){
+        stringstream ss;
+        ss << "Wrong date format: " << date_string;
+        throw runtime_error(ss.str());
+    }
+    date_stream >> day;
+    //cout << "Entered date_string: " << date_string << endl;
     if (date_stream.peek() >= 0){
         stringstream ss;
         ss << "Wrong date format: " << date_string;
@@ -87,8 +94,9 @@ bool operator< (const Date& lhs, const Date& rhs){
 class Database {
 public:
     void AddEvent(const Date& date, const string& event){
-        if (event != "")
+        if (!event.empty())
             dataBase[date].insert(event);
+        //cout << "Entered date: " << date << endl;
     }
     bool DeleteEvent(const Date& date, const string& event){
         if (dataBase.count(date) == 0 || dataBase[date].count(event) == 0)
@@ -121,9 +129,7 @@ public:
             for (const string &event: dataBase.at(date)) {
                 cout << event << endl;
             }
-        } catch(out_of_range& oofr_err) {
-            ;
-        }
+        } catch(out_of_range& oofr_err) {}
     }
 
     void Print() const{
@@ -138,15 +144,15 @@ private:
     map<Date, set<string>> dataBase;
 };
 
-bool verifyCommand(string command){
+bool verifyCommand(const string& command){
     if (command == "Add" || command == "Del" ||
         command == "Print" || command == "Find" ||
-        command == "")
+        command.empty())
         return true;
     return false;
 }
 
-void do_command(string command, Database& db, stringstream& stream){
+void do_command(const string& command, Database& db, stringstream& stream){
     if (command == "Print")
         db.Print();
     else if (command == "Find") {
