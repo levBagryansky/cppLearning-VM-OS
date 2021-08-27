@@ -32,7 +32,7 @@ private:
     int day;
 };
 
-istream& operator>> (istream& is, Date& d){
+istream& operator>> (istream& is, Date& d){ //Вывод даты
     int year, month, day;
     char c1, c2;
     //cout << "in << operator" << endl;
