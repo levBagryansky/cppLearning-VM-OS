@@ -6,6 +6,7 @@
 #include <ctime>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 
 #define MaxField 24
 
@@ -77,10 +78,16 @@ private:
 };
 
 class Player{
-private:
+public:
+    Player(string new_name){
+        name = new_name;
+        capital = 10000;
+        field_now = 0;
+    }
+
+    int field_now = 0;
     string name;
     int capital = 10000;
-    int field_now = 0;
 };
 
 Company chanel("Perfumery", 1, 600, 300,
@@ -130,24 +137,32 @@ map<int, Company> fields2Company{
         {british.GetNumber(),   british}
 }; //  Словарь полей и компаний на них.
 
-int RollDice(){
+int rollDice(){
     return (rand() % 6 + 1) + (rand() % 6 + 1);
 }
 
-void PrintGameBoard(){
+void printGameBoard(const vector<Player>& players){
     ofstream os("output.txt");
     os << "Game board:" << endl;
     for (int i = 0; i < MaxField; ++i) {
-        os << "Field " << i <<": ";
+        os << "Field " << setw(2) << right << setfill('0') << i <<": " << setw(18) << setfill(' ');
+
         if (fields2Company.count(i) == 0)
-            os << "empty" << endl;
+            os << left << "empty";
         else{
-            os << fields2Company.at(i).GetName() << endl;
+            os << left << fields2Company.at(i).GetName();
         }
+        os << '|';
+        for (const Player& item: players){
+            if (item.field_now == i){
+                os << ' ' << item.name;
+            }
+        }
+        os << endl;
     }
 }
 
-vector<string> ReadPlayers (istream& is, ostream& os){
+vector<Player> readPlayers (istream& is, ostream& os){
     setlocale(LC_ALL, "Russian");
     os << "Enter number of players (not more than 6):";
     int N;
@@ -156,40 +171,100 @@ vector<string> ReadPlayers (istream& is, ostream& os){
     if (N < 1 || N > 6)
         throw invalid_argument("Wrong number of players");
 
-    vector<string> players(N);
+    vector<Player> players;
     os << "Enter names separated by a space:";
 
     for (int i = 0; i < N; ++i) {
-        is >> players[i];
-    }
+        string name;
+        is >> name;
+        Player player(name);
+        players.push_back(player);
+        }
 
     return players;
 }
 
-string ReadCommand(){
-    string line;
-    getline(cin, line);
+string getCommand(string line){
     stringstream stream(line);
     string command;
-    stream >> command;
+    string word;
+    stream >> word;
+    command += word;
+    if (word == "roll" || word == "finish"){
+        stream >> word;
+        command += ' ';
+        command += word;
+    }
+    //cout << "Command was:" << command << endl;
+    return command;
+}
+
+bool verifyCommand(string command){
+    if (command == "roll dices" ||
+        command == "Finish game" ||
+        command.empty())
+        return true;
+    return false;
 }
 
 int main() {
+    /*
     srand(time(0));
 
-    vector<string> players = ReadPlayers(cin, cout);
+    vector<Player> players = readPlayers(cin, cout);
+    string l;
+    getline(cin, l);
 
     while (players.size() > 0){
         for (int i = 0; i < players.size(); ++i) {
-            PrintGameBoard();
-            cout << players[i] << ", Enter command (roll dice)" << endl;
-            string command = ReadCommand();
-            if (command == "Finish game")
-                return 0;
+            printGameBoard(players);
+
+            //cout << players[i].name << ", Enter command (roll dice, finish game) ";
+            string line;
+            cout << players[i].name << ", Enter command (roll dices, finish game)" << endl;
+            getline(std::cin, line); // полностью извлекаем строку в переменную myName
+            string command = getCommand(line);
+
+            if (verifyCommand(command)) {
+                if (command == "finish game")
+                    players.clear();
+                else if (command == "roll dices" || command.empty()){
+                    int rand_num1 = rand() % 6 + 1;
+                    int rand_num2 = rand() % 6 + 1;
+                    cout << "Oh, there are " << rand_num1 << " + "<< rand_num2 << endl;
+                    int rand_num = rand_num1 + rand_num2;
+                    players[i].field_now = (players[i].field_now + rand_num) % MaxField;
+                    cout << "Now field is: " << players[i].field_now << endl;
+
+                    printGameBoard(players);
+                    if (fields2Company.count(players[i].field_now) > 0){ //Если поле- компания
+                        string master;
+                        master = fields2Company.at(players[i].field_now).master;
+                        if (master != players[i].name){
+                            ;
+                        }
+                        else{
+                            ;
+                        }
+                    }
+
+                    if (rand_num1 == rand_num2)
+                        i--;
+
+                }
+
+            } else {
+                cout << "O, no! Invalid cum :(" << endl;
+                i--;
+            }
+
         }
     }
-    //PrintGameBoard(cout, fields2Company);
 
+    //PrintGameBoard(cout, fields2Company);
+*/
+    system("start output.txt");
+    system("exit output.txt");
 
     return 0;
 }
