@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
+#include <sstream>
 
 #define MaxField 24
 
@@ -129,7 +130,7 @@ map<int, Company> fields2Company{
         {british.GetNumber(),   british}
 }; //  Словарь полей и компаний на них.
 
-int rollDice(){
+int RollDice(){
     return (rand() % 6 + 1) + (rand() % 6 + 1);
 }
 
@@ -165,6 +166,14 @@ vector<string> ReadPlayers (istream& is, ostream& os){
     return players;
 }
 
+string ReadCommand(){
+    string line;
+    getline(cin, line);
+    stringstream stream(line);
+    string command;
+    stream >> command;
+}
+
 int main() {
     srand(time(0));
 
@@ -173,8 +182,10 @@ int main() {
     while (players.size() > 0){
         for (int i = 0; i < players.size(); ++i) {
             PrintGameBoard();
-            string command;
-            cin >> command;
+            cout << players[i] << ", Enter command (roll dice)" << endl;
+            string command = ReadCommand();
+            if (command == "Finish game")
+                return 0;
         }
     }
     //PrintGameBoard(cout, fields2Company);
