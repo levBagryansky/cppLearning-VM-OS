@@ -2,6 +2,9 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
 
 #define MaxField 24
 
@@ -53,7 +56,9 @@ public:
         return rents;
     }
 
-
+public:
+    string master;
+    int status;
 
 private:
     string name;
@@ -68,6 +73,13 @@ private:
 class Category{
 private:
     vector<Company> companies;
+};
+
+class Player{
+private:
+    string name;
+    int capital = 10000;
+    int field_now = 0;
 };
 
 Company chanel("Perfumery", 1, 600, 300,
@@ -101,24 +113,28 @@ Company british("British Airlines", 24, 2400, 1250,
 
 
 map<int, Company> fields2Company{
-        {chanel.GetNumber(), chanel},
-        {boss.GetNumber(), boss},
-        {adidas.GetNumber(), adidas},
-        {puma.GetNumber(), puma},
-        {lacoste.GetNumber(), lacoste},
-        {vk.GetNumber(), vk},
-        {facebook.GetNumber(), facebook},
-        {twitter.GetNumber(), twitter},
-        {cola.GetNumber(), cola},
-        {pepsi.GetNumber(), pepsi},
-        {fanta.GetNumber(), fanta},
-        {american.GetNumber(), american},
+        {chanel.GetNumber(),    chanel},
+        {boss.GetNumber(),      boss},
+        {adidas.GetNumber(),    adidas},
+        {puma.GetNumber(),      puma},
+        {lacoste.GetNumber(),   lacoste},
+        {vk.GetNumber(),        vk},
+        {facebook.GetNumber(),  facebook},
+        {twitter.GetNumber(),   twitter},
+        {cola.GetNumber(),      cola},
+        {pepsi.GetNumber(),     pepsi},
+        {fanta.GetNumber(),     fanta},
+        {american.GetNumber(),  american},
         {lufthansa.GetNumber(), lufthansa},
-        {british.GetNumber(), british}
+        {british.GetNumber(),   british}
 }; //  Словарь полей и компаний на них.
 
+int rollDice(){
+    return (rand() % 6 + 1) + (rand() % 6 + 1);
+}
 
-void PrintGameBoard(ostream& os,const map<int, Company>& fields2Company){
+void PrintGameBoard(){
+    ofstream os("output.txt");
     os << "Game board:" << endl;
     for (int i = 0; i < MaxField; ++i) {
         os << "Field " << i <<": ";
@@ -150,9 +166,19 @@ vector<string> ReadPlayers (istream& is, ostream& os){
 }
 
 int main() {
+    srand(time(0));
+
     vector<string> players = ReadPlayers(cin, cout);
 
+    while (players.size() > 0){
+        for (int i = 0; i < players.size(); ++i) {
+            PrintGameBoard();
+            string command;
+            cin >> command;
+        }
+    }
     //PrintGameBoard(cout, fields2Company);
+
 
     return 0;
 }
