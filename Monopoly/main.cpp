@@ -142,7 +142,8 @@ int rollDice(){
 }
 
 void printGameBoard(const vector<Player>& players){
-    ofstream os("output.txt");
+    ostream& os = cout;
+    //system("start output.txt");
     os << "Game board:" << endl;
     for (int i = 0; i < MaxField; ++i) {
         os << "Field " << setw(2) << right << setfill('0') << i <<": " << setw(18) << setfill(' ');
@@ -160,6 +161,10 @@ void printGameBoard(const vector<Player>& players){
         }
         os << endl;
     }
+    os << endl;
+    //os.close();
+    //system("start output.txt");
+
 }
 
 vector<Player> readPlayers (istream& is, ostream& os){
@@ -201,14 +206,13 @@ string getCommand(string line){
 
 bool verifyCommand(string command){
     if (command == "roll dices" ||
-        command == "Finish game" ||
+        command == "finish game" ||
         command.empty())
         return true;
     return false;
 }
 
 int main() {
-    /*
     srand(time(0));
 
     vector<Player> players = readPlayers(cin, cout);
@@ -262,9 +266,9 @@ int main() {
     }
 
     //PrintGameBoard(cout, fields2Company);
-*/
-    system("start output.txt");
-    system("exit output.txt");
+
+    //system("start output.txt");
+    //system("taskkill /im notepad.exe");
 
     return 0;
 }
