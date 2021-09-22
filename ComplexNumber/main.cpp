@@ -81,6 +81,7 @@ std::ostream& operator<< (std::ostream& os, ComplexNum& z){
         os << z.real_ << " + " << z.im_ << 'i';
     else
         os << z.real_;
+    return os;
 }
 
 std::istream& operator>> (std::istream& is, ComplexNum& z){
@@ -91,7 +92,7 @@ std::istream& operator>> (std::istream& is, ComplexNum& z){
             z.im_ *= -1;
     } else
         throw std::runtime_error("Wrong format");
-
+    return is;
 }
 
 int main() {
