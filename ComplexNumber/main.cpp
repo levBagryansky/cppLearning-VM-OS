@@ -74,6 +74,12 @@ ComplexNum operator/(const ComplexNum &z1, double k){
                       z1.im_ / k);
 }
 
+bool operator==(const ComplexNum &z1, const ComplexNum &z2){
+    if (z1.im_ == z2.im_ && z1.real_ == z2.real_)
+        return true;
+    return false;
+}
+
 std::ostream& operator<< (std::ostream& os, ComplexNum& z){
     if (z.im_ < 0)
         os << z.real_ << " - " << -z.im_ << 'i';
@@ -98,6 +104,7 @@ std::istream& operator>> (std::istream& is, ComplexNum& z){
 int main() {
     ComplexNum z1 = ComplexNum(5, 7);
     ComplexNum z2;
+    std::cout << "Enter complex number (a + bi):";
     std::cin >> z2;
     z1.AbsSquare();
     std::cout << "z2 equal " << z2 << std::endl;
