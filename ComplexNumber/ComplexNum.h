@@ -1,5 +1,6 @@
 #pragma once
 #include "iostream"
+#include "ComplexNum.h"
 
 struct ComplexNum{
     double real_;

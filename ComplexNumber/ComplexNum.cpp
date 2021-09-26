@@ -1,6 +1,25 @@
 #include "ComplexNum.h"
 #include "iostream"
 
+ComplexNum::ComplexNum(double real, double im){
+    real_ = real;
+    im_ = im;
+}
+
+ComplexNum::ComplexNum(const ComplexNum& another):
+    real_(another.real_), im_(another.im_){}
+
+ComplexNum::ComplexNum():
+    real_(0), im_(0){}
+
+//Найти сопряженное
+ComplexNum ComplexNum::FindConjugate() const{
+    return ComplexNum(real_, -im_);
+}
+double ComplexNum::AbsSquare() const{
+    return real_ * real_ - im_ * im_;
+}
+
 ComplexNum ComplexNum::operator+(const ComplexNum &other) const{
     return ComplexNum( + other.real_, im_ + other.im_);
 }
