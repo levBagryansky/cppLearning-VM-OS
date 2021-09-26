@@ -1,3 +1,0 @@
-E:/cppLerning/3rdLesson/cmake-build-debug/CMakeFiles/edit_cache.dir
-E:/cppLerning/3rdLesson/cmake-build-debug/CMakeFiles/3rdLesson.dir
-E:/cppLerning/3rdLesson/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/Final.dir/main.cpp.o -o Final 

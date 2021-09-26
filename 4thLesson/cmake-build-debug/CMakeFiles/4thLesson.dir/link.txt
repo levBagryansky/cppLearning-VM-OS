@@ -1,3 +1,0 @@
-"E:\CLion 2020.3.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\4thLesson.dir/objects.a
-E:\CodeBlocks\MinGW\bin\ar.exe cr CMakeFiles\4thLesson.dir/objects.a @CMakeFiles\4thLesson.dir\objects1.rsp
-E:\CodeBlocks\MinGW\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\4thLesson.dir/objects.a -Wl,--no-whole-archive  -o 4thLesson.exe -Wl,--out-implib,lib4thLesson.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\4thLesson.dir\linklibs.rsp
