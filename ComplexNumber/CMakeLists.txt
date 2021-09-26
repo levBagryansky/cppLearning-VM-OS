@@ -3,4 +3,4 @@ project(ComplexNumber)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(ComplexNumber main.cpp)
+add_executable(ComplexNumber main.cpp ComplexNum.cpp)

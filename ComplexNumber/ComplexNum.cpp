@@ -1,34 +1,5 @@
-#include <iostream>
-
-struct ComplexNum{
-    double real_;
-    double im_;
-
-    ComplexNum(double real, double im);
-    ComplexNum(const ComplexNum& another);
-    ComplexNum();
-    ComplexNum FindConjugate() const;
-    double AbsSquare() const;
-};
-
-ComplexNum::ComplexNum(double real, double im){
-    real_ = real;
-    im_ = im;
-}
-
-ComplexNum::ComplexNum(const ComplexNum& another):
-    real_(another.real_), im_(another.im_){}
-
-ComplexNum::ComplexNum():
-    real_(1), im_(0) {}
-
-ComplexNum ComplexNum::FindConjugate() const{
-    return {real_, -im_};
-}
-
-double ComplexNum::AbsSquare() const{
-    return real_ * real_ + im_*im_;
-}
+#include "ComplexNum.h"
+#include "iostream"
 
 ComplexNum operator+(const ComplexNum &z1, const ComplexNum &z2){
     return ComplexNum(z1.real_ + z2.real_, z1.im_ + z2.im_);
@@ -88,22 +59,13 @@ std::ostream& operator<< (std::ostream& os, ComplexNum& z){
     return os;
 }
 
-std::istream& operator>> (std::istream& is, ComplexNum& z){
+std::istream& operator>> (std::istream& is, ComplexNum& z) {
     char c1;
     is >> z.real_ >> c1 >> z.im_;
     if ((c1 == '+' || c1 == '-')) {
         if (c1 == '-')
             z.im_ *= -1;
+    }
 
     return is;
-}
-
-int main() {
-    ComplexNum z1 = ComplexNum(5, 7);
-    ComplexNum z2;
-    std::cout << "Enter complex number (a + bi):";
-    std::cin >> z2;
-    z1.AbsSquare();
-    std::cout << "z2 equal " << z2 << std::endl;
-    return 0;
 }
