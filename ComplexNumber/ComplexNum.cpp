@@ -1,70 +1,70 @@
 #include "ComplexNum.h"
 #include "iostream"
 
-ComplexNum operator+(const ComplexNum &z1, const ComplexNum &z2){
-    return ComplexNum(z1.real_ + z2.real_, z1.im_ + z2.im_);
+ComplexNum ComplexNum::operator+(const ComplexNum &other) const{
+    return ComplexNum( + other.real_, im_ + other.im_);
 }
 
-ComplexNum operator+(const ComplexNum &z1, double x){
-    return ComplexNum(z1.real_ + x, z1.im_);
+ComplexNum ComplexNum::operator+(double x) const{
+    return ComplexNum(real_ + x, im_);
 }
 
-ComplexNum operator-(const ComplexNum &z1, const ComplexNum &z2){
-    return ComplexNum(z1.real_ - z2.real_, z1.im_ - z2.im_);
+ComplexNum ComplexNum::operator-(const ComplexNum &other) const{
+    return ComplexNum(real_ - other.real_, im_ - other.im_);
 }
 
-ComplexNum operator-(const ComplexNum &z1, double x){
-    return ComplexNum(z1.real_ - x, z1.im_);
+ComplexNum ComplexNum::operator-(double x) const{
+    return ComplexNum(real_ - x, im_);
 }
 
-ComplexNum operator*(const ComplexNum &z1, const ComplexNum &z2){
-    return ComplexNum(z1.real_ * z2.real_ - z1.im_ * z2.im_,
-                      z1.im_ + z2.im_);
+ComplexNum ComplexNum::operator*(const ComplexNum &other) const{
+    return ComplexNum(real_ * other.real_ - im_ * other.im_,
+                      im_ + other.im_);
 }
 
-ComplexNum operator*(const ComplexNum &z1, double k){
-    return ComplexNum(z1.real_ * k,
-                      z1.im_ * k);
+ComplexNum ComplexNum::operator*(double k) const{
+    return ComplexNum(real_ * k,
+                      im_ * k);
 }
 
-ComplexNum operator/(const ComplexNum &z1, const ComplexNum &z2) {
-    if (z2.real_ == 0 && z2.im_ == 0)
+ComplexNum ComplexNum::operator/(const ComplexNum &other) const{
+    if (other.real_ == 0 && other.im_ == 0)
         throw std::invalid_argument("Cannot divide by 0");
 
     else {
-        return z1 * z2 * (1 / z2.AbsSquare());
+        return this->operator*(other) * (1 / other.AbsSquare());
     }
 }
 
-ComplexNum operator/(const ComplexNum &z1, double k){
+ComplexNum ComplexNum::operator/(double k) const{
     if(k == 0)
         throw std::invalid_argument("Cannot divide by 0");
-    return ComplexNum(z1.real_ / k,
-                      z1.im_ / k);
+    return ComplexNum(real_ / k,
+                      im_ / k);
 }
 
-bool operator==(const ComplexNum &z1, const ComplexNum &z2){
-    if (z1.im_ == z2.im_ && z1.real_ == z2.real_)
+bool ComplexNum::operator==(const ComplexNum &other) const{
+    if (this->im_ == other.im_ && real_ == other.real_)
         return true;
     return false;
 }
 
-std::ostream& operator<< (std::ostream& os, ComplexNum& z){
-    if (z.im_ < 0)
-        os << z.real_ << " - " << -z.im_ << 'i';
-    else if (z.im_ > 0)
-        os << z.real_ << " + " << z.im_ << 'i';
+std::ostream& ComplexNum::operator<< (std::ostream& os){
+    if (im_ < 0)
+        os << real_ << " - " << -im_ << 'i';
+    else if (im_ > 0)
+        os << real_ << " + " << im_ << 'i';
     else
-        os << z.real_;
+        os << real_;
     return os;
 }
 
-std::istream& operator>> (std::istream& is, ComplexNum& z) {
+std::istream& ComplexNum::operator>> (std::istream& is){
     char c1;
-    is >> z.real_ >> c1 >> z.im_;
+    is >> real_ >> c1 >> im_;
     if ((c1 == '+' || c1 == '-')) {
         if (c1 == '-')
-            z.im_ *= -1;
+            im_ *= -1;
     }
 
     return is;

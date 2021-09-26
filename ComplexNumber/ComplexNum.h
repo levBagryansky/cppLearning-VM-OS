@@ -1,4 +1,5 @@
 #pragma once
+#include "iostream"
 
 struct ComplexNum{
     double real_;
@@ -20,6 +21,6 @@ struct ComplexNum{
     ComplexNum operator/(const ComplexNum &other) const;
     ComplexNum operator/(double k) const;
     bool operator==(const ComplexNum &other) const;
-    std::ostream& operator<< (const std::ostream& os);
-    std::istream& operator>> (const std::istream& is);
+    std::ostream& operator<< (std::ostream& os);
+    std::istream& operator>> (std::istream& is);
 };
