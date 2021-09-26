@@ -1,5 +1,5 @@
 #include <iostream>
-#include <valarray>
+//#include <valarray>
 
 struct ComplexNum{
     double real_;

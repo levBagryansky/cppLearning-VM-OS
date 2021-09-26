@@ -1,9 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Final.dir/main.cpp.obj"
-  "Final.exe"
-  "Final.exe.manifest"
+  "CMakeFiles/Final.dir/main.cpp.o"
+  "Final"
   "Final.pdb"
-  "libFinal.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

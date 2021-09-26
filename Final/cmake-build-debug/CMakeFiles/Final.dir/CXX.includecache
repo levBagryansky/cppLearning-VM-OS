@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-E:/cppLerning/Final/main.cpp
+/home/tardis3/cppLerning/Final/main.cpp
 iostream
 -
 string
