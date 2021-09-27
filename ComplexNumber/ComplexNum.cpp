@@ -1,5 +1,5 @@
 #include "ComplexNum.h"
-#include "iostream"
+#include <iostream>
 
 ComplexNum::ComplexNum(double real, double im){
     real_ = real;
@@ -48,8 +48,7 @@ ComplexNum ComplexNum::operator*(double k) const{
 
 ComplexNum ComplexNum::operator/(const ComplexNum &other) const{
     if (other.real_ == 0 && other.im_ == 0)
-        throw std::invalid_argument("Cannot divide by 0");
-
+        ;
     else {
         return this->operator*(other) * (1 / other.AbsSquare());
     }
@@ -57,9 +56,7 @@ ComplexNum ComplexNum::operator/(const ComplexNum &other) const{
 
 ComplexNum ComplexNum::operator/(double k) const{
     if(k == 0)
-        throw std::invalid_argument("Cannot divide by 0");
-    return ComplexNum(real_ / k,
-                      im_ / k);
+    return ComplexNum(real_ / k, im_ / k);
 }
 
 bool ComplexNum::operator==(const ComplexNum &other) const{

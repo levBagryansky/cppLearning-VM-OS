@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ComplexNum.h"
+#include "../ComplexNum.h"
 
 int correctConstructors(){
     ComplexNum z1 = ComplexNum();
@@ -155,4 +155,7 @@ int test1(){
         std::cout << "Multiply is not correct, test: " <<
                   errorCode << std::endl;
     }
+
+    std::cout << "Nice\n";
+    return 0;
 }
