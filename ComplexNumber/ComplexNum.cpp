@@ -21,7 +21,7 @@ double ComplexNum::AbsSquare() const{
 }
 
 ComplexNum ComplexNum::operator+(const ComplexNum &other) const{
-    return ComplexNum( + other.real_, im_ + other.im_);
+    return ComplexNum(real_ + other.real_, im_ + other.im_);
 }
 
 ComplexNum ComplexNum::operator+(double x) const{
@@ -38,7 +38,7 @@ ComplexNum ComplexNum::operator-(double x) const{
 
 ComplexNum ComplexNum::operator*(const ComplexNum &other) const{
     return ComplexNum(real_ * other.real_ - im_ * other.im_,
-                      im_ + other.im_);
+                      im_ * other.real_ + real_ * other.im_);
 }
 
 ComplexNum ComplexNum::operator*(double k) const{
