@@ -1,5 +1,6 @@
+#ifndef ComplexNum_header
+#define ComplexNum_header
 #include "iostream"
-
 struct ComplexNum{
     double real;
     double im;
@@ -24,6 +25,8 @@ struct ComplexNum{
     ComplexNum operator/(const ComplexNum &other) const;
     ComplexNum operator/(double k) const;
     bool operator==(const ComplexNum &other) const;
-    std::ostream& operator<< (std::ostream& os);
-    std::istream& operator>> (std::istream& is);
+
+    friend std::ostream& operator<< (std::ostream& os, const ComplexNum& z);
 };
+
+#endif

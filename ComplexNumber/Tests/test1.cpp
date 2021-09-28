@@ -1,7 +1,5 @@
-#ifndef ComplexNumHeaderIncluded
 #include "../ComplexNum.h"
-#define ComplexNumHeaderIncluded 1
-#endif
+#include "iostream"
 
 int correctConstructors(){
     ComplexNum z1 = ComplexNum();
@@ -49,7 +47,7 @@ int correctPlus(){
     z1 = ComplexNum(2, 4);
     z2 = ComplexNum(2, 4);
     if (!((z1.operator+(z2)).operator==({4, 8}))){
-        (z1.operator+(z2)).operator<<(std::cout);
+        std::cout << z1.operator+(z2);
         std::cout << std::endl;
         return 2;
     }

@@ -1,7 +1,4 @@
-#ifndef ComplexNumHeaderIncluded
 #include "ComplexNum.h"
-#define ComplexNumHeaderIncluded 1
-#endif
 #include <iostream>
 
 ComplexNum::ComplexNum(double new_real, double new_im): real(new_real), im(new_im) {}
@@ -77,23 +74,12 @@ bool ComplexNum::operator==(const ComplexNum &other) const{
     return false;
 }
 
-std::ostream& ComplexNum::operator<< (std::ostream& os){
-    if (im < 0)
-        os << real << " - " << -im << 'i';
-    else if (im > 0)
-        os << real << " + " << im << 'i';
+std::ostream& operator<< (std::ostream& os, const ComplexNum& z){
+    if (z.im < 0)
+        os << z.real << " - " << -z.im << 'i';
+    else if (z.im > 0)
+        os << z.real << " + " << z.im << 'i';
     else
-        os << real;
+        os << z.real;
     return os;
-}
-
-std::istream& ComplexNum::operator>> (std::istream& is){
-    char c1;
-    is >> real >> c1 >> im;
-    if ((c1 == '+' || c1 == '-')) {
-        if (c1 == '-')
-            im *= -1;
-    }
-
-    return is;
 }
