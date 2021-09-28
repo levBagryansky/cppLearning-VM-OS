@@ -4,16 +4,16 @@
 
 int correctConstructors(){
     ComplexNum z1 = ComplexNum();
-    if (!(z1.real_ == 0 && z1.im_ == 0))
+    if (!(z1.real == 0 && z1.im == 0))
         return 1;
 
     ComplexNum z2(1, 1);
-    if(!(z2.im_ == 1 && z2.real_ == 1)){
+    if(!(z2.im == 1 && z2.real == 1)){
         return 2;
     }
 
     ComplexNum z3(z2);
-    if(!(z3.im_ == 1 && z3.real_ == 1)){
+    if(!(z3.im == 1 && z3.real == 1)){
         return 3;
     }
 
@@ -93,8 +93,8 @@ int correctMinus(){
 
     z1 = ComplexNum(4, 1);
     if (!(z1.operator-(5)).operator==({-1, 1})){
-        std::cout << (z1.operator-(5)).real_ << " + " <<
-        (z1.operator-(5)).im_ << 'i' << std::endl;
+        std::cout << (z1.operator-(5)).real << " + " <<
+        (z1.operator-(5)).im << 'i' << std::endl;
         return 5;
     }
     return 0;
@@ -104,8 +104,8 @@ int correctMultiply(){
     ComplexNum z1(0, 0);
     ComplexNum z2(-2, -3);
     if (!((z1.operator*(z2)).operator==({0, 0}))){
-        std::cout << z1.operator*(z2).real_ << " and " <<
-        z1.operator*(z2).im_ << 'i' << std::endl;
+        std::cout << z1.operator*(z2).real << " and " <<
+        z1.operator*(z2).im << 'i' << std::endl;
         return 1;
     }
 
@@ -121,8 +121,8 @@ int correctMultiply(){
 
     z1 = ComplexNum(4, 1);
     if (!(z1.operator*(5)).operator==({20, 5})){
-        std::cout << (z1.operator-(5)).real_ << " + " <<
-                  (z1.operator-(5)).im_ << 'i' << std::endl;
+        std::cout << (z1.operator-(5)).real << " + " <<
+                  (z1.operator-(5)).im << 'i' << std::endl;
         return 4;
     }
     return 0;

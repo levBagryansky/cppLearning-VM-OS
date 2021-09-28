@@ -2,12 +2,14 @@
 #include "iostream"
 
 struct ComplexNum{
-    double real_;
-    double im_;
+    double real;
+    double im;
 
     ComplexNum(double real, double im);
     ComplexNum(const ComplexNum& another);
     ComplexNum();
+
+    ~ComplexNum()= default;
 
     ComplexNum FindConjugate() const;
     double AbsSquare() const;
