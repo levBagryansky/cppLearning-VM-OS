@@ -1,4 +1,3 @@
-#pragma once
 #include "iostream"
 
 struct ComplexNum{
@@ -14,10 +13,12 @@ struct ComplexNum{
     ComplexNum FindConjugate() const;
     double AbsSquare() const;
 
+    ComplexNum& operator=(const ComplexNum& other);
     ComplexNum operator+(const ComplexNum &other) const;
     ComplexNum operator+(double x) const;
     ComplexNum operator-(const ComplexNum &other) const;
     ComplexNum operator-(double x) const;
+    ComplexNum operator-()const;
     ComplexNum operator*(const ComplexNum &other) const;
     ComplexNum operator*(double k) const;
     ComplexNum operator/(const ComplexNum &other) const;

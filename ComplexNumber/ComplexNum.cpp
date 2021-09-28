@@ -1,4 +1,7 @@
+#ifndef ComplexNumHeaderIncluded
 #include "ComplexNum.h"
+#define ComplexNumHeaderIncluded 1
+#endif
 #include <iostream>
 
 ComplexNum::ComplexNum(double new_real, double new_im): real(new_real), im(new_im) {}
@@ -17,6 +20,14 @@ double ComplexNum::AbsSquare() const{
     return real * real - im * im;
 }
 
+ComplexNum& ComplexNum::operator=(const ComplexNum& other){
+    if (this == &other)
+        return *this;
+    this->im = other.im;
+    this->real = other.real;
+    return *this;
+}
+
 ComplexNum ComplexNum::operator+(const ComplexNum &other) const{
     return ComplexNum(real + other.real, im + other.im);
 }
@@ -31,6 +42,10 @@ ComplexNum ComplexNum::operator-(const ComplexNum &other) const{
 
 ComplexNum ComplexNum::operator-(double x) const{
     return ComplexNum(real - x, im);
+}
+
+ComplexNum ComplexNum::operator-() const{
+    return -ComplexNum(-real, -im);
 }
 
 ComplexNum ComplexNum::operator*(const ComplexNum &other) const{

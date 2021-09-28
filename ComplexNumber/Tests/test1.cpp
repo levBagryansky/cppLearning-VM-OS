@@ -1,6 +1,7 @@
-#pragma once
-
+#ifndef ComplexNumHeaderIncluded
 #include "../ComplexNum.h"
+#define ComplexNumHeaderIncluded 1
+#endif
 
 int correctConstructors(){
     ComplexNum z1 = ComplexNum();
