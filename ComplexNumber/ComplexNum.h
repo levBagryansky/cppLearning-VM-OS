@@ -9,7 +9,7 @@ struct ComplexNum{
     ComplexNum(const ComplexNum& another);
     ComplexNum();
 
-    ~ComplexNum()= default;
+    ~ComplexNum();
 
     ComplexNum FindConjugate() const;
     double AbsSquare() const;
@@ -26,7 +26,8 @@ struct ComplexNum{
     ComplexNum operator/(double k) const;
     bool operator==(const ComplexNum &other) const;
 
-    friend std::ostream& operator<< (std::ostream& os, const ComplexNum& z);
 };
+// оператор вывода
+std::ostream& operator<< (std::ostream& os, const ComplexNum& z);
 
 #endif

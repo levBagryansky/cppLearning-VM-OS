@@ -9,6 +9,10 @@ ComplexNum::ComplexNum(const ComplexNum& another):
 ComplexNum::ComplexNum():
     real(0), im(0){}
 
+ComplexNum::~ComplexNum() {
+    real = 0;
+    im = 0;
+}
 //Найти сопряженное
 ComplexNum ComplexNum::FindConjugate() const{
     return ComplexNum(real, -im);
