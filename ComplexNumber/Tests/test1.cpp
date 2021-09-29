@@ -96,6 +96,13 @@ int correctMinus(){
         (z1.operator-(5)).im << 'i' << std::endl;
         return 5;
     }
+
+    ComplexNum z3(z1.operator-());
+    if (!(z3.operator==({-4, -1}))){
+        std::cout << "z1 = " << z1 << ", z3 = " << z3 << std::endl;
+        return 6;
+    }
+
     return 0;
 }
 
@@ -127,6 +134,59 @@ int correctMultiply(){
     return 0;
 }
 
+int correctFindConjugate(){
+    ComplexNum z(1, 1);
+    ComplexNum z_conjugate = z.FindConjugate();
+    if (!(z_conjugate.operator==({1, -1})))
+        return 1;
+
+    z = ComplexNum(4, -3);
+    z_conjugate = z.FindConjugate();
+    if (!(z_conjugate.operator==({4, 3})))
+        return 2;
+
+    return 0;
+}
+
+int correctPlusAssign(){
+    ComplexNum z1(1, 1);
+    z1.operator+=({2, 6});
+    if (!(z1.operator==({3, 7})))
+        return 1;
+
+    z1.operator+=(9);
+    if (!(z1.operator==({12, 7})))
+        return 2;
+
+    return 0;
+}
+
+int correctMinusAssign(){
+    ComplexNum z1(1, 1);
+    z1.operator-=({2, 6});
+    if (!(z1.operator==({-1, -5})))
+        return 1;
+
+    z1.operator-=(4);
+    if (!(z1.operator==({-5, -5})))
+        return 2;
+
+    return 0;
+}
+
+int correctMultiplyAssign(){
+    ComplexNum z1(1, 1);
+    z1.operator*=({2, 6});
+    if (!(z1.operator==({-3, 8})))
+        return 1;
+
+    z1.operator*=(4);
+    if (!(z1.operator==({-12, -32})))
+        return 2;
+
+    return 0;
+}
+
 int test1(){
     int errorCode = 0;
     if ((errorCode = correctPlus()) != 0) {
@@ -152,6 +212,26 @@ int test1(){
 
     if ((errorCode = correctMultiply()) != 0){
         std::cout << "Multiply is not correct, test: " <<
+                  errorCode << std::endl;
+    }
+
+    if ((errorCode = correctFindConjugate()) != 0){
+        std::cout << "FindConjugate is not correct, test: " <<
+                  errorCode << std::endl;
+    }
+
+    if ((errorCode = correctPlusAssign()) != 0){
+        std::cout << "+= is not correct, test: " <<
+                  errorCode << std::endl;
+    }
+
+    if ((errorCode = correctMinusAssign()) != 0){
+        std::cout << "-= is not correct, test: " <<
+                  errorCode << std::endl;
+    }
+
+    if ((errorCode = correctMinusAssign()) != 0){
+        std::cout << "*= is not correct, test: " <<
                   errorCode << std::endl;
     }
 
