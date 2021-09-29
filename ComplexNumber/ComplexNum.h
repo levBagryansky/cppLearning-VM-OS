@@ -1,6 +1,8 @@
 #ifndef ComplexNum_header
 #define ComplexNum_header
 #include "iostream"
+#define precision 0.00001
+
 struct ComplexNum{
     double real;
     double im;
@@ -25,7 +27,12 @@ struct ComplexNum{
     ComplexNum operator/(const ComplexNum &other) const;
     ComplexNum operator/(double k) const;
     bool operator==(const ComplexNum &other) const;
-
+    ComplexNum& operator+=(const ComplexNum& other);
+    ComplexNum& operator+=(double x);
+    ComplexNum& operator-=(const ComplexNum& other);
+    ComplexNum& operator-=(double x);
+    ComplexNum& operator*=(const ComplexNum& other);
+    ComplexNum& operator*=(double x);
 };
 // оператор вывода
 std::ostream& operator<< (std::ostream& os, const ComplexNum& z);

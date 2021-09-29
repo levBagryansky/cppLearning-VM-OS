@@ -46,7 +46,7 @@ ComplexNum ComplexNum::operator-(double x) const{
 }
 
 ComplexNum ComplexNum::operator-() const{
-    return -ComplexNum(-real, -im);
+    return ComplexNum(-real, -im);
 }
 
 ComplexNum ComplexNum::operator*(const ComplexNum &other) const{
@@ -73,7 +73,7 @@ ComplexNum ComplexNum::operator/(double k) const{
 }
 
 bool ComplexNum::operator==(const ComplexNum &other) const{
-    if (this->im == other.im && real == other.real)
+    if (abs(this->im - other.im) < precision && abs(real - other.real) < precision)
         return true;
     return false;
 }
@@ -86,4 +86,37 @@ std::ostream& operator<< (std::ostream& os, const ComplexNum& z){
     else
         os << z.real;
     return os;
+}
+
+ComplexNum& ComplexNum::operator+=(const ComplexNum& other){
+    im += other.im;
+    real += other.real;
+
+    return *this;
+}
+
+ComplexNum& ComplexNum::operator+=(double x){
+    real += x;
+    return *this;
+}
+
+ComplexNum& ComplexNum::operator-=(const ComplexNum& other){
+    real -= other.real;
+    im -= other.im;
+    return *this;
+}
+
+ComplexNum& ComplexNum::operator-=(double x){
+    real -= x;
+    return *this;
+}
+
+ComplexNum& ComplexNum::operator*=(const ComplexNum& other){
+    operator=(operator*(other));
+    return *this;
+}
+
+ComplexNum& ComplexNum::operator*=(double x){
+    operator=(operator*(x));
+    return *this;
 }
