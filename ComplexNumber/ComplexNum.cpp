@@ -1,4 +1,4 @@
-#include "ComplexNum.h"
+#include "ComplexNum.hpp"
 #include <iostream>
 
 ComplexNum::ComplexNum(double new_real, double new_im): real(new_real), im(new_im) {}
@@ -60,15 +60,14 @@ ComplexNum ComplexNum::operator*(double k) const{
 }
 
 ComplexNum ComplexNum::operator/(const ComplexNum &other) const{
-    if (other.real == 0 && other.im == 0)
-        ;
-    else {
-        return this->operator*(other) * (1 / other.AbsSquare());
-    }
+    ComplexNum res(*this);
+    res.operator*(res.FindConjugate());
+    res.operator*(1/other.AbsSquare());
+
+    return res;
 }
 
 ComplexNum ComplexNum::operator/(double k) const{
-    if(k == 0)
     return ComplexNum(real / k, im / k);
 }
 
