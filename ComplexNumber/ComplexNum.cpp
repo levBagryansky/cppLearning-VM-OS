@@ -72,7 +72,7 @@ ComplexNum ComplexNum::operator/(double k) const{
 }
 
 bool ComplexNum::operator==(const ComplexNum &other) const{
-    if (abs(this->im - other.im) < precision && abs(real - other.real) < precision)
+    if (abs(this->im - other.im) < 0.0000001 && abs(real - other.real) < 0.0000001)
         return true;
     return false;
 }
