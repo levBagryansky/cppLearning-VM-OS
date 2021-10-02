@@ -1,7 +1,6 @@
 #ifndef COMPLEXNUM_HEADER
 #define COMPLEXNUM_HEADER
 #include <iostream>
-//#define precision 0.00001
 
 struct ComplexNum{
     double real;
