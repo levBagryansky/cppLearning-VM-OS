@@ -38,17 +38,17 @@ int correctConstructors(){
 bool correctEqual(){
     ComplexNum z1(0, 0);
     ComplexNum z2(0, 0);
-    if (!(z1==(z2)))
+    if (!(z1== z2))
         return false;
 
     ComplexNum z3(-5, -10);
     ComplexNum z4(-5, 10);
-    if (z3==(z4))
+    if (z3 == z4)
         return false;
 
     ComplexNum z5(99, 4);
     ComplexNum z6(99, 4);
-    if (!(z5==(z6)))
+    if (!(z5 == z6))
         return false;
 
     return true;
@@ -57,25 +57,25 @@ bool correctEqual(){
 int correctPlus(){
     ComplexNum z1(0, 0);
     ComplexNum z2(2, 3);
-    if (!((z1+(z2))==(ComplexNum{2, 3})))
+    if (!((z1 + z2) == ComplexNum{2, 3}))
         return 1;
 
     z1 = ComplexNum(2, 4);
     z2 = ComplexNum(2, 4);
-    if (!((z1+(z2))==(ComplexNum{4, 8}))){
-        std::cout << z1+(z2);
+    if (!((z1 + z2)== ComplexNum{4, 8})){
+        std::cout << z1 + z2;
         std::cout << std::endl;
         return 2;
     }
 
     z1 = ComplexNum(-2, -4);
     z2 = ComplexNum(2, 4);
-    if (!((z1+(z2))==(ComplexNum{0, 0})))
+    if (!((z1 + z2) == ComplexNum{0, 0}))
         return 3;
 
     z1 = ComplexNum(-18, 20);
     z2 = ComplexNum(-2, 9);
-    if (!((z1+(z2))==(ComplexNum{-20, 29})))
+    if (!((z1+ z2)==(ComplexNum{-20, 29})))
         return 4;
 
     z1 = ComplexNum(4, 1);
@@ -133,7 +133,7 @@ int correctMultiply(){
 
     z1 = ComplexNum(2, 4);
     z2 = ComplexNum(2, 4);
-    if (!((z1 * z2)==(ComplexNum{-12, 16})))
+    if (!((z1 * z2) == ComplexNum{-12, 16}))
         return 2;
 
     z1 = ComplexNum(-2, -4);
@@ -142,9 +142,9 @@ int correctMultiply(){
         return 3;
 
     z1 = ComplexNum(4, 1);
-    if (!((z1 * 5)== ComplexNum{20, 5})){
-        std::cout << (z1-(5)).real << " + " <<
-                  (z1-(5)).im << 'i' << std::endl;
+    if (!((z1 * 5) == ComplexNum{20, 5})){
+        std::cout << (z1 - 5).real << " + " <<
+                  (z1 - 5).im << 'i' << std::endl;
         return 4;
     }
     return 0;
@@ -216,9 +216,8 @@ int test1(){
     else
         std::cout << "Equal is not correct" << std::endl;
 
-    if((errorCode = correctMinus()) == 0)
-        ;//std::cout << "Minus is equal" << std::endl;
-    else{
+    if((errorCode = correctMinus()) != 0)
+    {
         std::cout << "Minus is not correct, test: " <<
                   errorCode << std::endl;
     }
