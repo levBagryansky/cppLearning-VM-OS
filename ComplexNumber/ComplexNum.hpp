@@ -1,5 +1,5 @@
-#ifndef ComplexNum_header
-#define ComplexNum_header
+#ifndef COMPLEXNUM_HEADER
+#define COMPLEXNUM_HEADER
 #include "iostream"
 #define precision 0.00001
 
