@@ -210,9 +210,7 @@ int test1(){
         std::cout << "Plus is not correct, test: " << errorCode << std::endl;
     }
 
-    if (correctEqual())
-        ;//std::cout << "Equal is correct" << std::endl;
-    else
+    if (!correctEqual())
         std::cout << "Equal is not correct" << std::endl;
 
     if((errorCode = correctMinus()) != 0)
