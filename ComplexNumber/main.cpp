@@ -12,12 +12,8 @@ int correctMultiplyAssign();
 int test1();
 
 int main() {
-    //test1();
-    int x = 3, y = 4, z = 6;
+    test1();
 
-    (x = y) = z;
-
-    std::cout << x << ' ' << y << ' ' << z << std::endl;
     return 0;
 }
 
@@ -83,7 +79,7 @@ int correctPlus(){
         return 4;
 
     z1 = ComplexNum(4, 1);
-    if (!((z1+(9))==(ComplexNum{13, 1})))
+    if (!((z1 + 9) == ComplexNum{13, 1}))
         return 5;
 
     return 0;
