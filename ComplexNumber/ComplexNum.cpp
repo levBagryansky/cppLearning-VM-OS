@@ -1,20 +1,17 @@
 #include "ComplexNum.hpp"
-#include <iostream>
 
 ComplexNum::ComplexNum(double new_real, double new_im): real(new_real), im(new_im) {}
 
-ComplexNum::ComplexNum(const ComplexNum& another):
-    real(another.real), im(another.im){}
+ComplexNum::ComplexNum(const ComplexNum& another): real(another.real), im(another.im){}
 
-ComplexNum::ComplexNum():
-    real(0), im(0){}
+ComplexNum::ComplexNum(): real(0), im(0){}
 
 ComplexNum::~ComplexNum() {
     real = 0;
     im = 0;
 }
 //Найти сопряженное
-ComplexNum ComplexNum::FindConjugate() const{
+ComplexNum ComplexNum::conjugate() const{
     return ComplexNum(real, -im);
 }
 double ComplexNum::AbsSquare() const{
@@ -22,10 +19,9 @@ double ComplexNum::AbsSquare() const{
 }
 
 ComplexNum& ComplexNum::operator=(const ComplexNum& other){
-    if (this == &other)
-        return *this;
-    this->im = other.im;
-    this->real = other.real;
+    im = other.im;
+    real = other.real;
+
     return *this;
 }
 
@@ -55,13 +51,12 @@ ComplexNum ComplexNum::operator*(const ComplexNum &other) const{
 }
 
 ComplexNum ComplexNum::operator*(double k) const{
-    return ComplexNum(real * k,
-                      im * k);
+    return ComplexNum(real * k, im * k);
 }
 
 ComplexNum ComplexNum::operator/(const ComplexNum &other) const{
     ComplexNum res(*this);
-    res.operator*(res.FindConjugate());
+    res.operator*(other.conjugate());
     res.operator*(1/other.AbsSquare());
 
     return res;

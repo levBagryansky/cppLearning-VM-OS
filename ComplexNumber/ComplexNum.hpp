@@ -1,5 +1,5 @@
-#ifndef COMPLEXNUM_HEADER
-#define COMPLEXNUM_HEADER
+#ifndef COMPLEXNUM_HPP
+#define COMPLEXNUM_HPP
 #include <iostream>
 
 struct ComplexNum{
@@ -12,7 +12,7 @@ struct ComplexNum{
 
     ~ComplexNum();
 
-    ComplexNum FindConjugate() const;
+    ComplexNum conjugate() const;
     double AbsSquare() const;
 
     ComplexNum& operator=(const ComplexNum& other);

@@ -1,4 +1,3 @@
-#include <iostream>
 #include "ComplexNum.hpp"
 
 int correctConstructors();
