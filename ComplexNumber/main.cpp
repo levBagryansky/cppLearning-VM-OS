@@ -5,7 +5,7 @@ bool correctEqual();
 int correctPlus();
 int correctMinus();
 int correctMultiply();
-int correctFindConjugate();
+int correctconjugate();
 int correctPlusAssign();
 int correctMinusAssign();
 int correctMultiplyAssign();
@@ -149,14 +149,14 @@ int correctMultiply(){
     return 0;
 }
 
-int correctFindConjugate(){
+int correctconjugate(){
     ComplexNum z(1, 1);
-    ComplexNum z_conjugate = z.FindConjugate();
+    ComplexNum z_conjugate = z.conjugate();
     if (!(z_conjugate==(ComplexNum{1, -1})))
         return 1;
 
     z = ComplexNum(4, -3);
-    z_conjugate = z.FindConjugate();
+    z_conjugate = z.conjugate();
     if (!(z_conjugate == ComplexNum{4, 3}))
         return 2;
 
@@ -206,45 +206,45 @@ int correctMultiplyAssign(){
 
 int test1(){
     int errorCode = 0;
-    if ((errorCode = correctPlus()) != 0) {
+    if ((errorCode = correctPlus())) {
         std::cout << "Plus is not correct, test: " << errorCode << std::endl;
     }
 
     if (!correctEqual())
         std::cout << "Equal is not correct" << std::endl;
 
-    if((errorCode = correctMinus()) != 0)
+    if((errorCode = correctMinus()))
     {
         std::cout << "Minus is not correct, test: " <<
                   errorCode << std::endl;
     }
 
-    if ((errorCode = correctConstructors()) != 0){
+    if ((errorCode = correctConstructors())){
         std::cout << "Constructor is not correct, test: " <<
                   errorCode << std::endl;
     }
 
-    if ((errorCode = correctMultiply()) != 0){
+    if ((errorCode = correctMultiply())){
         std::cout << "Multiply is not correct, test: " <<
                   errorCode << std::endl;
     }
 
-    if ((errorCode = correctFindConjugate()) != 0){
-        std::cout << "FindConjugate is not correct, test: " <<
+    if ((errorCode = correctconjugate())){
+        std::cout << "conjugate is not correct, test: " <<
                   errorCode << std::endl;
     }
 
-    if ((errorCode = correctPlusAssign()) != 0){
+    if ((errorCode = correctPlusAssign())){
         std::cout << "+= is not correct, test: " <<
                   errorCode << std::endl;
     }
 
-    if ((errorCode = correctMinusAssign()) != 0){
+    if ((errorCode = correctMinusAssign())){
         std::cout << "-= is not correct, test: " <<
                   errorCode << std::endl;
     }
 
-    if ((errorCode = correctMultiplyAssign()) != 0){
+    if ((errorCode = correctMultiplyAssign())){
         std::cout << "*= is not correct, test: " <<
                   errorCode << std::endl;
     }
