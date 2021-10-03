@@ -26,14 +26,25 @@ struct ComplexNum{
     ComplexNum operator/(const ComplexNum &other) const;
     ComplexNum operator/(double k) const;
     bool operator==(const ComplexNum &other) const;
+    bool operator!=(const ComplexNum &other) const;
     ComplexNum& operator+=(const ComplexNum& other);
     ComplexNum& operator+=(double x);
     ComplexNum& operator-=(const ComplexNum& other);
     ComplexNum& operator-=(double x);
     ComplexNum& operator*=(const ComplexNum& other);
     ComplexNum& operator*=(double x);
+    ComplexNum& operator/=(const ComplexNum& other);
+    ComplexNum& operator/=(double x);
 };
-// оператор вывода
+
 std::ostream& operator<< (std::ostream& os, const ComplexNum& z);
+ComplexNum operator+(double x, const ComplexNum& z);
+ComplexNum operator-(double x, const ComplexNum& z);
+ComplexNum operator*(double k, const ComplexNum& z);
+ComplexNum operator/(double k, const ComplexNum& z);
+bool operator==(double x, const ComplexNum& z);
+bool operator!=(double x, const ComplexNum& z);
+
+bool isEqual(double a, double b);
 
 #endif

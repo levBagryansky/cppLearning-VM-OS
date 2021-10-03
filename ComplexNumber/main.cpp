@@ -124,7 +124,7 @@ int correctMinus(){
 int correctMultiply(){
     ComplexNum z1(0, 0);
     ComplexNum z2(-2, -3);
-    if (!((z1*(z2))==(ComplexNum{0, 0}))){
+    if (!((z1 * z2) == ComplexNum{0, 0})){
         std::cout << z1*(z2).real << " and " <<
                   z1*(z2).im << 'i' << std::endl;
         return 1;
@@ -137,7 +137,7 @@ int correctMultiply(){
 
     z1 = ComplexNum(-2, -4);
     z2 = ComplexNum(2, 4);
-    if (!(z1*z2==(ComplexNum{12, -16})))
+    if (!(z1*z2 == ComplexNum{12, -16}))
         return 3;
 
     z1 = ComplexNum(4, 1);
@@ -166,11 +166,11 @@ int correctconjugate(){
 int correctPlusAssign(){
     ComplexNum z1(1, 1);
     z1+=(ComplexNum{2, 6});
-    if (!(z1==(ComplexNum{3, 7})))
+    if (!(z1 == ComplexNum{3, 7}))
         return 1;
 
     z1+=(9);
-    if (!(z1==ComplexNum({12, 7})))
+    if (!(z1 == ComplexNum{12, 7}))
         return 2;
 
     return 0;
@@ -179,7 +179,7 @@ int correctPlusAssign(){
 int correctMinusAssign(){
     ComplexNum z1(1, 1);
     z1-= ComplexNum{2, 6};
-    if (!(z1==(ComplexNum{-1, -5})))
+    if (!(z1 == ComplexNum{-1, -5}))
         return 1;
 
     z1-=(4);
@@ -193,12 +193,27 @@ int correctMultiplyAssign(){
     ComplexNum z1(1, 1);
     z1 *= {2, 6};
     //std::cout << z1 << std::endl;
-    if (!(z1==(ComplexNum{-4, 8})))
+    if (!(z1 == ComplexNum{-4, 8}))
         return 1;
 
-    z1*=(4);
+    z1 *= 4;
     //std::cout << z1 << std::endl;
-    if (!(z1==(ComplexNum{-16, 32})))
+    if (!(z1 == ComplexNum{-16, 32}))
+        return 2;
+
+    return 0;
+}
+
+int correctDivideAssign(){
+    ComplexNum z1(1, 1);
+    z1 /= {2, 6};
+    //std::cout << z1 << std::endl;
+    if (!(z1 == ComplexNum{-0.25, 0.125}))
+        return 1;
+
+    z1 /= 4;
+    //std::cout << z1 << std::endl;
+    if (!(z1 == ComplexNum{-0.0625, 0.03125}))
         return 2;
 
     return 0;
@@ -206,46 +221,51 @@ int correctMultiplyAssign(){
 
 int test1(){
     int errorCode = 0;
-    if ((errorCode = correctPlus())) {
+    if (errorCode = correctPlus()) {
         std::cout << "Plus is not correct, test: " << errorCode << std::endl;
     }
 
     if (!correctEqual())
         std::cout << "Equal is not correct" << std::endl;
 
-    if((errorCode = correctMinus()))
+    if(errorCode = correctMinus())
     {
         std::cout << "Minus is not correct, test: " <<
                   errorCode << std::endl;
     }
 
-    if ((errorCode = correctConstructors())){
+    if (errorCode = correctConstructors()){
         std::cout << "Constructor is not correct, test: " <<
                   errorCode << std::endl;
     }
 
-    if ((errorCode = correctMultiply())){
+    if (errorCode = correctMultiply()){
         std::cout << "Multiply is not correct, test: " <<
                   errorCode << std::endl;
     }
 
-    if ((errorCode = correctconjugate())){
+    if (errorCode = correctconjugate()){
         std::cout << "conjugate is not correct, test: " <<
                   errorCode << std::endl;
     }
 
-    if ((errorCode = correctPlusAssign())){
+    if (errorCode = correctPlusAssign()){
         std::cout << "+= is not correct, test: " <<
                   errorCode << std::endl;
     }
 
-    if ((errorCode = correctMinusAssign())){
+    if (errorCode = correctMinusAssign()){
         std::cout << "-= is not correct, test: " <<
                   errorCode << std::endl;
     }
 
-    if ((errorCode = correctMultiplyAssign())){
+    if (errorCode = correctMultiplyAssign()){
         std::cout << "*= is not correct, test: " <<
+                  errorCode << std::endl;
+    }
+
+    if (errorCode = correctDivideAssign()){
+        std::cout << "/= is not correct, test: " <<
                   errorCode << std::endl;
     }
 
