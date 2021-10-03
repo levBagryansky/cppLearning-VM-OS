@@ -1,7 +1,7 @@
 #include "ComplexNum.hpp"
 
 int correctConstructors();
-bool correctEqual();
+int correctEqual();
 int correctPlus();
 int correctMinus();
 int correctMultiply();
