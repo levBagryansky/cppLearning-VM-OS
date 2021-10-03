@@ -78,7 +78,7 @@ bool ComplexNum::operator!=(const ComplexNum &other) const{
     return true;
 }
 
-bool ComplexNum::operator==(double x) const {
+bool ComplexNum::operator == (double x) const {
     return (isEqual(real, x) && isEqual(im, 0));
 }
 
