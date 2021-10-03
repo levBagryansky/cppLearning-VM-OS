@@ -35,23 +35,23 @@ int correctConstructors(){
     return 0;
 }
 
-bool correctEqual(){
+int correctEqual(){
     ComplexNum z1(0, 0);
     ComplexNum z2(0, 0);
     if (!(z1== z2))
-        return false;
+        return 1;
 
     ComplexNum z3(-5, -10);
     ComplexNum z4(-5, 10);
     if (z3 == z4)
-        return false;
+        return 2;
 
     ComplexNum z5(99, 4);
     ComplexNum z6(99, 4);
     if (!(z5 == z6))
-        return false;
+        return 3;
 
-    return true;
+    return 0;
 }
 
 int correctPlus(){
@@ -226,8 +226,11 @@ int test1(){
         std::cout << "Plus is not correct, test: " << errorCode << std::endl;
     }
 
-    if (!correctEqual())
-        std::cout << "Equal is not correct" << std::endl;
+    if(errorCode = correctEqual())
+    {
+        std::cout << "== is not correct, test: " <<
+                  errorCode << std::endl;
+    }
 
     if(errorCode = correctMinus())
     {
