@@ -27,6 +27,8 @@ struct ComplexNum{
     ComplexNum operator/(double k) const;
     bool operator==(const ComplexNum &other) const;
     bool operator!=(const ComplexNum &other) const;
+    bool operator==(double x) const;
+    bool operator!=(double x) const;
     ComplexNum& operator+=(const ComplexNum& other);
     ComplexNum& operator+=(double x);
     ComplexNum& operator-=(const ComplexNum& other);

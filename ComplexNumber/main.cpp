@@ -12,7 +12,12 @@ int correctMultiplyAssign();
 int test1();
 
 int main() {
-    test1();
+    //test1();
+    int x = 3, y = 4, z = 6;
+
+    (x = y) = z;
+
+    std::cout << x << ' ' << y << ' ' << z << std::endl;
     return 0;
 }
 
@@ -221,7 +226,7 @@ int correctDivideAssign(){
 
 int test1(){
     int errorCode = 0;
-    if (errorCode = correctPlus()) {
+    if (errorCode = correctPlus()) {   // неявное сравнение с нулем
         std::cout << "Plus is not correct, test: " << errorCode << std::endl;
     }
 

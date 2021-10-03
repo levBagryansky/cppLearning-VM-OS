@@ -78,6 +78,14 @@ bool ComplexNum::operator!=(const ComplexNum &other) const{
     return true;
 }
 
+bool ComplexNum::operator==(double x) const {
+    return (isEqual(real, x) && isEqual(im, 0));
+}
+
+bool ComplexNum::operator!=(double x) const{
+    return !(isEqual(real, x) && isEqual(im, 0));
+}
+
 ComplexNum& ComplexNum::operator+=(const ComplexNum& other){
     im += other.im;
     real += other.real;
@@ -155,11 +163,11 @@ ComplexNum operator/(double k, const ComplexNum& z){
 }
 
 bool operator==(double x, const ComplexNum& z){
-    return (x == z.real && z.im == 0);
+    return (isEqual(x, z.real) && isEqual(z.im, 0));
 }
 
 bool operator!=(double x, const ComplexNum& z){
-    return (x != z.real || z.im != 0);
+    return !(isEqual(x, z.real) && isEqual(z.im, 0));
 }
 
 bool isEqual(double a, double b){
