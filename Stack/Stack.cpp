@@ -1,23 +1,26 @@
 #include "Stack.hpp"
 
-Stack::Stack(int len): size_(0), capacity_(32), data_(new int(len)){}
+template<typename T>
+Stack<T>::Stack(int len): size_(0), capacity_(32), data_(new T(len)){}
 
-Stack::Stack(const Stack& other): size_(other.size_), capacity_(other.capacity_), data_(new int[capacity_]){
+template<typename T>
+Stack<T>::Stack(const Stack& other): size_(other.size_), capacity_(other.capacity_), data_(new int[capacity_]){
     std::copy(other.data_, other.data_ + size_, data_);
 }
 
-Stack::Stack(Stack &&other): data_(other.data_), size_(other.size_), capacity_(other.capacity_){
+template<typename T>
+Stack<T>::Stack(Stack &&other): data_(other.data_), size_(other.size_), capacity_(other.capacity_){
     other.data_ = nullptr;
 }
 
-Stack::~Stack(){
+template<typename T>
+Stack<T>::~Stack(){
     delete[] data_;
 }
 
-void Stack::push(int x) {
+template<typename T>
+void Stack<T>::push(int x) {
     if (size_ == capacity_){
 
     }
-
-
 }
