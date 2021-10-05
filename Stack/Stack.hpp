@@ -12,7 +12,7 @@ public:
     Stack(const Stack& other);
     Stack(Stack&& other);
     ~Stack();
-    void push();
+    void push(int x);
     int pop();
     int peek() const;
     int getSize() const;
