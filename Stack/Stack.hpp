@@ -2,27 +2,34 @@
 #define STACK_HPP
 #include <iostream>
 
-template <typename T>
+template<class T>
 
-class Stack{
+class Stack {
 public:
     Stack(int len = 32);
-    Stack(const Stack& other);
-    Stack(Stack&& other);
+    Stack(const Stack &other);
+    Stack(Stack &&other);
     ~Stack();
-    void push(int x);
-    int pop();
-    int peek() const;
-    int getSize() const;
 
-    Stack& operator= (const Stack& other);
-    Stack& operator= (Stack&& other);
-    friend std::ostream& operator<< (std::ostream& os, const Stack& s);
+    int getSize() const;
+    void push(T x);
+    T pop();
+    T top() const;
+
+    Stack &operator=(const Stack &other);
+    Stack &operator=(Stack &&other);
+
+    template<class U>
+    friend std::ostream& operator<<(std::ostream &os, Stack<U> &s);
 
 private:
-    T* data_;
+    T *data_;
     int size_;
     int capacity_;
 };
 
+template<class T>
+T minimum(const T &lhs, const T &rhs);
+
+#include "Stack.cpp"
 #endif
