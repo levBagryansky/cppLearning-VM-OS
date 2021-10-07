@@ -10,7 +10,18 @@ int correctIsEmpty();
 int correctEqual();
 
 int main() {
-    test();
+    //test();
+    Stack<bool> s;
+    s.push(1);
+    s.push(0);
+    s.push(1);
+    s.push(1);
+    s.push(1);
+    s.push(0);
+    s.push(0);
+    s.push(0);
+    s.push(0);
+    std::cout << s << std::endl;
     return 0;
 }
 
@@ -70,6 +81,14 @@ int correctPushAndGetSize(){
         return 2;
     }
 
+    Stack<bool> bools;
+    for (int i = 0; i < 10000; ++i) {
+        bools.push(i % 2);
+    }
+    int size = bools.getSize();
+    if (size != 10000){
+        return 3;
+    }
 
     return 0;
 }
@@ -149,6 +168,11 @@ int correctIsEmpty(){
     if (!doubles.isEmpty())
     {
         return 3;
+    }
+
+    Stack<bool> bools;
+    if (!(bools.isEmpty())){
+        return 4;
     }
 
     return 0;
