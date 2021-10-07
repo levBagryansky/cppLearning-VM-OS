@@ -5,14 +5,14 @@
 template<class T>
 Stack<T>::Stack(int len): size_(0), capacity_(len), data_(new T[len]){}
 
-Stack<bool>::Stack(int len): size_(0), capacity_((len + 7)/8), data_(new char[capacity_]){}
+Stack<bool>::Stack(int len): size_(0), capacity_((len + 7)/8), data_(new unsigned char[capacity_]){}
 
 template<class T>
 Stack<T>::Stack(const Stack& other): size_(other.size_), capacity_(other.capacity_), data_(new T[other.capacity_]){
     std::copy(other.data_, other.data_ + size_, data_);
 }
 
-Stack<bool>::Stack(const Stack& other): size_(other.size_), capacity_(other.capacity_), data_(new char[(other.capacity_ + 7)/8]){
+Stack<bool>::Stack(const Stack& other): size_(other.size_), capacity_(other.capacity_), data_(new unsigned char[(other.capacity_ + 7)/8]){
     std::copy(other.data_, other.data_ + (size_ + 7) / 8, data_);
 }
 
@@ -68,14 +68,15 @@ void Stack<T>::push(T value) {
 
 void Stack<bool>::push(bool value) {
     if (size_ == capacity_){
-        char * newData = new char[2 * ((capacity_ + 7) / 8)];
+        unsigned char * newData = new unsigned char[2 * ((capacity_ + 7) / 8)];
         std::copy(data_, data_ + (size_ + 7) / 8, newData);
         delete[] data_;
         data_ = newData;
         capacity_ = 2 * ((capacity_ + 7) / 8) * 8;
     }
 
-    data_[size_ / 8] += pow(2, size_ % 8);
+    unsigned char zerosWithOne = (value * pow(2, size_ % 8)); //0b00001000
+    data_[size_ / 8] = data_[size_/8] | zerosWithOne;
     size_++;
 }
 
@@ -86,6 +87,17 @@ T Stack<T>::pop(){
     }
     size_--;
     return data_[size_];
+}
+
+bool Stack<bool>::pop(){
+    if(size_ == 0){
+        exit(1);
+    }
+    size_--;
+    unsigned char containElem = data_[size_ / 8];
+    containElem  = containElem >> (size_ % 8);
+    containElem &= 1;
+    return containElem;
 }
 
 template<class T>
@@ -151,13 +163,11 @@ std::ostream& operator<<(std::ostream &os, Stack<T> &s){
 std::ostream& operator<<(std::ostream &os, Stack<bool> &s){
     os << "This is Stack:" << " capacity_ = " << s.capacity_ << ", size_ = " << s.size_ << std::endl;
     for (int i = 0; i < s.size_; ++i) {
-        char hasElem = s.data_[i / 8];
-        printf("Elem = %i\n", hasElem);
-        //os << "Elem = " << hasElem << std::endl;
-        hasElem  = hasElem >> (i % 8);
-        //os << "Elem = " << std::bitset<32>(hasElem) << std::endl;
-        hasElem &= 0b00000001;
-        //os << hasElem << '(' << i << ") ";
+        unsigned char containElem = s.data_[i / 8];
+        containElem  = containElem >> (i % 8);
+        containElem &= 1;
+        containElem += '0';
+        os << containElem << '(' << i << ") ";
     }
 
     return os;
