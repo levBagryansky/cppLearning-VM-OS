@@ -10,18 +10,11 @@ int correctIsEmpty();
 int correctEqual();
 
 int main() {
-    //test();
-    Stack<bool> s;
-    s.push(1);
-    s.push(0);
-    s.push(1);
-    s.push(1);
-    s.push(1);
-    s.push(0);
-    s.push(0);
-    s.push(0);
-    s.push(0);
-    std::cout << s << std::endl;
+    test();
+    int a = 9;
+    int b = 19;
+    std::swap(a, b);
+
     return 0;
 }
 
@@ -123,6 +116,46 @@ int correctPop(){
     if (v1 != vExampleDouble && v1.size() != 9){
         return 2;
     }
+
+    std::vector<bool> vExampleBools = {1, 1, 0, 1, 1, 0, 0, 0, 1};
+    Stack<bool> sBools;
+    for (int i = vExampleBools.size() - 1; i >= 0; --i) {
+        sBools.push(vExampleBools[i]);
+    }
+    std::vector<bool> vBools;
+    int sBoolsLen = sBools.getSize();
+    for (int i = 0; i < sBoolsLen; ++i) {
+        vBools.push_back(sBools.pop());
+    }
+    if(vExampleBools != vBools){
+        return 3;
+    }
+
+    if(sBools.getSize() != 0){
+        return 4;
+    }
+
+    std::vector<bool> v1Bools;
+    std::vector<bool> v1ExampleBools = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0 , 0, 1, 1, 0, 1, 1, 0, 0};
+    Stack<bool> s1Bools;
+    for (int i = v1ExampleBools.size() - 1; i >= 0; --i) {
+        s1Bools.push(v1ExampleBools[i]);
+    }
+    int s1BoolsLen = v1ExampleBools.size();
+    for (int i = 0; i < s1BoolsLen; ++i) {
+        bool b = s1Bools.pop();
+        //std::cout << b << ' ';
+        v1Bools.push_back(b);
+    }
+    if(v1ExampleBools != v1Bools){
+        std::cout << "Incorrect" << std::endl;
+        return 5;
+    }
+
+    if(s1Bools.getSize() != 0){
+        return 6;
+    }
+
     return 0;
 }
 
@@ -148,6 +181,25 @@ int correctTop(){
     double lastDouble = doubles.top();
     if (abs(lastDouble - 431/2) > 1e-8){
         return 3;
+    }
+
+    Stack<bool> sBools;
+    std::vector<bool> vBools = {1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0};
+    for (bool item: vBools){
+        sBools.push(item);
+    }
+    if (sBools.top() != 0){
+        return 4;
+    }
+
+    sBools.pop();
+    if (sBools.top() != 1){
+        return 5;
+    }
+
+    sBools.pop();
+    if (sBools.top() != 0){
+        return 6;
     }
 
     return 0;
@@ -210,5 +262,19 @@ int correctEqual(){
         return 4;
     }
 
+    Stack<bool> bools1, bools2;
+    std::vector<bool> vBools = {1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0};
+    for (bool item: vBools){
+        bools1.push(item);
+        bools2.push(item);
+    }
+    if (!(bools1 == bools2)){
+        return 5;
+    }
+
+    bools1.pop();
+    if (bools1 == bools2){
+        return 6;
+    }
     return 0;
 }
