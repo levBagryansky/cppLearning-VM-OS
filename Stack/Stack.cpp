@@ -121,6 +121,19 @@ bool Stack<bool>::top() const {
 }
 
 template<class T>
+void Stack<T>::swap(Stack<T> &other) {
+    std::swap(capacity_, other.capacity_);
+    std::swap(size_, other.size_);
+    std::swap(data_, other.data_);
+}
+
+void Stack<bool>::swap(Stack<bool> &other) {
+    std::swap(capacity_, other.capacity_);
+    std::swap(size_, other.size_);
+    std::swap(data_, other.data_);
+}
+
+template<class T>
 Stack<T>& Stack<T>::operator=(const Stack<T> &other) {
     if (this == &other){
         return *this;
@@ -128,7 +141,7 @@ Stack<T>& Stack<T>::operator=(const Stack<T> &other) {
 
     capacity_ = other.capacity_;
     size_ = other.size_;
-
+    delete[] data_;
     data_ = new T[capacity_];
     std::copy(other.data_, other.data_ + size_, data_);
     return *this;
@@ -142,6 +155,7 @@ Stack<bool>& Stack<bool>::operator=(const Stack<bool> &other) {
     capacity_ = other.capacity_;
     size_ = other.size_;
 
+    delete[] data_;
     data_ = new unsigned char [(capacity_ + 7) / 8];
     std::copy(other.data_, other.data_ + (size_ + 7) / 8 , data_);
     return *this;
@@ -197,19 +211,18 @@ bool Stack<bool>::operator==(const Stack<bool> &other) const{
 
     for (int i = 0; i < size_ % 8; ++i) {
         unsigned char elem1 = data_[(size_-1)  / 8];
-        elem1  = elem1 >> ((size_-1) % 8);
+        elem1  = elem1 >> (i);
         elem1 &= 1;
 
         unsigned char elem2 = other.data_[(size_-1)  / 8];
-        elem2  = elem2 >> ((size_-1) % 8);
+        elem2  = elem2 >> (i);
         elem2 &= 1;
 
         if (elem1 != elem2){
             return false;
         }
-
-        return true;
     }
+    return true;
 }
 
 template<class T>

@@ -15,6 +15,7 @@ public:
     void push(T x);
     T pop();
     T top() const;
+    void swap(Stack<T> &other);
 
     Stack& operator=(const Stack &other);
     Stack& operator=(Stack &&other);
@@ -42,6 +43,7 @@ public:
     void push(bool x);
     bool pop();
     bool top() const;
+    void swap(Stack<bool> &other);
 
     Stack& operator=(const Stack &other);
     Stack& operator=(Stack &&other);
