@@ -20,6 +20,7 @@ public:
     Stack& operator=(const Stack &other);
     Stack& operator=(Stack &&other);
     bool operator== (const Stack<T>& other) const;
+    bool operator!= (const Stack<T>& other) const;
 
     template<class U>
     friend std::ostream& operator<<(std::ostream &os, Stack<U> &s);
@@ -48,6 +49,7 @@ public:
     Stack& operator=(const Stack &other);
     Stack& operator=(Stack &&other);
     bool operator== (const Stack<bool>& other) const;
+    bool operator!= (const Stack<bool>& other) const;
 
     friend std::ostream& operator<<(std::ostream &os, Stack<bool> &s);
 

@@ -226,6 +226,15 @@ bool Stack<bool>::operator==(const Stack<bool> &other) const{
 }
 
 template<class T>
+bool Stack<T>::operator!=(const Stack<T> &other) const{
+    return !(operator==(other));
+}
+
+bool Stack<bool>::operator!=(const Stack<bool> &other) const{
+    return !(operator==(other));
+}
+
+template<class T>
 std::ostream& operator<<(std::ostream &os, Stack<T> &s){
     os << "This is Stack:" << " capacity_ = " << s.capacity_ << ", size_ = " << s.size_ << std::endl;
     for (int i = 0; i < s.size_; ++i) {
