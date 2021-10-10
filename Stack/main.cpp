@@ -8,13 +8,10 @@ int correctPop();
 int correctTop();
 int correctIsEmpty();
 int correctEqual();
+int correctSwap();
 
 int main() {
     test();
-    int a = 9;
-    int b = 19;
-    std::swap(a, b);
-
     return 0;
 }
 
@@ -44,6 +41,11 @@ int test(){
 
     if (errCode = correctEqual()){
         std::cout << "Operator == works incorrect:  test " << errCode << std::endl;
+        errSum++;
+    }
+
+    if (errCode = correctSwap()){
+        std::cout << "Swap works incorrect:  test " << errCode << std::endl;
         errSum++;
     }
 
@@ -276,5 +278,52 @@ int correctEqual(){
     if (bools1 == bools2){
         return 6;
     }
+    return 0;
+}
+
+int correctSwap(){
+    Stack<int> ints1, ints2, ints1Buf, ints2Buf;
+    ints1.push(1);
+    ints1.push(2);
+    ints1.push(3);
+    ints2.push(9);
+    ints1Buf = ints1;
+    ints2Buf = ints2;
+    ints1.swap(ints2);
+    if (!(ints1 == ints2Buf && ints2 == ints1Buf)){
+        return 1;
+    }
+
+    for (int i = 0; i < 1e4; ++i) {
+        ints1.push(i);
+        ints2.push(10 * i);
+    }
+    ints1Buf = ints1;
+    ints2Buf = ints2;
+    ints1.swap(ints2);
+    if (!(ints1 == ints2Buf && ints2 == ints1Buf)){
+        return 2;
+    }
+
+    if (ints1 == ints2){
+        return 3;
+    }
+
+    Stack<bool> bools1, bools2, bools1Buf, bools2Buf;
+    for (int i = 0; i < 200; ++i) {
+        bools1.push(0);
+        bools2.push(1);
+    }
+    bools1Buf = bools1;
+    bools2Buf = bools2;
+    bools1.swap(bools2);
+    if (!((bools2 == bools1Buf) && (bools1 == bools2Buf))){
+        return 4;
+    }
+
+    if (bools1 == bools2){
+        return 5;
+    }
+
     return 0;
 }
