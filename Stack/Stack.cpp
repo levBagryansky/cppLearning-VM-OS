@@ -182,6 +182,7 @@ Stack<bool>& Stack<bool>::operator=(Stack<bool>&& other) {
     size_ = other.size_;
     data_ = other.data_;
     other.data_ = nullptr;
+    return *this;
 }
 
 template<class T>

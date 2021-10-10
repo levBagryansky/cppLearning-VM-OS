@@ -54,7 +54,7 @@ public:
     friend std::ostream& operator<<(std::ostream &os, Stack<bool> &s);
 
 private:
-    int size_;
+int size_;
     int capacity_;
     unsigned char *data_;
 };
