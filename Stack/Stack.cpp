@@ -75,8 +75,8 @@ void Stack<bool>::push(bool value) {
         capacity_ = 2 * ((capacity_ + 7) / 8) * 8;
     }
 
-    unsigned char zerosWithOne = (value * pow(2, size_ % 8)); //0b00001000
-    data_[size_ / 8] = data_[size_/8] | zerosWithOne;
+    int i = size_ % 8;
+    data_[size_ / 8] = ((data_[size_ / 8] & (~(1 << i))) + (value << i));
     size_++;
 }
 
@@ -109,6 +109,17 @@ T Stack<T>::top() const {
     return data_[size_ - 1];
 }
 
+bool Stack<bool>::top() const {
+    if (size_ == 0){
+        exit(2);
+    }
+
+    unsigned char containElem = data_[(size_-1)  / 8];
+    containElem  = containElem >> ((size_-1) % 8);
+    containElem &= 1;
+    return containElem;
+}
+
 template<class T>
 Stack<T>& Stack<T>::operator=(const Stack<T> &other) {
     if (this == &other){
@@ -120,6 +131,19 @@ Stack<T>& Stack<T>::operator=(const Stack<T> &other) {
 
     data_ = new T[capacity_];
     std::copy(other.data_, other.data_ + size_, data_);
+    return *this;
+}
+
+Stack<bool>& Stack<bool>::operator=(const Stack<bool> &other) {
+    if (this == &other){
+        return *this;
+    }
+
+    capacity_ = other.capacity_;
+    size_ = other.size_;
+
+    data_ = new unsigned char [(capacity_ + 7) / 8];
+    std::copy(other.data_, other.data_ + (size_ + 7) / 8 , data_);
     return *this;
 }
 
@@ -135,8 +159,19 @@ Stack<T>& Stack<T>::operator=(Stack<T>&& other) {
     other.data_ = nullptr;
 }
 
+Stack<bool>& Stack<bool>::operator=(Stack<bool>&& other) {
+    if (this == &other){
+        return *this;
+    }
+
+    capacity_ = other.capacity_;
+    size_ = other.size_;
+    data_ = other.data_;
+    other.data_ = nullptr;
+}
+
 template<class T>
-bool Stack<T>::operator==(const Stack<T> &other) {
+bool Stack<T>::operator==(const Stack<T> &other) const{
     if (size_ != other.size_){
         return false;
     }
@@ -147,6 +182,34 @@ bool Stack<T>::operator==(const Stack<T> &other) {
     }
 
     return true;
+}
+
+bool Stack<bool>::operator==(const Stack<bool> &other) const{
+    if (size_ != other.size_){
+        return false;
+    }
+
+    for (int i = 0; i < size_ / 8; ++i) {
+        if (data_[i] != other.data_[i]){
+            return false;
+        }
+    }
+
+    for (int i = 0; i < size_ % 8; ++i) {
+        unsigned char elem1 = data_[(size_-1)  / 8];
+        elem1  = elem1 >> ((size_-1) % 8);
+        elem1 &= 1;
+
+        unsigned char elem2 = other.data_[(size_-1)  / 8];
+        elem2  = elem2 >> ((size_-1) % 8);
+        elem2 &= 1;
+
+        if (elem1 != elem2){
+            return false;
+        }
+
+        return true;
+    }
 }
 
 template<class T>
