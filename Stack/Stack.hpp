@@ -54,10 +54,11 @@ public:
     friend std::ostream& operator<<(std::ostream &os, Stack<bool> &s);
 
 private:
-int size_;
+    int size_;
     int capacity_;
     unsigned char *data_;
 };
 
-#include "Stack.cpp"
+
+//#include "Stack.cpp"
 #endif // STACK_HPP
