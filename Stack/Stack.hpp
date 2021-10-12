@@ -48,10 +48,10 @@ public:
 
     Stack& operator=(const Stack &other);
     Stack& operator=(Stack &&other);
-    bool operator== (const Stack<bool>& other) const;
-    bool operator!= (const Stack<bool>& other) const;
+    bool operator== (const Stack& other) const;
+    bool operator!= (const Stack& other) const;
 
-    friend std::ostream& operator<<(std::ostream &os, Stack<bool> &s);
+    friend std::ostream& operator<<(std::ostream &os, Stack &s);
 
 private:
     int size_;
@@ -59,6 +59,4 @@ private:
     unsigned char *data_;
 };
 
-
-//#include "Stack.cpp"
 #endif // STACK_HPP
