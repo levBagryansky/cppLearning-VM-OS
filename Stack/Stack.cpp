@@ -1,4 +1,5 @@
 #include "Stack.hpp"
+#include "Stack-impl.h"
 #include <math.h>
 #include <bitset>
 
@@ -259,6 +260,3 @@ std::ostream& operator<<(std::ostream &os, Stack<bool> &s){
     return os;
 }
 
-template class Stack<int>;
-template class Stack<bool>;
-template class Stack<double>;
