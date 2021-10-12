@@ -1,7 +1,6 @@
 #include "Stack.hpp"
 #include "Stack-impl.h"
-#include <math.h>
-#include <bitset>
+#include <cmath>
 
 template<class T>
 Stack<T>::Stack(int len): size_(0), capacity_(len), data_(new T[len]){}
