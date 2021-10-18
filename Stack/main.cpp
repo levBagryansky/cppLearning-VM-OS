@@ -1,6 +1,7 @@
 #include <vector>
 #include <algorithm>
-#include "Stack.hpp"
+#include "Bool_Stack.h"
+#include "Stack_impl.h"
 
 int test();
 int correctPushAndGetSize();
@@ -19,32 +20,32 @@ int test(){
     int errCode;
     int errSum = 0;
 
-    if (errCode = correctPushAndGetSize()){
+    if ((errCode = correctPushAndGetSize())){
         std::cout << "Push or GetSize works incorrect: test " << errCode << std::endl;
         errSum++;
     }
 
-    if (errCode = correctPop()){
+    if ((errCode = correctPop())){
         std::cout << "Pop works incorrect: test " << errCode << std::endl;
         errSum++;
     }
 
-    if (errCode = correctTop()){
+    if ((errCode = correctTop())){
         std::cout << "Top works incorrect: test " << errCode << std::endl;
         errSum++;
     }
 
-    if (errCode = correctIsEmpty()){
+    if ((errCode = correctIsEmpty())){
         std::cout << "IsEmpty works incorrect:  test " << errCode << std::endl;
         errSum++;
     }
 
-    if (errCode = correctEqual()){
+    if ((errCode = correctEqual())){
         std::cout << "Operator == works incorrect:  test " << errCode << std::endl;
         errSum++;
     }
 
-    if (errCode = correctSwap()){
+    if ((errCode = correctSwap())){
         std::cout << "Swap works incorrect:  test " << errCode << std::endl;
         errSum++;
     }
@@ -119,7 +120,7 @@ int correctPop(){
         return 2;
     }
 
-    std::vector<bool> vExampleBools = {1, 1, 0, 1, 1, 0, 0, 0, 1};
+    std::vector<bool> vExampleBools = {true, false, false, true, true, false, false, false, true};
     Stack<bool> sBools;
     for (int i = vExampleBools.size() - 1; i >= 0; --i) {
         sBools.push(vExampleBools[i]);
@@ -138,7 +139,7 @@ int correctPop(){
     }
 
     std::vector<bool> v1Bools;
-    std::vector<bool> v1ExampleBools = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0 , 0, 1, 1, 0, 1, 1, 0, 0};
+    std::vector<bool> v1ExampleBools = {true, false, true, true, true, true, false, true, true, true, false, true, false, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true,false, true, false};
     Stack<bool> s1Bools;
     for (int i = v1ExampleBools.size() - 1; i >= 0; --i) {
         s1Bools.push(v1ExampleBools[i]);
