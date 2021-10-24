@@ -62,6 +62,20 @@ void Stack<bool>::swap(Stack<bool> &other) {
     std::swap(data_, other.data_);
 }
 
+void Stack<bool>::pushWithFactor(bool value, long double factor) {
+    if (size_ == capacity_){
+        unsigned char * newData = new unsigned char[factor * ((capacity_ + 7) / 8)];
+        std::copy(data_, data_ + (size_ + 7) / 8, newData);
+        delete[] data_;
+        data_ = newData;
+        capacity_ =  int(factor * ((capacity_ + 7) / 8)) * 8;
+    }
+
+    int i = size_ % 8;
+    data_[size_ / 8] = ((data_[size_ / 8] & (~(1 << i))) + (value << i));
+    size_++;
+}
+
 Stack<bool>& Stack<bool>::operator=(const Stack<bool> &other) {
     if (this == &other){
         return *this;

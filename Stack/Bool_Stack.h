@@ -13,10 +13,12 @@ public:
 
     int getSize() const;
     bool isEmpty() const;
-    void push(bool x);
+    void push(bool value);
     void pop();
     bool top() const;
     void swap(Stack<bool> &other);
+
+    void pushWithFactor(bool x, long double factor);
 
     Stack& operator=(const Stack &other);
     Stack& operator=(Stack &&other);

@@ -12,10 +12,12 @@ public:
 
     int getSize() const;
     bool isEmpty() const;
-    void push(T x);
+    void push(T value);
     void pop();
     T& top() const;
     void swap(Stack<T> &other);
+
+    void pushWithFactor(T x, long double factor);
 
     Stack& operator=(const Stack &other);
     Stack& operator=(Stack &&other);
@@ -95,6 +97,20 @@ void Stack<T>::swap(Stack<T> &other) {
     std::swap(capacity_, other.capacity_);
     std::swap(size_, other.size_);
     std::swap(data_, other.data_);
+}
+
+template<class T>
+void Stack<T>::pushWithFactor(T value, long double factor){
+    if (size_ == capacity_){
+        T* newData = new T[factor * capacity_];
+        std::copy(data_, data_ + size_, newData);
+        delete[] data_;
+        data_ = newData;
+        capacity_ *= factor;
+    }
+
+    data_[size_] = value;
+    size_++;
 }
 
 template<class T>
