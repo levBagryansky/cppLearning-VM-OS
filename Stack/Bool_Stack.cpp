@@ -38,15 +38,11 @@ void Stack<bool>::push(bool value) {
     size_++;
 }
 
-bool Stack<bool>::pop(){
+void Stack<bool>::pop(){
     if(size_ == 0){
         exit(1);
     }
     size_--;
-    unsigned char containElem = data_[size_ / 8];
-    containElem  = containElem >> (size_ % 8);
-    containElem &= 1;
-    return containElem;
 }
 
 bool Stack<bool>::top() const {

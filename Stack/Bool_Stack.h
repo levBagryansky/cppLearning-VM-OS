@@ -14,7 +14,7 @@ public:
     int getSize() const;
     bool isEmpty() const;
     void push(bool x);
-    bool pop();
+    void pop();
     bool top() const;
     void swap(Stack<bool> &other);
 

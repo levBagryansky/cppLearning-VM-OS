@@ -13,8 +13,8 @@ public:
     int getSize() const;
     bool isEmpty() const;
     void push(T x);
-    T pop();
-    T top() const;
+    void pop();
+    T& top() const;
     void swap(Stack<T> &other);
 
     Stack& operator=(const Stack &other);
@@ -74,16 +74,15 @@ void Stack<T>::push(T value) {
 }
 
 template<class T>
-T Stack<T>::pop(){
+void Stack<T>::pop(){
     if(size_ == 0){
         exit(1);
     }
     size_--;
-    return data_[size_];
 }
 
 template<class T>
-T Stack<T>::top() const {
+T& Stack<T>::top() const {
     if (size_ == 0){
         exit(2);
     }
