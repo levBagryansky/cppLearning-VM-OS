@@ -2,7 +2,7 @@
 #include "../Bool_Stack.h"
 
 static void CustomArguments(benchmark::internal::Benchmark* b) {
-    for (int i = 150; i <= 210; ++i)
+    for (int i = 155; i <= 205; ++i)
         b->Arg({i});
 }
 

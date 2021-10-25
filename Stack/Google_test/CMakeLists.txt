@@ -9,3 +9,9 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # 'test1.cpp tests2.cpp' are source files with tests
 add_executable(Google_Tests_run test.cpp ../Bool_Stack.cpp)
 target_link_libraries(Google_Tests_run gtest gtest_main)
+
+add_custom_target(test_memcheck
+        COMMAND ${CMAKE_CTEST_COMMAND}
+        --force-new-ctest-process --test-action memcheck
+        COMMAND cat "${CMAKE_BINARY_DIR}/Testing/Temporary/MemoryChecker.*.log"
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
