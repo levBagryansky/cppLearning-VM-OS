@@ -64,7 +64,7 @@ void Stack<bool>::swap(Stack<bool> &other) {
 
 void Stack<bool>::pushWithFactor(bool value, long double factor) {
     if (size_ == capacity_){
-        unsigned char * newData = new unsigned char[factor * ((capacity_ + 7) / 8)];
+        unsigned char * newData = new unsigned char[int(factor * ((capacity_ + 7) / 8))];
         std::copy(data_, data_ + (size_ + 7) / 8, newData);
         delete[] data_;
         data_ = newData;

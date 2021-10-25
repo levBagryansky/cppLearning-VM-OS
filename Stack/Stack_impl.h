@@ -28,21 +28,22 @@ public:
     friend std::ostream& operator<<(std::ostream &os, Stack<U> &s);
 
 private:
+    double factor;
     int size_;
     int capacity_;
     T *data_;
 };
 
 template<class T>
-Stack<T>::Stack(int len): size_(0), capacity_(len), data_(new T[len]){}
+Stack<T>::Stack(int len): factor(1.73), size_(0), capacity_(len), data_(new T[len]){}
 
 template<class T>
-Stack<T>::Stack(const Stack& other): size_(other.size_), capacity_(other.capacity_), data_(new T[other.capacity_]){
+Stack<T>::Stack(const Stack& other): factor(other.factor), size_(other.size_), capacity_(other.capacity_), data_(new T[other.capacity_]){
     std::copy(other.data_, other.data_ + size_, data_);
 }
 
 template<class T>
-Stack<T>::Stack(Stack &&other): data_(other.data_), size_(other.size_), capacity_(other.capacity_){
+Stack<T>::Stack(Stack &&other): factor(other.factor), data_(other.data_), size_(other.size_), capacity_(other.capacity_){
     other.data_ = nullptr;
 }
 
@@ -102,7 +103,7 @@ void Stack<T>::swap(Stack<T> &other) {
 template<class T>
 void Stack<T>::pushWithFactor(T value, long double factor){
     if (size_ == capacity_){
-        T* newData = new T[factor * capacity_];
+        T* newData = new T[static_cast<int>(factor * capacity_)];
         std::copy(data_, data_ + size_, newData);
         delete[] data_;
         data_ = newData;
