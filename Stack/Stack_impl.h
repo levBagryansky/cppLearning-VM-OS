@@ -36,7 +36,7 @@ template<class T>
 Stack<T>::Stack(): factor(1.65), size_(0), capacity_(32), data_(new T[32]){}
 
 template<class T>
-Stack<T>::Stack(size_t len): factor(1.73), size_(0), capacity_(len), data_(new T[len]){}
+Stack<T>::Stack(size_t len): factor(1.75), size_(0), capacity_(len), data_(new T[len]){}
 
 template<class T>
 Stack<T>::Stack(const Stack& other): factor(other.factor), size_(other.size_), capacity_(other.capacity_), data_(new T[other.capacity_]){
