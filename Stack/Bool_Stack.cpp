@@ -2,7 +2,7 @@
 #include "Stack_impl.h"
 #include <cmath>
 
-Stack<bool>::Stack(int len): size_(0), capacity_((len + 7)/8), data_(new unsigned char[capacity_]){}
+Stack<bool>::Stack(size_t len): size_(0), capacity_((len + 7)/8), data_(new unsigned char[capacity_]){}
 
 Stack<bool>::Stack(const Stack& other): size_(other.size_), capacity_(other.capacity_), data_(new unsigned char[(other.capacity_ + 7)/8]){
     std::copy(other.data_, other.data_ + (size_ + 7) / 8, data_);
@@ -62,20 +62,6 @@ void Stack<bool>::swap(Stack<bool> &other) {
     std::swap(data_, other.data_);
 }
 
-void Stack<bool>::pushWithFactor(bool value, long double factor) {
-    if (size_ == capacity_){
-        unsigned char * newData = new unsigned char[int(factor * ((capacity_ + 7) / 8))];
-        std::copy(data_, data_ + (size_ + 7) / 8, newData);
-        delete[] data_;
-        data_ = newData;
-        capacity_ =  int(factor * ((capacity_ + 7) / 8)) * 8;
-    }
-
-    int i = size_ % 8;
-    data_[size_ / 8] = ((data_[size_ / 8] & (~(1 << i))) + (value << i));
-    size_++;
-}
-
 Stack<bool>& Stack<bool>::operator=(const Stack<bool> &other) {
     if (this == &other){
         return *this;
@@ -131,17 +117,4 @@ bool Stack<bool>::operator==(const Stack<bool> &other) const{
 
 bool Stack<bool>::operator!=(const Stack<bool> &other) const{
     return !(operator==(other));
-}
-
-std::ostream& operator<<(std::ostream &os, Stack<bool> &s){
-    os << "This is Stack:" << " capacity_ = " << s.capacity_ << ", size_ = " << s.size_ << std::endl;
-    for (int i = 0; i < s.size_; ++i) {
-        unsigned char containElem = s.data_[i / 8];
-        containElem  = containElem >> (i % 8);
-        containElem &= 1;
-        containElem += '0';
-        os << containElem << '(' << i << ") ";
-    }
-
-    return os;
 }

@@ -5,7 +5,8 @@
 template<class T>
 class Stack {
 public:
-    Stack(int len = 32);
+    Stack();
+    Stack(size_t len);
     Stack(const Stack &other);
     Stack(Stack &&other);
     ~Stack();
@@ -17,25 +18,25 @@ public:
     T& top() const;
     void swap(Stack<T> &other);
 
-    void pushWithFactor(T x, long double factor);
+    void changeFactor(double newFactor);
 
     Stack& operator=(const Stack &other);
     Stack& operator=(Stack &&other);
     bool operator== (const Stack<T>& other) const;
     bool operator!= (const Stack<T>& other) const;
 
-    template<class U>
-    friend std::ostream& operator<<(std::ostream &os, Stack<U> &s);
-
 private:
     double factor;
-    int size_;
-    int capacity_;
+    size_t size_;
+    size_t capacity_;
     T *data_;
 };
 
 template<class T>
-Stack<T>::Stack(int len): factor(1.73), size_(0), capacity_(len), data_(new T[len]){}
+Stack<T>::Stack(): factor(1.65), size_(0), capacity_(32), data_(new T[32]){}
+
+template<class T>
+Stack<T>::Stack(size_t len): factor(1.73), size_(0), capacity_(len), data_(new T[len]){}
 
 template<class T>
 Stack<T>::Stack(const Stack& other): factor(other.factor), size_(other.size_), capacity_(other.capacity_), data_(new T[other.capacity_]){
@@ -65,11 +66,11 @@ bool Stack<T>::isEmpty() const{
 template<class T>
 void Stack<T>::push(T value) {
     if (size_ == capacity_){
-        T* newData = new T[2 * capacity_];
+        T* newData = new T[static_cast<int>(factor * capacity_)];
         std::copy(data_, data_ + size_, newData);
         delete[] data_;
         data_ = newData;
-        capacity_ *= 2;
+        capacity_ = static_cast<int>(factor * capacity_);
     }
 
     data_[size_] = value;
@@ -101,17 +102,13 @@ void Stack<T>::swap(Stack<T> &other) {
 }
 
 template<class T>
-void Stack<T>::pushWithFactor(T value, long double factor){
-    if (size_ == capacity_){
-        T* newData = new T[static_cast<int>(factor * capacity_)];
-        std::copy(data_, data_ + size_, newData);
-        delete[] data_;
-        data_ = newData;
-        capacity_ *= factor;
+void Stack<T>::changeFactor(double newFactor){
+    if (newFactor > 1) {
+        factor = newFactor;
     }
-
-    data_[size_] = value;
-    size_++;
+    else{
+        exit(1);
+    }
 }
 
 template<class T>
@@ -154,21 +151,9 @@ bool Stack<T>::operator==(const Stack<T> &other) const{
     return true;
 }
 
-
 template<class T>
 bool Stack<T>::operator!=(const Stack<T> &other) const{
     return !(operator==(other));
-}
-
-template<class T>
-std::ostream& operator<<(std::ostream &os, Stack<T> &s){
-    os << "This is Stack:" << " capacity_ = " << s.capacity_ << ", size_ = " << s.size_ << std::endl;
-    for (int i = 0; i < s.size_; ++i) {
-        os << s.data_[i] << '(' << i << ") ";
-
-    }
-
-    return os;
 }
 
 #endif //STACK_IMPL_H

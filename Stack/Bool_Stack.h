@@ -6,7 +6,7 @@
 template<>
 class Stack<bool> {
 public:
-    Stack(int len = 32);
+    Stack(size_t len = 32);
     Stack(const Stack &other);
     Stack(Stack &&other);
     ~Stack();
@@ -18,18 +18,14 @@ public:
     bool top() const;
     void swap(Stack<bool> &other);
 
-    void pushWithFactor(bool x, long double factor);
-
     Stack& operator=(const Stack &other);
     Stack& operator=(Stack &&other);
     bool operator== (const Stack& other) const;
     bool operator!= (const Stack& other) const;
 
-    friend std::ostream& operator<<(std::ostream &os, Stack &s);
-
 private:
-    int size_;
-    int capacity_;
+    size_t size_;
+    size_t capacity_;
     unsigned char *data_;
 };
 
