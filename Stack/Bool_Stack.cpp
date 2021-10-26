@@ -2,6 +2,8 @@
 #include "Stack_impl.h"
 #include <cmath>
 
+Stack<bool>::Stack(): size_(0), capacity_((32 + 7)/8), data_(new unsigned char[capacity_]){}
+
 Stack<bool>::Stack(size_t len): size_(0), capacity_((len + 7)/8), data_(new unsigned char[capacity_]){}
 
 Stack<bool>::Stack(const Stack& other): size_(other.size_), capacity_(other.capacity_), data_(new unsigned char[(other.capacity_ + 7)/8]){

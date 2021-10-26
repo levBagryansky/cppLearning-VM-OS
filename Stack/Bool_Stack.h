@@ -6,7 +6,8 @@
 template<>
 class Stack<bool> {
 public:
-    Stack(size_t len = 32);
+    Stack();
+    explicit Stack(size_t len);
     Stack(const Stack &other);
     Stack(Stack &&other);
     ~Stack();
