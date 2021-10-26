@@ -18,7 +18,7 @@ Stack<bool>::~Stack(){
     delete[] data_;
 }
 
-int Stack<bool>::getSize() const {
+size_t Stack<bool>::getSize() const {
     return size_;
 }
 
@@ -28,7 +28,7 @@ bool Stack<bool>::isEmpty() const{
 
 void Stack<bool>::push(bool value) {
     if (size_ == capacity_){
-        unsigned char * newData = new unsigned char[2 * ((capacity_ + 7) / 8)];
+        auto * newData = new unsigned char[2 * ((capacity_ + 7) / 8)];
         std::copy(data_, data_ + (size_ + 7) / 8, newData);
         delete[] data_;
         data_ = newData;
