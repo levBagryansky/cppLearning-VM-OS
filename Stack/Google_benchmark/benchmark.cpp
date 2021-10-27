@@ -1,5 +1,5 @@
 #include <benchmark/benchmark.h>
-#include "../Bool_Stack.h"
+#include "Stack.h"
 
 static void CustomArguments(benchmark::internal::Benchmark* b) {
     for (int i = 110; i <= 205; ++i)

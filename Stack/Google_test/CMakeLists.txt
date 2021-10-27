@@ -1,12 +1,13 @@
-# 'Google_test' is the subproject name
-project(Google_tests)
+message("Include testing")
 
-# 'lib' is the folder with Google Test sources
-add_subdirectory(lib)
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+find_package(GTest REQUIRED)
 
-# 'Google_Tests_run' is the target name
-# 'test1.cpp tests2.cpp' are source files with tests
-add_executable(Google_Tests_run test.cpp ../Bool_Stack.cpp)
-target_link_libraries(Google_Tests_run gtest gtest_main)
+include_directories(${GTEST_INCLUDE_DIRS})
+
+add_executable(${PROJECT_NAME}_tests test.cpp ../BoolStack.cpp)
+
+target_link_libraries(${PROJECT_NAME}_tests PUBLIC GTest::GTest GTest::Main)
+enable_testing()
+
+add_dependencies(${PROJECT_NAME}_tests ${PROJECT_NAME})
 

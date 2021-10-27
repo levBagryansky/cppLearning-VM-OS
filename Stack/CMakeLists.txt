@@ -3,7 +3,9 @@ project(Stack)
 
 set(CMAKE_CXX_CLANG_TIDY)
 
-add_executable(Stack main.cpp Bool_Stack.cpp)
+include_directories(include)
+
+add_executable(Stack main.cpp BoolStack.cpp)
 
 add_subdirectory(Google_test)
 
