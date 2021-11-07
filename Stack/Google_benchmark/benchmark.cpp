@@ -1,12 +1,12 @@
 #include <benchmark/benchmark.h>
+
 #include "Stack.h"
 
 static void CustomArguments(benchmark::internal::Benchmark* b) {
-    for (int i = 110; i <= 205; ++i)
-        b->Arg(i);
+    for (int i = 110; i <= 205; ++i) b->Arg(i);
 }
 
-static void BM_fillStack(benchmark::State& state){
+static void BM_fillStack(benchmark::State& state) {
     double factor = double(state.range(0)) / 100;
     for (auto _ : state) {
         Stack<int> stack;
@@ -17,6 +17,6 @@ static void BM_fillStack(benchmark::State& state){
         benchmark::DoNotOptimize(stack);
     }
 }
-BENCHMARK(BM_fillStack) ->Apply(CustomArguments) ->Unit(benchmark::kMillisecond);
+BENCHMARK(BM_fillStack)->Apply(CustomArguments)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_MAIN();
