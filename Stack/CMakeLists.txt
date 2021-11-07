@@ -33,3 +33,14 @@ add_custom_target(
         -i
         ${ALL_SOURCE_FILES}
 )
+
+if (ADD_SANITIZERS)
+    message("Build with sanitizers")
+    target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=address -g)
+    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-fsanitize=address")
+endif ()
+
+if (ADD_TESTING)
+    include_directories(include)
+    add_subdirectory(Google_test)
+endif ()
