@@ -1,5 +1,4 @@
 #include <benchmark/benchmark.h>
-
 #include "Stack.h"
 
 static void CustomArguments(benchmark::internal::Benchmark* b) {
