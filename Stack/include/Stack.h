@@ -23,7 +23,6 @@ class Stack<bool> {
     Stack &operator=(const Stack &other);
     Stack &operator=(Stack &&other) noexcept;
     bool operator==(const Stack &other) const;
-    bool operator!=(const Stack &other) const;
 
    private:
     size_t size_;
