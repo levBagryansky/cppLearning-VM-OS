@@ -3,27 +3,27 @@
 #include <iostream>
 
 template <class T>
-class BoolStack {
+class Stack {
    public:
-    BoolStack();
-    explicit BoolStack(size_t len);
-    BoolStack(const BoolStack& other);
-    BoolStack(BoolStack&& other) noexcept;
-    ~BoolStack();
+    Stack();
+    explicit Stack(size_t len);
+    Stack(const Stack& other);
+    Stack(Stack&& other) noexcept;
+    ~Stack();
 
     int getSize() const;
     bool isEmpty() const;
     void push(T value);
     void pop();
     T& top() const;
-    void swap(BoolStack<T>& other);
+    void swap(Stack<T>& other);
 
     void changeFactor(double newFactor);
 
-    BoolStack& operator=(const BoolStack& other);
-    BoolStack& operator=(BoolStack&& other) noexcept;
-    bool operator==(const BoolStack<T>& other) const;
-    bool operator!=(const BoolStack<T>& other) const;
+    Stack& operator=(const Stack& other);
+    Stack& operator=(Stack&& other) noexcept;
+    bool operator==(const Stack<T>& other) const;
+    bool operator!=(const Stack<T>& other) const;
 
    private:
     double factor;
@@ -33,15 +33,14 @@ class BoolStack {
 };
 
 template <class T>
-BoolStack<T>::BoolStack()
-    : factor(1.65), size_(0), capacity_(32), data_(new T[32]) {}
+Stack<T>::Stack() : factor(1.65), size_(0), capacity_(32), data_(new T[32]) {}
 
 template <class T>
-BoolStack<T>::BoolStack(size_t len)
+Stack<T>::Stack(size_t len)
     : factor(1.75), size_(0), capacity_(len), data_(new T[len]) {}
 
 template <class T>
-BoolStack<T>::BoolStack(const BoolStack& other)
+Stack<T>::Stack(const Stack& other)
     : factor(other.factor),
       size_(other.size_),
       capacity_(other.capacity_),
@@ -50,7 +49,7 @@ BoolStack<T>::BoolStack(const BoolStack& other)
 }
 
 template <class T>
-BoolStack<T>::BoolStack(BoolStack&& other) noexcept
+Stack<T>::Stack(Stack&& other) noexcept
     : factor(other.factor),
       data_(other.data_),
       size_(other.size_),
@@ -59,22 +58,22 @@ BoolStack<T>::BoolStack(BoolStack&& other) noexcept
 }
 
 template <class T>
-BoolStack<T>::~BoolStack() {
+Stack<T>::~Stack() {
     delete[] data_;
 }
 
 template <class T>
-int BoolStack<T>::getSize() const {
+int Stack<T>::getSize() const {
     return size_;
 }
 
 template <class T>
-bool BoolStack<T>::isEmpty() const {
+bool Stack<T>::isEmpty() const {
     return size_ == 0;
 }
 
 template <class T>
-void BoolStack<T>::push(T value) {
+void Stack<T>::push(T value) {
     if (size_ == capacity_) {
         T* new_data = new T[static_cast<int>(factor * capacity_)];
         std::copy(data_, data_ + size_, new_data);
@@ -88,7 +87,7 @@ void BoolStack<T>::push(T value) {
 }
 
 template <class T>
-void BoolStack<T>::pop() {
+void Stack<T>::pop() {
     if (size_ == 0) {
         exit(1);
     }
@@ -96,7 +95,7 @@ void BoolStack<T>::pop() {
 }
 
 template <class T>
-T& BoolStack<T>::top() const {
+T& Stack<T>::top() const {
     if (size_ == 0) {
         exit(2);
     }
@@ -105,14 +104,14 @@ T& BoolStack<T>::top() const {
 }
 
 template <class T>
-void BoolStack<T>::swap(BoolStack<T>& other) {
+void Stack<T>::swap(Stack<T>& other) {
     std::swap(capacity_, other.capacity_);
     std::swap(size_, other.size_);
     std::swap(data_, other.data_);
 }
 
 template <class T>
-void BoolStack<T>::changeFactor(double newFactor) {
+void Stack<T>::changeFactor(double newFactor) {
     if (newFactor > 1) {
         factor = newFactor;
     } else {
@@ -121,7 +120,7 @@ void BoolStack<T>::changeFactor(double newFactor) {
 }
 
 template <class T>
-BoolStack<T>& BoolStack<T>::operator=(const BoolStack<T>& other) {
+Stack<T>& Stack<T>::operator=(const Stack<T>& other) {
     if (this == &other) {
         return *this;
     }
@@ -135,7 +134,7 @@ BoolStack<T>& BoolStack<T>::operator=(const BoolStack<T>& other) {
 }
 
 template <class T>
-BoolStack<T>& BoolStack<T>::operator=(BoolStack<T>&& other) noexcept {
+Stack<T>& Stack<T>::operator=(Stack<T>&& other) noexcept {
     if (this == &other) {
         return *this;
     }
@@ -147,7 +146,7 @@ BoolStack<T>& BoolStack<T>::operator=(BoolStack<T>&& other) noexcept {
 }
 
 template <class T>
-bool BoolStack<T>::operator==(const BoolStack<T>& other) const {
+bool Stack<T>::operator==(const Stack<T>& other) const {
     if (size_ != other.size_) {
         return false;
     }
@@ -161,7 +160,7 @@ bool BoolStack<T>::operator==(const BoolStack<T>& other) const {
 }
 
 template <class T>
-bool BoolStack<T>::operator!=(const BoolStack<T>& other) const {
+bool Stack<T>::operator!=(const Stack<T>& other) const {
     return !(operator==(other));
 }
 

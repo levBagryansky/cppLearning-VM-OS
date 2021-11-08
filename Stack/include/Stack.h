@@ -5,25 +5,25 @@
 #include "Stack-impl.h"
 
 template <>
-class BoolStack<bool> {
+class Stack<bool> {
    public:
-    BoolStack();
-    explicit BoolStack(size_t len);
-    BoolStack(const BoolStack &other);
-    BoolStack(BoolStack &&other) noexcept;
-    ~BoolStack();
+    Stack();
+    explicit Stack(size_t len);
+    Stack(const Stack &other);
+    Stack(Stack &&other) noexcept;
+    ~Stack();
 
     size_t getSize() const;
     bool isEmpty() const;
     void push(bool value);
     void pop();
     bool top() const;
-    void swap(BoolStack<bool> &other);
+    void swap(Stack<bool> &other);
 
-    BoolStack &operator=(const BoolStack &other);
-    BoolStack &operator=(BoolStack &&other) noexcept;
-    bool operator==(const BoolStack &other) const;
-    bool operator!=(const BoolStack &other) const;
+    Stack &operator=(const Stack &other);
+    Stack &operator=(Stack &&other) noexcept;
+    bool operator==(const Stack &other) const;
+    bool operator!=(const Stack &other) const;
 
    private:
     size_t size_;

@@ -16,7 +16,8 @@ set(CMAKE_CXX_CLANG_TIDY
         -checks=*;
         )
 
-file(GLOB_RECURSE ALL_SOURCE_FILES *.cpp *.h)
+file(GLOB_RECURSE ALL_SOURCE_FILES src/*.cpp include/*.h)
+
 add_custom_target(
         clang-format
         COMMAND clang-format
@@ -24,14 +25,12 @@ add_custom_target(
         ${ALL_SOURCE_FILES}
 )
 
-if (ADD_SANITIZERS)
-    message("Build with sanitizers")
-    target_compile_options(${PROJECT_NAME} PUBLIC -fsanitize=address -g)
-    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-fsanitize=address")
-endif ()
+include_directories(include)
 
 if (ADD_TESTING)
-    include_directories(include)
     add_subdirectory(Google_test)
 endif ()
 
+if (ADD_BENCHMARK)
+    add_subdirectory(Google_benchmark)
+endif ()

@@ -6,7 +6,7 @@
 #include "Stack.h"
 
 TEST(PushAndGetSize, PushAndGetSize) {
-    BoolStack<int> s;
+    Stack<int> s;
     for (int i = 0; i < 1000; ++i) {
         s.push(2 * i + 89);
     }
@@ -16,13 +16,13 @@ TEST(PushAndGetSize, PushAndGetSize) {
     int len = s.getSize();
     ASSERT_EQ(len, 11000);
 
-    BoolStack<int> s2(s);
+    Stack<int> s2(s);
     for (int i = 0; i < 10000; ++i) {
         s2.push(-3 * i + 9999);
     }
     ASSERT_EQ(s2.getSize(), len + 10000);
 
-    BoolStack<bool> bools;
+    Stack<bool> bools;
     for (int i = 0; i < 10000; ++i) {
         bools.push(i % 2);
     }
@@ -31,7 +31,7 @@ TEST(PushAndGetSize, PushAndGetSize) {
 }
 
 TEST(POP, POP) {
-    BoolStack<int> s(20);
+    Stack<int> s(20);
     for (int i = 0; i < 400; ++i) {
         s.push(i);
     }
@@ -46,7 +46,7 @@ TEST(POP, POP) {
     ASSERT_EQ(v, vExample);
     ASSERT_EQ(v.size(), 9);
 
-    BoolStack<double> s1(20);
+    Stack<double> s1(20);
     for (int i = 0; i < 400; ++i) {
         s1.push(i);
     }
@@ -63,7 +63,7 @@ TEST(POP, POP) {
 
     std::vector<bool> vExampleBools = {true,  false, false, true, true,
                                        false, false, false, true};
-    BoolStack<bool> sBools;
+    Stack<bool> sBools;
     for (int i = vExampleBools.size() - 1; i >= 0; --i) {
         sBools.push(vExampleBools[i]);
     }
@@ -81,7 +81,7 @@ TEST(POP, POP) {
         true,  false, true, true, true, true, false, true, true, true, false,
         true,  false, true, true, true, true, true,  true, true, true, true,
         false, true,  true, true, true, true, false, true, false};
-    BoolStack<bool> s1Bools;
+    Stack<bool> s1Bools;
     for (int i = v1ExampleBools.size() - 1; i >= 0; --i) {
         s1Bools.push(v1ExampleBools[i]);
     }
@@ -97,7 +97,7 @@ TEST(POP, POP) {
 }
 
 TEST(TOP, TOP) {
-    BoolStack<int> s;
+    Stack<int> s;
     for (int i = 0; i < 999; ++i) {
         s.push(i * 2);
     }
@@ -107,7 +107,7 @@ TEST(TOP, TOP) {
     s.push(-99909);
     ASSERT_EQ(s.top(), -99909);
 
-    BoolStack<double> doubles;
+    Stack<double> doubles;
     for (int i = 0; i < 432; ++i) {
         doubles.push(i / 2);
     }
@@ -117,7 +117,7 @@ TEST(TOP, TOP) {
         return 3;
     }*/
 
-    BoolStack<bool> sBools;
+    Stack<bool> sBools;
     std::vector<bool> vBools;
     for (int i = 0; i < 1000; ++i) {
         vBools.push_back(rand() % 2 == 1);
@@ -135,7 +135,7 @@ TEST(TOP, TOP) {
 }
 
 TEST(IsEmpty, IsEmpty) {
-    BoolStack<double> doubles{5};
+    Stack<double> doubles{5};
     ASSERT_TRUE(doubles.isEmpty());
 
     doubles.push(4);
@@ -144,17 +144,17 @@ TEST(IsEmpty, IsEmpty) {
     doubles.pop();
     ASSERT_TRUE(doubles.isEmpty());
 
-    BoolStack<bool> bools;
+    Stack<bool> bools;
     ASSERT_TRUE(bools.isEmpty());
 }
 
 TEST(EQUAL, EQUAL) {
-    BoolStack<int> ints1;
-    BoolStack<int> ints2;
+    Stack<int> ints1;
+    Stack<int> ints2;
     ASSERT_TRUE(ints1 == ints2);
 
-    BoolStack<double> doubles1;
-    BoolStack<double> doubles2;
+    Stack<double> doubles1;
+    Stack<double> doubles2;
     ASSERT_TRUE(doubles1 == doubles2);
 
     for (int i = 0; i < 900; ++i) {
@@ -171,7 +171,7 @@ TEST(EQUAL, EQUAL) {
     ints1.push(9);
     ASSERT_FALSE(ints1 == ints2);
 
-    BoolStack<bool> bools1, bools2;
+    Stack<bool> bools1, bools2;
     std::vector<bool> vBools;
     for (int i = 0; i < 100000; ++i) {
         vBools.push_back(rand() % 2 == 1);
@@ -187,7 +187,7 @@ TEST(EQUAL, EQUAL) {
 }
 
 TEST(SWAP, SWAP) {
-    BoolStack<int> ints1, ints2, ints1Buf, ints2Buf;
+    Stack<int> ints1, ints2, ints1Buf, ints2Buf;
     ints1.push(1);
     ints1.push(2);
     ints1.push(3);
@@ -209,7 +209,7 @@ TEST(SWAP, SWAP) {
     ASSERT_TRUE(ints2 == ints1Buf);
     ASSERT_FALSE(ints1 == ints2);
 
-    BoolStack<bool> bools1, bools2, bools1Buf, bools2Buf;
+    Stack<bool> bools1, bools2, bools1Buf, bools2Buf;
     for (int i = 0; i < 200; ++i) {
         bools1.push(0);
         bools2.push(1);
@@ -223,7 +223,7 @@ TEST(SWAP, SWAP) {
 }
 
 TEST(EXIT, INT_POP) {
-    BoolStack<int> ints1;
+    Stack<int> ints1;
     for (int i = 0; i < 100000; ++i) {
         ints1.push(i);
     }
@@ -235,7 +235,7 @@ TEST(EXIT, INT_POP) {
 }
 
 TEST(EXIT, INT_TOP) {
-    BoolStack<int> ints;
+    Stack<int> ints;
     for (int i = 0; i < 100000; ++i) {
         ints.push(i);
     }
@@ -247,7 +247,7 @@ TEST(EXIT, INT_TOP) {
 }
 
 TEST(EXIT, BOOL_POP) {
-    BoolStack<bool> bools;
+    Stack<bool> bools;
     for (int i = 0; i < 100000; ++i) {
         bools.push(true);
     }
@@ -259,7 +259,7 @@ TEST(EXIT, BOOL_POP) {
 }
 
 TEST(EXIT, BOOL_TOP) {
-    BoolStack<bool> bools;
+    Stack<bool> bools;
     for (int i = 0; i < 100000; ++i) {
         bools.push(true);
     }

@@ -2,31 +2,31 @@
 
 #include "Stack.h"
 
-BoolStack<bool>::BoolStack()
+Stack<bool>::Stack()
     : size_(0), capacity_((32 + 7) / 8), data_(new unsigned char[capacity_]) {}
 
-BoolStack<bool>::BoolStack(size_t len)
+Stack<bool>::Stack(size_t len)
     : size_(0), capacity_((len + 7) / 8), data_(new unsigned char[capacity_]) {}
 
-BoolStack<bool>::BoolStack(const BoolStack &other)
+Stack<bool>::Stack(const Stack &other)
     : size_(other.size_),
       capacity_(other.capacity_),
       data_(new unsigned char[(other.capacity_ + 7) / 8]) {
     std::copy(other.data_, other.data_ + (size_ + 7) / 8, data_);
 }
 
-BoolStack<bool>::BoolStack(BoolStack &&other) noexcept
+Stack<bool>::Stack(Stack &&other) noexcept
     : size_(other.size_), capacity_(other.capacity_), data_(other.data_) {
     other.data_ = nullptr;
 }
 
-BoolStack<bool>::~BoolStack() { delete[] data_; }
+Stack<bool>::~Stack() { delete[] data_; }
 
-size_t BoolStack<bool>::getSize() const { return size_; }
+size_t Stack<bool>::getSize() const { return size_; }
 
-bool BoolStack<bool>::isEmpty() const { return size_ == 0; }
+bool Stack<bool>::isEmpty() const { return size_ == 0; }
 
-void BoolStack<bool>::push(bool value) {
+void Stack<bool>::push(bool value) {
     if (size_ == capacity_) {
         auto *new_data = new unsigned char[2 * ((capacity_ + 7) / 8)];
         std::copy(data_, data_ + (size_ + 7) / 8, new_data);
@@ -41,14 +41,14 @@ void BoolStack<bool>::push(bool value) {
     size_++;
 }
 
-void BoolStack<bool>::pop() {
+void Stack<bool>::pop() {
     if (size_ == 0) {
         exit(1);
     }
     size_--;
 }
 
-bool BoolStack<bool>::top() const {
+bool Stack<bool>::top() const {
     if (size_ == 0) {
         exit(2);
     }
@@ -59,13 +59,13 @@ bool BoolStack<bool>::top() const {
     return contain_elem == 1;
 }
 
-void BoolStack<bool>::swap(BoolStack<bool> &other) {
+void Stack<bool>::swap(Stack<bool> &other) {
     std::swap(capacity_, other.capacity_);
     std::swap(size_, other.size_);
     std::swap(data_, other.data_);
 }
 
-BoolStack<bool> &BoolStack<bool>::operator=(const BoolStack<bool> &other) {
+Stack<bool> &Stack<bool>::operator=(const Stack<bool> &other) {
     if (this == &other) {
         return *this;
     }
@@ -79,7 +79,7 @@ BoolStack<bool> &BoolStack<bool>::operator=(const BoolStack<bool> &other) {
     return *this;
 }
 
-BoolStack<bool> &BoolStack<bool>::operator=(BoolStack<bool> &&other) noexcept {
+Stack<bool> &Stack<bool>::operator=(Stack<bool> &&other) noexcept {
     if (this == &other) {
         return *this;
     }
@@ -91,7 +91,7 @@ BoolStack<bool> &BoolStack<bool>::operator=(BoolStack<bool> &&other) noexcept {
     return *this;
 }
 
-bool BoolStack<bool>::operator==(const BoolStack<bool> &other) const {
+bool Stack<bool>::operator==(const Stack<bool> &other) const {
     if (size_ != other.size_) {
         return false;
     }
@@ -118,6 +118,6 @@ bool BoolStack<bool>::operator==(const BoolStack<bool> &other) const {
     return true;
 }
 
-bool BoolStack<bool>::operator!=(const BoolStack<bool> &other) const {
+bool Stack<bool>::operator!=(const Stack<bool> &other) const {
     return !(operator==(other));
 }
