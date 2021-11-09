@@ -20,11 +20,14 @@ add_custom_target(
 
 include_directories(include)
 
-set(CMAKE_CXX_CLANG_TIDY
-        clang-tidy;
-        -header-filter=*;
-        -checks=*;
-        )
+if (ADD_CLANG_TIDY)
+    message("Build with clang-tidy")
+    set(CMAKE_CXX_CLANG_TIDY
+            clang-tidy
+            -header-filter=*
+            -checks=*
+            )
+endif ()
 
 if (ADD_TESTING)
     add_subdirectory(Google_test)

@@ -54,7 +54,7 @@ TEST(POP, POP) {
                                           396, 397, 398, 399};
     std::reverse(vExampleDouble.begin(), vExampleDouble.end());
     std::vector<double> v1;
-    for (int i = 0; i < vExampleDouble.size(); ++i) {
+    for (int i = 0; static_cast<std::vector<double>::size_type>(i) < vExampleDouble.size(); ++i) {
         int x = s1.top();
         v1.push_back(x);
         s1.pop();
@@ -242,7 +242,7 @@ TEST(EXIT, INT_TOP) {
     for (int i = 0; i < 100000; ++i) {
         ints.pop();
     }
-    int x = ints.top();
+    ints.top();
     FAIL();
 }
 
