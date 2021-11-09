@@ -1,21 +1,27 @@
-#include "Stack.h"
 #include <cmath>
+
+#include "Stack.h"
 
 const int BYTES_IN_CHAR = 8;
 const int START_CAPACITY = 32;
 
-
 Stack<bool>::Stack()
-    : size_(0), capacity_((START_CAPACITY + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR), data_(new unsigned char[capacity_]) {}
+    : size_(0),
+      capacity_((START_CAPACITY + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR),
+      data_(new unsigned char[capacity_]) {}
 
 Stack<bool>::Stack(size_t len)
-    : size_(0), capacity_((len + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR), data_(new unsigned char[capacity_]) {}
+    : size_(0),
+      capacity_((len + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR),
+      data_(new unsigned char[capacity_]) {}
 
 Stack<bool>::Stack(const Stack &other)
     : size_(other.size_),
       capacity_(other.capacity_),
-      data_(new unsigned char[(other.capacity_ + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR]) {
-    std::copy(other.data_, other.data_ + (size_ + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR, data_);
+      data_(new unsigned char[(other.capacity_ + BYTES_IN_CHAR - 1) /
+                              BYTES_IN_CHAR]) {
+    std::copy(other.data_,
+              other.data_ + (size_ + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR, data_);
 }
 
 Stack<bool>::Stack(Stack &&other) noexcept
@@ -31,16 +37,21 @@ bool Stack<bool>::isEmpty() const { return size_ == 0; }
 
 void Stack<bool>::push(bool value) {
     if (size_ == capacity_) {
-        auto *new_data = new unsigned char[2 * ((capacity_ + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR)];
-        std::copy(data_, data_ + (size_ + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR, new_data);
+        auto *new_data =
+            new unsigned char[2 * ((capacity_ + BYTES_IN_CHAR - 1) /
+                                   BYTES_IN_CHAR)];
+        std::copy(data_, data_ + (size_ + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR,
+                  new_data);
         delete[] data_;
         data_ = new_data;
-        capacity_ = 2 * ((capacity_ + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR) * BYTES_IN_CHAR;
+        capacity_ = 2 * ((capacity_ + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR) *
+                    BYTES_IN_CHAR;
     }
 
     auto i = size_ % BYTES_IN_CHAR;
     data_[size_ / BYTES_IN_CHAR] =
-        ((data_[size_ / BYTES_IN_CHAR] & (~(1U << i))) + (static_cast<unsigned int>(value) << i));
+        ((data_[size_ / BYTES_IN_CHAR] & (~(1U << i))) +
+         (static_cast<unsigned int>(value) << i));
     size_++;
 }
 
@@ -78,7 +89,8 @@ Stack<bool> &Stack<bool>::operator=(const Stack<bool> &other) {
 
     delete[] data_;
     data_ = new unsigned char[(capacity_ + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR];
-    std::copy(other.data_, other.data_ + (size_ + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR, data_);
+    std::copy(other.data_,
+              other.data_ + (size_ + BYTES_IN_CHAR - 1) / BYTES_IN_CHAR, data_);
     return *this;
 }
 
