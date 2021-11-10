@@ -57,6 +57,7 @@ void Stack<bool>::push(bool value) {
 
 void Stack<bool>::pop() {
     if (size_ == 0) {
+        delete[] data_;
         exit(1);
     }
     size_--;
@@ -64,6 +65,7 @@ void Stack<bool>::pop() {
 
 bool Stack<bool>::top() const {
     if (size_ == 0) {
+        delete[] data_;
         exit(2);
     }
 

@@ -33,7 +33,7 @@ class Stack {
 };
 
 template <class T>
-Stack<T>::Stack() : factor(1.65), size_(0), capacity_(32), data_(new T[32]) {}
+Stack<T>::Stack() : factor(1.78), size_(0), capacity_(32), data_(new T[32]) {}
 
 template <class T>
 Stack<T>::Stack(size_t len)
@@ -89,6 +89,8 @@ void Stack<T>::push(T value) {
 template <class T>
 void Stack<T>::pop() {
     if (size_ == 0) {
+        delete[] data_;
+        data_ = nullptr;
         exit(1);
     }
     size_--;
@@ -97,6 +99,7 @@ void Stack<T>::pop() {
 template <class T>
 T& Stack<T>::top() const {
     if (size_ == 0) {
+        delete[] data_;
         exit(2);
     }
 
