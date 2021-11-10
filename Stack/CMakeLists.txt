@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic  -g")
 
 file(GLOB_RECURSE ALL_SOURCE_FILES src/*.cpp include/*.h)
 
@@ -24,8 +24,8 @@ if (ADD_CLANG_TIDY)
     message("Build with clang-tidy")
     set(CMAKE_CXX_CLANG_TIDY
             clang-tidy
-            -header-filter=*
-            -checks=*
+            --format-style=file
+            --header-filter=*.h
             )
 endif ()
 
