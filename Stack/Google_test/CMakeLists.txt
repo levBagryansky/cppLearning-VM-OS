@@ -4,6 +4,8 @@ find_package(GTest REQUIRED)
 
 include_directories(${GTEST_INCLUDE_DIRS})
 
+set(CMAKE_CXX_CLANG_TIDY "")
+
 add_executable(${PROJECT_NAME}_tests test.cpp ../src/BoolStack.cpp)
 
 target_link_libraries(${PROJECT_NAME}_tests PUBLIC GTest::GTest GTest::Main)
