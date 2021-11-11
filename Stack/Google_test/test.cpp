@@ -5,6 +5,9 @@
 
 #include "Stack.h"
 
+#include <iostream>
+
+
 TEST(PushAndGetSize, PushAndGetSize) {
     Stack<int> s;
     for (int i = 0; i < 1000; ++i) {
@@ -24,7 +27,7 @@ TEST(PushAndGetSize, PushAndGetSize) {
 
     Stack<bool> bools;
     for (int i = 0; i < 10000; ++i) {
-        bools.push(i % 2);
+        bools.push(static_cast<bool> (i % 2));
     }
     int size = bools.getSize();
     ASSERT_EQ(size, 10000);
@@ -35,65 +38,64 @@ TEST(POP, POP) {
     for (int i = 0; i < 400; ++i) {
         s.push(i);
     }
-    std::vector<int> vExample = {391, 392, 393, 394, 395, 396, 397, 398, 399};
-    std::reverse(vExample.begin(), vExample.end());
+    std::vector<int> v_example = {391, 392, 393, 394, 395, 396, 397, 398, 399};
+    std::reverse(v_example.begin(), v_example.end());
     std::vector<int> v;
     for (int i = 0; i < 9; ++i) {
         int x = s.top();
         s.pop();
         v.push_back(x);
     }
-    ASSERT_EQ(v, vExample);
+    ASSERT_EQ(v, v_example);
     ASSERT_EQ(v.size(), 9);
 
     Stack<double> s1(20);
     for (int i = 0; i < 400; ++i) {
         s1.push(i);
     }
-    std::vector<double> vExampleDouble = {391, 392, 393, 394, 395,
+    std::vector<double> v_example_double = {391, 392, 393, 394, 395,
                                           396, 397, 398, 399};
-    std::reverse(vExampleDouble.begin(), vExampleDouble.end());
+    std::reverse(v_example_double.begin(), v_example_double.end());
     std::vector<double> v1;
-    for (int i = 0; static_cast<std::vector<double>::size_type>(i) < vExampleDouble.size(); ++i) {
+    for (int i = 0; static_cast<std::vector<double>::size_type>(i) < v_example_double.size(); ++i) {
         int x = s1.top();
         v1.push_back(x);
         s1.pop();
     }
-    ASSERT_EQ(v1, vExampleDouble);
+    ASSERT_EQ(v1, v_example_double);
 
-    std::vector<bool> vExampleBools = {true,  false, false, true, true,
+    std::vector<bool> v_example_bools = {true,  false, false, true, true,
                                        false, false, false, true};
-    Stack<bool> sBools;
-    for (int i = vExampleBools.size() - 1; i >= 0; --i) {
-        sBools.push(vExampleBools[i]);
+    Stack<bool> s_bools;
+    for (int i = static_cast<int>(v_example_bools.size()) - 1; i >= 0; --i) {
+        s_bools.push(v_example_bools[i]);
     }
-    std::vector<bool> vBools;
-    int sBoolsLen = sBools.getSize();
-    for (int i = 0; i < sBoolsLen; ++i) {
-        vBools.push_back(sBools.top());
-        sBools.pop();
+    std::vector<bool> v_bools;
+    int s_bools_len = s_bools.getSize();
+    for (int i = 0; i < s_bools_len; ++i) {
+        v_bools.push_back(s_bools.top());
+        s_bools.pop();
     }
-    ASSERT_EQ(vExampleBools, vBools);
-    ASSERT_EQ(sBools.getSize(), 0);
+    ASSERT_EQ(v_example_bools, v_bools);
+    ASSERT_EQ(s_bools.getSize(), 0);
 
-    std::vector<bool> v1Bools;
-    std::vector<bool> v1ExampleBools = {
+    std::vector<bool> v1_bools;
+    std::vector<bool> v1_example_bools = {
         true,  false, true, true, true, true, false, true, true, true, false,
         true,  false, true, true, true, true, true,  true, true, true, true,
         false, true,  true, true, true, true, false, true, false};
-    Stack<bool> s1Bools;
-    for (int i = v1ExampleBools.size() - 1; i >= 0; --i) {
-        s1Bools.push(v1ExampleBools[i]);
+    Stack<bool> s1_bools;
+    for (int i = static_cast<int>(v1_example_bools.size()) - 1; i >= 0; --i) {
+        s1_bools.push(v1_example_bools[i]);
     }
-    int s1BoolsLen = v1ExampleBools.size();
-    for (int i = 0; i < s1BoolsLen; ++i) {
-        bool b = s1Bools.top();
-        s1Bools.pop();
-        // std::cout << b << ' ';
-        v1Bools.push_back(b);
+    int s1_bools_len = v1_example_bools.size();
+    for (int i = 0; i < s1_bools_len; ++i) {
+        bool b = s1_bools.top();
+        s1_bools.pop();
+        v1_bools.push_back(b);
     }
-    ASSERT_EQ(v1ExampleBools, v1Bools);
-    ASSERT_EQ(s1Bools.getSize(), 0);
+    ASSERT_EQ(v1_example_bools, v1_bools);
+    ASSERT_EQ(s1_bools.getSize(), 0);
 }
 
 TEST(TOP, TOP) {
@@ -101,37 +103,34 @@ TEST(TOP, TOP) {
     for (int i = 0; i < 999; ++i) {
         s.push(i * 2);
     }
-    int lastNum = s.top();
-    ASSERT_EQ(lastNum, 2 * 998);
+    int last_num = s.top();
+    ASSERT_EQ(last_num, 2 * 998);
 
     s.push(-99909);
     ASSERT_EQ(s.top(), -99909);
 
     Stack<double> doubles;
     for (int i = 0; i < 432; ++i) {
-        doubles.push(i / 2);
+        doubles.push(static_cast<double>(i) / 2);
     }
-    double lastDouble = doubles.top();
-    ASSERT_DOUBLE_EQ(lastDouble, 431 / 2);
-    /*if (abs(lastDouble - 431/2) > 1e-8){
-        return 3;
-    }*/
+    double last_double = doubles.top();
+    ASSERT_DOUBLE_EQ(last_double, static_cast<double>(431) / 2);
 
-    Stack<bool> sBools;
-    std::vector<bool> vBools;
+    Stack<bool> s_bools;
+    std::vector<bool> v_bools(1000);
     for (int i = 0; i < 1000; ++i) {
-        vBools.push_back(rand() % 2 == 1);
+        v_bools.push_back(static_cast<bool>(rand() % 2 == 1));
     }
-    for (bool item : vBools) {
-        sBools.push(item);
+    for (bool item : v_bools) {
+        s_bools.push(item);
     }
-    ASSERT_EQ(sBools.top(), vBools[vBools.size() - 1]);
+    ASSERT_EQ(s_bools.top(), v_bools[v_bools.size() - 1]);
 
-    sBools.pop();
-    ASSERT_EQ(sBools.top(), vBools[vBools.size() - 2]);
+    s_bools.pop();
+    ASSERT_EQ(s_bools.top(), v_bools[v_bools.size() - 2]);
 
-    sBools.pop();
-    ASSERT_EQ(sBools.top(), vBools[vBools.size() - 3]);
+    s_bools.pop();
+    ASSERT_EQ(s_bools.top(), v_bools[v_bools.size() - 3]);
 }
 
 TEST(IsEmpty, IsEmpty) {
@@ -171,12 +170,13 @@ TEST(EQUAL, EQUAL) {
     ints1.push(9);
     ASSERT_FALSE(ints1 == ints2);
 
-    Stack<bool> bools1, bools2;
-    std::vector<bool> vBools;
+    Stack<bool> bools1;
+    Stack<bool> bools2;
+    std::vector<bool> v_bools(100000);
     for (int i = 0; i < 100000; ++i) {
-        vBools.push_back(rand() % 2 == 1);
+        v_bools.push_back(static_cast<bool>(rand() % 2 == 1));
     }
-    for (bool item : vBools) {
+    for (bool item : v_bools) {
         bools1.push(item);
         bools2.push(item);
     }
@@ -187,88 +187,105 @@ TEST(EQUAL, EQUAL) {
 }
 
 TEST(SWAP, SWAP) {
-    Stack<int> ints1, ints2, ints1Buf, ints2Buf;
+    Stack<int> ints1;
+    Stack<int> ints2;
+    Stack<int> ints1_buf;
+    Stack<int> ints2_buf;
     ints1.push(1);
     ints1.push(2);
     ints1.push(3);
     ints2.push(9);
-    ints1Buf = ints1;
-    ints2Buf = ints2;
+    ints1_buf = ints1;
+    ints2_buf = ints2;
     ints1.swap(ints2);
-    ASSERT_TRUE(ints1 == ints2Buf);
-    ASSERT_TRUE(ints2 == ints1Buf);
+    ASSERT_TRUE(ints1 == ints2_buf);
+    ASSERT_TRUE(ints2 == ints1_buf);
 
     for (int i = 0; i < 1e4; ++i) {
         ints1.push(i);
         ints2.push(10 * i);
     }
-    ints1Buf = ints1;
-    ints2Buf = ints2;
+    ints1_buf = ints1;
+    ints2_buf = ints2;
     ints1.swap(ints2);
-    ASSERT_TRUE(ints1 == ints2Buf);
-    ASSERT_TRUE(ints2 == ints1Buf);
+    ASSERT_TRUE(ints1 == ints2_buf);
+    ASSERT_TRUE(ints2 == ints1_buf);
     ASSERT_FALSE(ints1 == ints2);
 
-    Stack<bool> bools1, bools2, bools1Buf, bools2Buf;
+    Stack<bool> bools1;
+    Stack<bool> bools2;
+    Stack<bool> bools1_buf;
+    Stack<bool> bools2_buf;
     for (int i = 0; i < 200; ++i) {
-        bools1.push(0);
-        bools2.push(1);
+        bools1.push(false);
+        bools2.push(true);
     }
-    bools1Buf = bools1;
-    bools2Buf = bools2;
+    bools1_buf = bools1;
+    bools2_buf = bools2;
     bools1.swap(bools2);
-    ASSERT_TRUE(bools2 == bools1Buf);
-    ASSERT_TRUE(bools1 == bools2Buf);
+    ASSERT_TRUE(bools2 == bools1_buf);
+    ASSERT_TRUE(bools1 == bools2_buf);
     ASSERT_FALSE(bools1 == bools2);
 }
 
-TEST(EXIT, INT_POP) {
+
+
+TEST(EXIT, IntPop) {
     Stack<int> ints1;
-    for (int i = 0; i < 100000; ++i) {
+    for (int i = 0; i < 0; ++i) {
         ints1.push(i);
     }
-    for (int i = 0; i < 100000; ++i) {
+    for (int i = 0; i < 0; ++i) {
         ints1.pop();
     }
     ints1.pop();
+    exit(2);
     FAIL();
 }
 
+
+/*
 TEST(EXIT, INT_TOP) {
     Stack<int> ints;
-    for (int i = 0; i < 100000; ++i) {
+    for (int i = 0; i < 110; ++i) {
         ints.push(i);
     }
-    for (int i = 0; i < 100000; ++i) {
+    for (int i = 0; i < 110; ++i) {
         ints.pop();
     }
     ints.top();
+
     FAIL();
 }
+
+
 
 TEST(EXIT, BOOL_POP) {
-    Stack<bool> bools;
+    Stack<bool> _bools;
     for (int i = 0; i < 100000; ++i) {
-        bools.push(true);
+        _bools.push(true);
     }
     for (int i = 0; i < 100000; ++i) {
-        bools.pop();
+        _bools.pop();
     }
-    bools.pop();
+    _bools.pop();
     FAIL();
 }
 
+
+
 TEST(EXIT, BOOL_TOP) {
-    Stack<bool> bools;
+    Stack<bool> _bools;
     for (int i = 0; i < 100000; ++i) {
-        bools.push(true);
+        _bools.push(true);
     }
     for (int i = 0; i < 100000; ++i) {
-        bools.pop();
+        _bools.pop();
     }
-    bools.top();
+    _bools.top();
     FAIL();
 }
+*/
 
 int main(int argc, char *argv[]) {
     ::testing::InitGoogleTest(&argc, argv);
