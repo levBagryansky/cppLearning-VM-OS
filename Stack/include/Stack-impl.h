@@ -158,7 +158,6 @@ bool Stack<T>::operator==(const Stack<T>& other) const {
             return false;
         }
     }
-
     return true;
 }
 
