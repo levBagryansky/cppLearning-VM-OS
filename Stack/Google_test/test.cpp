@@ -7,7 +7,6 @@
 
 #include <iostream>
 
-
 TEST(PushAndGetSize, PushAndGetSize) {
     Stack<int> s;
     for (int i = 0; i < 1000; ++i) {
@@ -227,65 +226,6 @@ TEST(SWAP, SWAP) {
     ASSERT_TRUE(bools1 == bools2_buf);
     ASSERT_FALSE(bools1 == bools2);
 }
-
-
-
-TEST(EXIT, IntPop) {
-    Stack<int> ints1;
-    for (int i = 0; i < 0; ++i) {
-        ints1.push(i);
-    }
-    for (int i = 0; i < 0; ++i) {
-        ints1.pop();
-    }
-    ints1.pop();
-    exit(2);
-    FAIL();
-}
-
-
-/*
-TEST(EXIT, INT_TOP) {
-    Stack<int> ints;
-    for (int i = 0; i < 110; ++i) {
-        ints.push(i);
-    }
-    for (int i = 0; i < 110; ++i) {
-        ints.pop();
-    }
-    ints.top();
-
-    FAIL();
-}
-
-
-
-TEST(EXIT, BOOL_POP) {
-    Stack<bool> _bools;
-    for (int i = 0; i < 100000; ++i) {
-        _bools.push(true);
-    }
-    for (int i = 0; i < 100000; ++i) {
-        _bools.pop();
-    }
-    _bools.pop();
-    FAIL();
-}
-
-
-
-TEST(EXIT, BOOL_TOP) {
-    Stack<bool> _bools;
-    for (int i = 0; i < 100000; ++i) {
-        _bools.push(true);
-    }
-    for (int i = 0; i < 100000; ++i) {
-        _bools.pop();
-    }
-    _bools.top();
-    FAIL();
-}
-*/
 
 int main(int argc, char *argv[]) {
     ::testing::InitGoogleTest(&argc, argv);
