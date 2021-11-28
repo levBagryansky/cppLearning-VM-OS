@@ -11,7 +11,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic  -g")
 
-file(GLOB_RECURSE ALL_SOURCE_FILES src/*.cpp include/*.h)
+file(GLOB_RECURSE ALL_SOURCE_FILES QueueOnStack/*.cpp QueueOnStack/*.h)
 file(GLOB_RECURSE ALL_CPP_FILES ./QueueOnStack/*.cpp)
 
 
@@ -32,8 +32,10 @@ if (ADD_CLANG_TIDY)
 endif ()
 
 add_subdirectory(QueueOnStack)
+add_subdirectory(QueueOnList)
 
 include_directories(QueueOnStack/include)
+include_directories(QueueOnList/include)
 
 if (ADD_TESTING)
     add_subdirectory(Google_test)

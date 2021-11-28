@@ -1,9 +1,10 @@
 #include "QueueOnStack.h"
+#include "QueueOnList-impl.h"
 #include <iostream>
 
 int main() {
 	std::cout << "Hello, World!" << std::endl;
-	Queue<int> q = Queue<int>(5);
+	OnStack::Queue<int> q = OnStack::Queue<int>(5);
 	for (int i = 0; i < 100; ++i) {
 		q.push(i);
 	}

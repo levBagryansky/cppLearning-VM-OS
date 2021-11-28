@@ -8,4 +8,3 @@ add_subdirectory(Stack)
 
 include_directories(include)
 
-add_executable(${PROJECT_NAME} ${ALL_CPP_FILES})

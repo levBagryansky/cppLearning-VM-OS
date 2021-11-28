@@ -55,7 +55,6 @@ void Stack<bool>::push(bool value) {
     size_++;
 }
 
-
 void Stack<bool>::pop() {
     if (size_ == 0) {
         delete[] data_;
