@@ -51,8 +51,8 @@ Stack<T>::Stack(const Stack& other)
 template <class T>
 Stack<T>::Stack(Stack&& other) noexcept
     : factor(other.factor),
-	  size_(other.size_),
-	  capacity_(other.capacity_),
+      size_(other.size_),
+      capacity_(other.capacity_),
       data_(other.data_) {
     other.data_ = nullptr;
 }
