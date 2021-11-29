@@ -3,9 +3,13 @@
 #include "QueueOnStack-impl.h"
 #include "QueueOnList-impl.h"
 
-using namespace OnStack;
+#ifdef USING_ON_STACK
+	using namespace OnStack;
+#else
+	using namespace OnList;
+#endif
 
-TEST(QUEUE, GET_SIZE){
+TEST(Queue, GetSize){
 	Queue<int> ints;
 	for (int i = 0; i < 2e4; ++i) {
 		ints.push(i);
@@ -29,7 +33,7 @@ TEST(QUEUE, GET_SIZE){
 	ASSERT_EQ(bools.GetSize(), 1e4);
 }
 
-TEST(QUEUE, IsEmpty){
+TEST(Queue, IsEmpty){
 	Queue<int> ints;
 	ASSERT_TRUE(ints.IsEmpty());
 	for (int i = 0; i < 2e4; ++i) {
@@ -44,7 +48,7 @@ TEST(QUEUE, IsEmpty){
 
 }
 
-TEST(QUEUE, PUSH_AND_BACK){
+TEST(Queue, PushAndBack){
 	Queue<int> ints;
 	for (int i = 0; i < 1e5; ++i) {
 		ints.push(i);
@@ -59,7 +63,7 @@ TEST(QUEUE, PUSH_AND_BACK){
 	}
 }
 
-TEST(QUEUE, POP_AND_FRONT){
+TEST(Queue, PopAndFront){
 	Queue<int> ints;
 	for (int i = 0; i < 1e5; ++i) {
 		ints.push(i);
@@ -81,7 +85,7 @@ TEST(QUEUE, POP_AND_FRONT){
 	}
 }
 
-TEST(QUEUE, EQUAL){
+TEST(Queue, Equal){
 	Queue<int> ints1;
 	Queue<int> ints2;
 	ASSERT_TRUE(ints1 == ints2);
@@ -119,7 +123,7 @@ TEST(QUEUE, EQUAL){
 
 }
 
-TEST(QUEUE, SWAP){
+TEST(Queue, Swap){
 ;	Queue<int> ints1;
 	Queue<int> ints2;
 	Queue<int> ints1_buf;
@@ -161,7 +165,7 @@ TEST(QUEUE, SWAP){
 	ASSERT_FALSE(bools1 == bools2);
 }
 
-TEST(QUEUE, COPY_CONSTRUCTOR){
+TEST(Queue, CopyConstructor){
 	Queue<int> ints1;
 	for (int i = 0; i < 1e5; ++i) {
 		ints1.push(i);
@@ -179,7 +183,7 @@ TEST(QUEUE, COPY_CONSTRUCTOR){
 
 }
 
-TEST(QUEUE, MOVE_CONSRUCTOR){
+TEST(Queue, MoveConstructor){
 	Queue<int> ints1;
 	for (int i = 0; i < 1e5; ++i) {
 		ints1.push(i);
