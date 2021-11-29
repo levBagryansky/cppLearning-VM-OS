@@ -5,17 +5,26 @@ namespace OnList{
 	template<class T>
 	struct Node{
 		T value;
-		Node *next;
+		Node<T> *next;
 	};
 
 	template<class T>
 	class Queue {
 	public:
 		Queue();
-		explicit Queue(size_t size);
 		Queue(const Queue &other);
 		Queue(Queue &&other) noexcept;
-		~Queue() = default;
+		~Queue();
+
+		void Print(){
+			std::cout << "size = " << size_ << ", elements:" << std::endl;
+			Node<T>* buf = head_;
+			while (buf -> next != nullptr){
+				std::cout << buf -> value << " ";
+				buf = buf -> next;
+			}
+			std::cout << buf->value <<std::endl << "tail value = " << tail_->value << std::endl;
+		};
 
 		size_t GetSize() const;
 		bool IsEmpty() const;
@@ -24,6 +33,12 @@ namespace OnList{
 		const T &front();
 		const T &back();
 		void swap(Queue &other);
+
+		Queue& operator=(const Queue& other);
+		Queue& operator=(Queue&& other) noexcept;
+		bool operator==(const Queue<T>& other) const;
+		bool operator!=(const Queue<T>& other) const;
+
 
 	private:
 		Node<T> *head_;

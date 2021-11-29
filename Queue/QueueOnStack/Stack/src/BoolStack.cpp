@@ -72,7 +72,8 @@ bool Stack<bool>::top() const {
     unsigned char contain_elem = data_[(size_ - 1) / BYTES_IN_CHAR];
     contain_elem = contain_elem >> ((size_ - 1) % BYTES_IN_CHAR);
     contain_elem &= 1U;
-    return contain_elem == 1;
+	bool ret = (contain_elem == 1);
+    return ret;
 }
 
 void Stack<bool>::swap(Stack<bool> &other) {

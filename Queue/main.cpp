@@ -1,18 +1,20 @@
-#include "QueueOnStack.h"
+#include "QueueOnStack-impl.h"
 #include "QueueOnList-impl.h"
 #include <iostream>
+#include <vector>
+
+using namespace OnStack;
 
 int main() {
-	std::cout << "Hello, World!" << std::endl;
-	OnStack::Queue<int> q = OnStack::Queue<int>(5);
-	for (int i = 0; i < 100; ++i) {
-		q.push(i);
-	}
 
-	for (int i = 0; i < 100; ++i) {
-		std::cout << q.front() << " ";
-		q.pop();
+	Queue<bool> bools1;
+	Queue<bool> bools2;
+	for (int i = 0; i < 1; ++i) {
+		bools1.push(false);
+		bools2.push(true);
 	}
-	std::cout << std::endl;
+	//bools1.swap(bools2);
+	std::cout << "bools1 == bools2:  " << (bools1 == bools2) << std::endl;
+
 	return 0;
 }

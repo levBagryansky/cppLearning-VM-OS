@@ -3,13 +3,13 @@ project(Queue)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Queue main.cpp)
+add_executable(Queue main.cpp QueueOnStack/Stack/src/BoolStack.cpp)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic  -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
 file(GLOB_RECURSE ALL_SOURCE_FILES QueueOnStack/*.cpp QueueOnStack/*.h)
 file(GLOB_RECURSE ALL_CPP_FILES ./QueueOnStack/*.cpp)
