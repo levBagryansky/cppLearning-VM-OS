@@ -9,6 +9,7 @@ Checks: >
   portability-*,
   readability-*,
   -google-readability-braces-around-statements,
+  -google-build-using-namespace,
   -google-readability-namespace-comments,
   -google-runtime-references,
   -misc-non-private-member-variables-in-classes,
