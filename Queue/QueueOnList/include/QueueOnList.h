@@ -16,16 +16,6 @@ namespace OnList{
 		Queue(Queue &&other) noexcept;
 		~Queue();
 
-		/*void Print(){
-			std::cout << "size = " << size_ << ", elements:" << std::endl;
-			Node<T>* buf = head_;
-			while (buf -> next != nullptr){
-				std::cout << buf -> value << " ";
-				buf = buf -> next;
-			}
-			std::cout << buf->value <<std::endl << "tail value = " << tail_->value << std::endl;
-		};
-		*/
 		size_t GetSize() const;
 		bool IsEmpty() const;
 		void push(T value);
