@@ -15,7 +15,7 @@ class Stack {
     bool isEmpty() const;
     void push(T value);
     void pop();
-    T& top() const;
+    const T& top() const;
     void swap(Stack<T>& other);
 
     void changeFactor(double newFactor);
@@ -97,7 +97,7 @@ void Stack<T>::pop() {
 }
 
 template <class T>
-T& Stack<T>::top() const {
+const T& Stack<T>::top() const {
     if (size_ == 0) {
         delete[] data_;
         exit(2);
