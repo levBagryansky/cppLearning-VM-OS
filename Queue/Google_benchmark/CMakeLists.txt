@@ -4,4 +4,4 @@ add_executable(benchmark_run benchmark.cpp)
 
 target_link_libraries(benchmark_run benchmark::benchmark)
 
-add_dependencies(benchmark_run ${PROJECT_NAME}_tests)
+add_dependencies(benchmark_run ${PROJECT_NAME}_tests_stack)
