@@ -146,6 +146,7 @@ Stack<T>& Stack<T>::operator=(Stack<T>&& other) noexcept {
     size_ = other.size_;
     data_ = other.data_;
     other.data_ = nullptr;
+	return *this;
 }
 
 template <class T>

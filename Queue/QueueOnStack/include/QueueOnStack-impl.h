@@ -86,6 +86,7 @@ template <class T>
 Queue<T> &Queue<T>::operator=(Queue<T> &&other) noexcept {
     stack_push_ = std::move(other.stack_push_);
     stack_pop_ = std::move(other.stack_pop_);
+	return *this;
 }
 
 template <class T>
