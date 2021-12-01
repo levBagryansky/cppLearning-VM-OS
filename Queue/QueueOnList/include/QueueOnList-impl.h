@@ -31,7 +31,7 @@ namespace OnList {
 	}
 
 	template<class T>
-	Queue<T>::Queue(Queue<T> &&other) noexcept : head_(other.head_), tail_(other.tail_) {}
+	Queue<T>::Queue(Queue<T> &&other) noexcept : head_(other.head_), tail_(other.tail_), size_(other.size_) {}
 
 	template<class T>
 	Queue<T>::~Queue() {

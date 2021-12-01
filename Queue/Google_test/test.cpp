@@ -3,10 +3,12 @@
 #include "QueueOnStack-impl.h"
 #include "QueueOnList-impl.h"
 
-#ifdef USING_ON_STACK
-	using namespace OnStack;
-#else
-	using namespace OnList;
+#ifdef USING_STACK
+	using OnStack::Queue;
+#endif
+
+#ifdef USING_LIST
+	using OnList::Queue;
 #endif
 
 TEST(Queue, GetSize){
@@ -103,22 +105,6 @@ TEST(Queue, Equal){
 
 	ints1.push(9);
 	ASSERT_FALSE(ints1 == ints2);
-
-	doubles1 = {};
-	doubles2 = {};
-	std::vector<double> v_doubles(100000);
-	for (int i = 0; i < 100000; ++i) {
-		v_doubles.push_back(static_cast<double>(rand() % 2 == 1));
-	}
-	for (double item : v_doubles) {
-		doubles1.push(item);
-		doubles2.push(item);
-	}
-	ASSERT_TRUE(doubles1 == doubles2);
-
-	doubles1.pop();
-	ASSERT_FALSE(doubles1 == doubles2);
-
 }
 
 TEST(Queue, Swap){
