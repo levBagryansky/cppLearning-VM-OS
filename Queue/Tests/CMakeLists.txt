@@ -6,13 +6,16 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 enable_testing()
 
-add_executable(${PROJECT_NAME}_tests_stack test.cpp ${ALL_CPP_FILES})
+add_executable(${PROJECT_NAME}_tests_stack QueueTest.cpp ${ALL_CPP_FILES})
 target_compile_definitions(${PROJECT_NAME}_tests_stack PUBLIC -DUSING_STACK)
 target_link_libraries(${PROJECT_NAME}_tests_stack PUBLIC GTest::GTest GTest::Main)
 
-add_executable(${PROJECT_NAME}_tests_list test.cpp ${ALL_CPP_FILES})
+add_executable(${PROJECT_NAME}_tests_list QueueTest.cpp ${ALL_CPP_FILES})
 target_compile_definitions(${PROJECT_NAME}_tests_list PUBLIC -DUSING_LIST)
 target_link_libraries(${PROJECT_NAME}_tests_list PUBLIC GTest::GTest GTest::Main)
+
+add_executable(Stack_tests StackTest.cpp ${ALL_CPP_FILES})
+target_link_libraries(Stack_tests PUBLIC GTest::GTest GTest::Main)
 
 add_custom_target(${PROJECT_NAME}_tests_stack_run
         COMMENT "running test for list queue"
@@ -24,6 +27,11 @@ add_custom_target(${PROJECT_NAME}_tests_list_run
         COMMAND ./${PROJECT_NAME}_tests_list)
 add_dependencies(${PROJECT_NAME}_tests_list_run ${PROJECT_NAME}_tests_list)
 
+add_custom_target(Stack_tests_run
+        COMMENT "running test for stack"
+        COMMAND ./Stack_tests)
+add_dependencies(${PROJECT_NAME}_tests_list_run ${PROJECT_NAME}_tests_list)
+
 if (ADD_SANITIZERS)
     message("Build with sanitizers")
     target_compile_options(${PROJECT_NAME}_tests_stack PUBLIC -fsanitize=address -g)
@@ -33,5 +41,5 @@ if (ADD_SANITIZERS)
 endif ()
 
 add_custom_target(Tests_run COMMENT "Running all tests")
-add_dependencies(Tests_run ${PROJECT_NAME}_tests_stack_run ${PROJECT_NAME}_tests_list_run)
+add_dependencies(Tests_run ${PROJECT_NAME}_tests_stack_run ${PROJECT_NAME}_tests_list_run Stack_tests_run)
 

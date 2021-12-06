@@ -31,7 +31,9 @@ namespace OnList {
 	}
 
 	template<class T>
-	Queue<T>::Queue(Queue<T> &&other) noexcept : head_(other.head_), tail_(other.tail_), size_(other.size_) {}
+	Queue<T>::Queue(Queue<T> &&other) noexcept : head_(other.head_), tail_(other.tail_), size_(other.size_) {
+		other.size_ = 0;
+	}
 
 	template<class T>
 	Queue<T>::~Queue() {
@@ -75,14 +77,20 @@ namespace OnList {
 
 	template<class T>
 	void Queue<T>::pop() {
-		if (size_ > 0) {
-			Node<T> *buf = head_;
+		if (size_ == 1) {
+			delete head_;
+			head_ = nullptr;
+			tail_ = nullptr;
+			size_ = 0;
+		} else if (size_ > 1) {
+			Node<T>* tmp = head_;
 			head_ = head_->next;
-			delete buf;
+			delete tmp;
 			size_--;
 		} else {
-			exit(1);
+			exit(-1);
 		}
+
 	}
 
 	template<class T>

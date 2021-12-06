@@ -1,8 +1,7 @@
 #ifndef QUEUE_ON_STACK_H
 #define QUEUE_ON_STACK_H
 
-//#include "QueueOnStack-impl.h"
-#include "../Stack/include/Stack.h"
+#include "Stack.h"
 
 namespace OnStack {
 

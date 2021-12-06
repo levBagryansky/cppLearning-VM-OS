@@ -10,7 +10,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
 file(GLOB_RECURSE ALL_SOURCE_FILES QueueOnStack/*.cpp QueueOnStack/*.h)
-file(GLOB_RECURSE ALL_CPP_FILES ./QueueOnStack/*.cpp)
+file(GLOB_RECURSE ALL_CPP_FILES ./Stack/*.cpp)
+include_directories(Stack/include/)
 
 add_custom_target(
         clang-format
@@ -31,10 +32,8 @@ endif ()
 include_directories(QueueOnStack/include)
 include_directories(QueueOnList/include)
 
-if (ADD_TESTING)
-    add_subdirectory(Google_test)
-endif ()
+add_subdirectory(Tests)
 
 if (ADD_BENCHMARK)
-    add_subdirectory(Google_benchmark)
+    add_subdirectory(Benchmark)
 endif ()
