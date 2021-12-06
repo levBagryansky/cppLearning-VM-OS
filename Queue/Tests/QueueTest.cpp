@@ -5,10 +5,10 @@
 
 #ifdef USING_STACK
 	using OnStack::Queue;
-#endif
-
-#ifdef USING_LIST
-	using OnList::Queue;
+#else
+	#ifdef USING_LIST
+		using OnList::Queue;
+	#endif
 #endif
 
 TEST(Queue, GetSize){
