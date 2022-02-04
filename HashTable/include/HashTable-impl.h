@@ -1,13 +1,14 @@
 #ifndef HASHTABLE_IMPL_H
 #define HASHTABLE_IMPL_H
 
-template<class T>
+template<class TKey, class TValue>
 class HashTable{
 public:
 
 private:
     struct Node{
-        T value;
+        TKey key;
+        TValue value;
         Node *next;
     };
 
