@@ -12,14 +12,17 @@ int collusions = 0;
 class HashTable{
 public:
     HashTable();
-    size_t HashFunction(const std::string& key);
-    void Resize();
+    ~HashTable();
     void Add(const std::string& key, int value);
+    size_t Length();
     bool HaveKey(const std::string& key);
     int GetValue(const std::string& key);
     void Print();
 
 private:
+    void Resize();
+    size_t HashFunction(const std::string& key);
+
     struct Item{
         std::string key;
         int value;
@@ -33,6 +36,10 @@ private:
 
 HashTable::HashTable(): capacity_(start_capacity), count_(0), data_(new Item[start_capacity]) {}
 
+HashTable::~HashTable() {
+    delete[] data_;
+}
+
 size_t HashTable::HashFunction(const std::string &key) {
     size_t result = 0;
     for (int i = 0; i < key.length(); ++i) {
@@ -42,15 +49,15 @@ size_t HashTable::HashFunction(const std::string &key) {
 }
 
 void HashTable::Add(const std::string &key, int value) {
-    if (3 * count_ >= capacity_){
+    if (2 * count_ >= capacity_){
         Resize();
     }
 
     size_t index = HashFunction(key);
     int i = 0;
     while (data_[index].value != -1){
-        std::cout << "ALARM COLLUSION, INDEX = " << index << " HERE " << data_[index].key
-        << " -> " << data_[index].value << ", NEW VALUE  = " << key <<  std::endl;
+        //std::cout << "ALARM COLLUSION, INDEX = " << index << " HERE " << data_[index].key
+        //<< " -> " << data_[index].value << ", NEW VALUE  = " << key <<  std::endl;
         collusions++;
         i++;
         index = (index + const_val1 * i + const_val2 * i * i) % capacity_;
@@ -61,12 +68,16 @@ void HashTable::Add(const std::string &key, int value) {
     count_++;
 }
 
+size_t HashTable::Length() {
+    return count_;
+}
+
 void HashTable::Resize() {
-    std::cout << "Resizing" << std::endl;
     size_t prev_capacity = capacity_;
     capacity_ *= 2;
     Item* prev_data = data_;
     data_ = new Item[capacity_];
+    count_ = 0;
     for (int i = 0; i < prev_capacity; ++i) {
         if (prev_data[i].value != -1){
             Add(prev_data[i].key, prev_data[i].value);
