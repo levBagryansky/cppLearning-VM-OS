@@ -12,12 +12,17 @@ int collusions = 0;
 class HashTable{
 public:
     HashTable();
+    HashTable(const HashTable& other);
+    HashTable(HashTable&& other) noexcept;
     ~HashTable();
     void Add(const std::string& key, int value);
     size_t Length();
     bool HaveKey(const std::string& key);
     int GetValue(const std::string& key);
     void Print();
+
+    HashTable& operator=(const HashTable& other);
+    HashTable& operator=(HashTable&& other);
 
 private:
     void Resize();
@@ -35,6 +40,14 @@ private:
 };
 
 HashTable::HashTable(): capacity_(start_capacity), count_(0), data_(new Item[start_capacity]) {}
+
+HashTable::HashTable(const HashTable& other): capacity_(other.capacity_), count_(other.count_), data_(new Item[other.capacity_]){
+    std::copy(other.data_, other.data_ + capacity_, data_);
+}
+
+HashTable::HashTable(HashTable&& other) noexcept: capacity_(other.capacity_), count_(other.count_), data_(other.data_){
+    other.data_ = nullptr;
+}
 
 HashTable::~HashTable() {
     delete[] data_;
@@ -122,6 +135,30 @@ void HashTable::Print() {
         }
     }
     std::cout << "collusions = " << collusions << std::endl;
+}
+
+HashTable& HashTable::operator=(const HashTable& other) {
+    if (this == &other) {
+        return *this;
+    }
+
+    capacity_ = other.capacity_;
+    count_ = other.count_;
+    delete[] data_;
+    std::copy(other.data_, other.data_ + capacity_, data_);
+    return *this;
+}
+
+HashTable& HashTable::operator=(HashTable&& other) {
+    if (this == &other) {
+        return *this;
+    }
+
+    capacity_ = other.capacity_;
+    count_ = other.count_;
+    data_ = other.data_;
+    other.data_ = nullptr;
+    return *this;
 }
 
 #endif //HASHTABLE_IMPL_H
