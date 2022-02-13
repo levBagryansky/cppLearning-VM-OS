@@ -35,6 +35,38 @@ TEST(HashTable, GetValue){
     ASSERT_NE(ht.GetValue("random string"), 5);
 }
 
+TEST(HashTable, CopyConstuctor){
+    HashTable ht;
+    for (int i = 0; i < BIG_NUM; ++i) {
+        ht.Add("qwerty_" + std::to_string(i), i);
+        ht.Add("hi" + std::to_string(i), i);
+    }
+
+    HashTable copied_ht(ht);
+
+    for (int i = 0; i < BIG_NUM; ++i) {
+        ASSERT_EQ(copied_ht.GetValue("qwerty_" + std::to_string(i)), i);
+    }
+
+    ASSERT_NE(copied_ht.GetValue("random string"), 5);
+}
+
+TEST(HashTable, MoveConstuctor){
+    HashTable ht;
+    for (int i = 0; i < BIG_NUM; ++i) {
+        ht.Add("qwerty_" + std::to_string(i), i);
+        ht.Add("hi" + std::to_string(i), i);
+    }
+
+    HashTable moved_ht(std::move(ht));
+
+    for (int i = 0; i < BIG_NUM; ++i) {
+        ASSERT_EQ(moved_ht.GetValue("qwerty_" + std::to_string(i)), i);
+    }
+
+    ASSERT_NE(moved_ht.GetValue("random string"), 5);
+}
+
 TEST(HashTable, HaveKey){
     HashTable ht;
     for (int i = 0; i < BIG_NUM; ++i) {

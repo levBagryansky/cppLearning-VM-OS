@@ -15,7 +15,7 @@ public:
     HashTable(const HashTable& other);
     HashTable(HashTable&& other) noexcept;
     ~HashTable();
-    void Add(const std::string& key, int value);
+    void AddPair(const std::string& key, int value);
     size_t Length();
     bool HaveKey(const std::string& key);
     int GetValue(const std::string& key);
@@ -24,9 +24,10 @@ public:
     HashTable& operator=(const HashTable& other);
     HashTable& operator=(HashTable&& other);
 
-private:
+protected:
     void Resize();
     size_t HashFunction(const std::string& key);
+    size_t GetIndex(const std::string& key);
 
     struct Item{
         std::string key;
@@ -61,20 +62,24 @@ size_t HashTable::HashFunction(const std::string &key) {
     return result;
 }
 
-void HashTable::Add(const std::string &key, int value) {
-    if (2 * count_ >= capacity_){
-        Resize();
-    }
-
+size_t HashTable::GetIndex(const std::string& key) {
     size_t index = HashFunction(key);
     int i = 0;
     while (data_[index].value != -1){
-        //std::cout << "ALARM COLLUSION, INDEX = " << index << " HERE " << data_[index].key
-        //<< " -> " << data_[index].value << ", NEW VALUE  = " << key <<  std::endl;
         collusions++;
         i++;
         index = (index + const_val1 * i + const_val2 * i * i) % capacity_;
     }
+
+    return index;
+}
+
+void HashTable::AddPair(const std::string &key, int value) {
+    if (2 * count_ >= capacity_){
+        Resize();
+    }
+
+    size_t index = GetIndex(key);
 
     data_[index].key = key;
     data_[index].value = value;
@@ -93,7 +98,7 @@ void HashTable::Resize() {
     count_ = 0;
     for (int i = 0; i < prev_capacity; ++i) {
         if (prev_data[i].value != -1){
-            Add(prev_data[i].key, prev_data[i].value);
+            AddPair(prev_data[i].key, prev_data[i].value);
         }
     }
     delete[] prev_data;
