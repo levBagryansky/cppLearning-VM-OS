@@ -1,22 +1,22 @@
 #include <gtest/gtest.h>
 #include "HashTable-impl.h"
 
-const int BIG_NUM = 5e4;
+const int BIG_NUM = 1e5;
 
 TEST(HashTable, Length){
     HashTable ht1;
     for (int i = 0; i < 200; ++i) {
-        ht1.Add("qwerty_" + std::to_string(i), i);
+        ht1.AddPair("qwerty_" + std::to_string(i), i);
     }
     for (int i = 0; i < 200; ++i) {
-        ht1.Add("hi" + std::to_string(i), i);
+        ht1.AddPair("hi" + std::to_string(i), i);
     }
     ASSERT_EQ(400, ht1.Length());
 
     HashTable ht2;
     for (int i = 0; i < BIG_NUM; ++i) {
-        ht2.Add("qwerty_" + std::to_string(i), i);
-        ht2.Add("hi" + std::to_string(i), i);
+        ht2.AddPair("qwerty_" + std::to_string(i), i);
+        ht2.AddPair("hi" + std::to_string(i), i);
     }
     ASSERT_EQ(2 * BIG_NUM, ht2.Length());
 }
@@ -24,8 +24,8 @@ TEST(HashTable, Length){
 TEST(HashTable, GetValue){
     HashTable ht;
     for (int i = 0; i < BIG_NUM; ++i) {
-        ht.Add("qwerty_" + std::to_string(i), i);
-        ht.Add("hi" + std::to_string(i), i);
+        ht.AddPair("qwerty_" + std::to_string(i), i);
+        ht.AddPair("hi" + std::to_string(i), i);
     }
 
     for (int i = 0; i < BIG_NUM; ++i) {
@@ -38,8 +38,8 @@ TEST(HashTable, GetValue){
 TEST(HashTable, CopyConstuctor){
     HashTable ht;
     for (int i = 0; i < BIG_NUM; ++i) {
-        ht.Add("qwerty_" + std::to_string(i), i);
-        ht.Add("hi" + std::to_string(i), i);
+        ht.AddPair("qwerty_" + std::to_string(i), i);
+        ht.AddPair("hi" + std::to_string(i), i);
     }
 
     HashTable copied_ht(ht);
@@ -54,8 +54,8 @@ TEST(HashTable, CopyConstuctor){
 TEST(HashTable, MoveConstuctor){
     HashTable ht;
     for (int i = 0; i < BIG_NUM; ++i) {
-        ht.Add("qwerty_" + std::to_string(i), i);
-        ht.Add("hi" + std::to_string(i), i);
+        ht.AddPair("qwerty_" + std::to_string(i), i);
+        ht.AddPair("hi" + std::to_string(i), i);
     }
 
     HashTable moved_ht(std::move(ht));
@@ -74,8 +74,8 @@ TEST(HashTable, HaveKey){
     }
 
     for (int i = 0; i < BIG_NUM; ++i) {
-        ht.Add("qwerty_" + std::to_string(i), i);
-        ht.Add("hi" + std::to_string(i), i);
+        ht.AddPair("qwerty_" + std::to_string(i), i);
+        ht.AddPair("hi" + std::to_string(i), i);
     }
 
     for (int i = 0; i < BIG_NUM; ++i) {
