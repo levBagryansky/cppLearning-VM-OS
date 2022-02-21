@@ -6,8 +6,8 @@
 
 const int const_val1 = 37;
 const int const_val2 = 1;
-const int start_capacity = 8;
-int collusions = 0;
+const int hash_val = 23;
+const int start_capacity = 40e3;
 
 class HashTable{
 public:
@@ -19,6 +19,7 @@ public:
     size_t Length();
     bool HaveKey(const std::string& key);
     int GetValue(const std::string& key);
+    int GetCollisions();
     void Print();
 
     HashTable& operator=(const HashTable& other);
@@ -57,7 +58,7 @@ HashTable::~HashTable() {
 size_t HashTable::HashFunction(const std::string &key) {
     size_t result = 0;
     for (int i = 0; i < key.length(); ++i) {
-        result = (result + key[i] * static_cast<size_t>(pow(23, i))) % capacity_;
+        result = (result + key[i] * static_cast<size_t>(pow(hash_val, i))) % capacity_;
     }
     return result;
 }
@@ -66,7 +67,6 @@ size_t HashTable::GetIndex(const std::string& key) {
     size_t index = HashFunction(key);
     int i = 0;
     while (data_[index].value != -1){
-        collusions++;
         i++;
         index = (index + const_val1 * i + const_val2 * i * i) % capacity_;
     }
@@ -133,13 +133,31 @@ int HashTable::GetValue(const std::string &key) {
     return -1;
 }
 
+int HashTable::GetCollisions() {
+    int result = 0;
+    for (int i = 0; i < capacity_; ++i) {
+        if ((data_[i].value != -1) && (i != HashFunction(data_[i].key))){
+            result++;
+        }
+    }
+
+    return result;
+}
+
 void HashTable::Print() {
+    int figure_of_words = 0;
+    /*
     for (int i = 0; i < capacity_; ++i) {
         if (data_[i].value != -1){
             std::cout << data_[i].key << " -> " << data_[i].value << std::endl;
+            figure_of_words += data_[i].value;
         }
     }
-    std::cout << "collusions = " << collusions << std::endl;
+    */
+    std::cout << std::endl << "collisions_ = " << GetCollisions() << std::endl <<
+        "There are " << count_ << " unique words" << std::endl <<
+        "At all analyzed " << figure_of_words << " words" << std::endl <<
+        "Capacity = " << capacity_ << std::endl;
 }
 
 HashTable& HashTable::operator=(const HashTable& other) {
