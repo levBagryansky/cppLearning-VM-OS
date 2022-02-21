@@ -4,13 +4,33 @@
 #include "HashTable-impl.h"
 #include <fstream>
 
-std::string& FilterWord(std::string& word){
+bool CorrectSymbol(char c){
+    return (c >= 'a' && c <= 'z' || c == '-' || c == ' ');
+}
+
+std::string& FilterWord(std::string& word){ // filters to normal word
     for (int i = word.length() - 1; i >= 0; --i) {
         if (word[i] >= 'A' && word[i] <= 'Z'){
             word[i] += 'a' - 'A';
         }
-        if (!(word[i] >= 'a' && word[i] <= 'z' || word[i] == '-')){
-            word.erase(i);
+    }
+
+    int i = word.length() -1;
+    while (i >= 0 && !CorrectSymbol(word[i])){
+        word.erase(i, 1);
+        i--;
+    }
+
+    i = 0;
+    while (word.length() > 0 && !CorrectSymbol(word[i])){
+        i++;
+    }
+    word.erase(0, i);
+
+    for (int j = 0; j < word.length(); ++j) {
+        if (!(word[j] >= 'a' && word[j] <= 'z' || word[j] == '-')){
+            word = "";
+            break;
         }
     }
     return word;

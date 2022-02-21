@@ -7,7 +7,7 @@
 const int const_val1 = 37;
 const int const_val2 = 1;
 const int hash_val = 23;
-const int start_capacity = 40e3;
+const int start_capacity = 60e3;
 
 class HashTable{
 public:
@@ -146,14 +146,14 @@ int HashTable::GetCollisions() {
 
 void HashTable::Print() {
     int figure_of_words = 0;
-    /*
+
     for (int i = 0; i < capacity_; ++i) {
         if (data_[i].value != -1){
             std::cout << data_[i].key << " -> " << data_[i].value << std::endl;
             figure_of_words += data_[i].value;
         }
     }
-    */
+
     std::cout << std::endl << "collisions_ = " << GetCollisions() << std::endl <<
         "There are " << count_ << " unique words" << std::endl <<
         "At all analyzed " << figure_of_words << " words" << std::endl <<
