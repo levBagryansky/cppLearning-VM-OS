@@ -5,7 +5,7 @@
 #include <iostream>
 
 const int const_val1 = 37;
-const int const_val2 = 1;
+const int const_val2 = 3;
 const int hash_val = 23;
 const int start_capacity = 60e3;
 
