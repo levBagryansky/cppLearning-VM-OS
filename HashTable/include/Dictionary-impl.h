@@ -4,6 +4,22 @@
 #include "HashTable-impl.h"
 #include <fstream>
 
+bool CorrectSymbol(char c);
+
+std::string& FilterWord(std::string& word);
+
+class Dictionary : public HashTable{
+   public:
+    Dictionary(int min_len, int max_len);
+    void Update(const std::string& path);
+
+   private:
+    const int min_len_;
+    const int max_len_;
+
+    void AddKey(const std::string& key);
+};
+
 bool CorrectSymbol(char c){
     return (c >= 'a' && c <= 'z' || c == '-' || c == ' ');
 }
@@ -35,18 +51,6 @@ std::string& FilterWord(std::string& word){ // filters to normal word
     }
     return word;
 }
-
-class Dictionary : public HashTable{
-   public:
-    Dictionary(int min_len, int max_len);
-    void Update(const std::string& path);
-
-   private:
-    const int min_len_;
-    const int max_len_;
-
-    void AddKey(const std::string& key);
-};
 
 Dictionary::Dictionary(int min_len, int max_len): min_len_(min_len), max_len_(max_len){}
 
