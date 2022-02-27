@@ -11,11 +11,14 @@ std::string& FilterWord(std::string& word);
 class Dictionary : public HashTable{
    public:
     Dictionary(int min_len, int max_len);
+    Dictionary(int len = 0);
+    void SetLen(int len);
+    void SetLen(int min_len, int max_len);
     void Update(const std::string& path);
 
    private:
-    const int min_len_;
-    const int max_len_;
+    int min_len_;
+    int max_len_;
 
     void AddKey(const std::string& key);
 };
@@ -54,6 +57,17 @@ std::string& FilterWord(std::string& word){ // filters to normal word
 
 Dictionary::Dictionary(int min_len, int max_len): min_len_(min_len), max_len_(max_len){}
 
+Dictionary::Dictionary(int len): min_len_(len), max_len_(len){}
+
+void Dictionary::SetLen(int len) {
+    max_len_ = min_len_ = len;
+}
+
+void Dictionary::SetLen(int min_len, int max_len) {
+    min_len_ = min_len;
+    max_len_ = max_len;
+}
+
 void Dictionary::Update(const std::string& path) {
     std::ifstream is{path};
     std::string next_word;
@@ -63,6 +77,7 @@ void Dictionary::Update(const std::string& path) {
             AddKey(next_word);
         }
     }
+    //std::cout << "Updating, len = " << min_len_ << " count = " << Length() << std::endl;
 }
 
 void Dictionary::AddKey(const std::string& key){

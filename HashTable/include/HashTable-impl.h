@@ -7,7 +7,7 @@
 const int const_val1 = 37;
 const int const_val2 = 3;
 const int hash_val = 23;
-const int start_capacity = 60e3;
+const int start_capacity = 40e3;
 
 class HashTable{
 public:
@@ -116,8 +116,6 @@ bool HashTable::HaveKey(const std::string &key) {
     }
 
     return false;
-
-
 }
 
 int HashTable::GetValue(const std::string &key) {
@@ -161,26 +159,23 @@ void HashTable::Print() {
 }
 
 HashTable& HashTable::operator=(const HashTable& other) {
-    if (this == &other) {
-        return *this;
+    if (this != &other) {
+        capacity_ = other.capacity_;
+        count_ = other.count_;
+        delete[] data_;
+        std::copy(other.data_, other.data_ + capacity_, data_);
     }
-
-    capacity_ = other.capacity_;
-    count_ = other.count_;
-    delete[] data_;
-    std::copy(other.data_, other.data_ + capacity_, data_);
     return *this;
 }
 
 HashTable& HashTable::operator=(HashTable&& other) {
-    if (this == &other) {
-        return *this;
+    if (this != &other) {
+        capacity_ = other.capacity_;
+        count_ = other.count_;
+        data_ = other.data_;
+        other.data_ = nullptr;
     }
 
-    capacity_ = other.capacity_;
-    count_ = other.count_;
-    data_ = other.data_;
-    other.data_ = nullptr;
     return *this;
 }
 
