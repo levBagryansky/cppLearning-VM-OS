@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "HashTable-impl.h"
+#include "Dictionary-impl.h"
 
 const int BIG_NUM = 1e5;
 
@@ -80,6 +80,37 @@ TEST(HashTable, HaveKey){
 
     for (int i = 0; i < BIG_NUM; ++i) {
         ASSERT_EQ(ht.HaveKey("qwerty_" + std::to_string(i)), true);
+    }
+}
+
+TEST(Dictionary, FilterWord){
+    std::string word = "[]Hi,,,{}";
+    ASSERT_EQ("hi", FilterWord(word));
+
+    word = "[]H;i,,,{}";
+    ASSERT_EQ("", FilterWord(word));
+}
+
+TEST(Dictionary, Update){
+    Dictionary dk(2, 8);
+    std::string path = "../../Tests/lord_of_ring.txt";
+    dk.Update(path);
+
+    std::map<std::string, int> m;
+    std::ifstream is{path};
+    std::string next_word;
+    while (is >> next_word){
+        FilterWord(next_word);
+        std::cout << "NEXT WORD = " << next_word << ", ";
+
+        if (next_word.length() <= 8 && next_word.length() >= 2){
+            m[next_word]++;
+        }
+    }
+    std::cout << std::endl;
+
+    for (const auto& pair: m) {
+        ASSERT_EQ(pair.second, dk.GetValue(pair.first));
     }
 }
 
