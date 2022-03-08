@@ -1,0 +1,110 @@
+Warning: File ./Foo.class does not contain class Foo
+Classfile /home/tardis3/IdeaProjects/TestProject/src/com/company/Foo.class
+  Last modified 8 мар. 2022 г.; size 520 bytes
+  MD5 checksum 1bf34b4e6ecdb83e5151ccb256c5a368
+  Compiled from "Foo.java"
+public class com.company.Foo
+  minor version: 0
+  major version: 55
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #5                          // com/company/Foo
+  super_class: #6                         // java/lang/Object
+  interfaces: 0, fields: 2, methods: 4, attributes: 1
+Constant pool:
+   #1 = Methodref          #6.#22         // java/lang/Object."<init>":()V
+   #2 = String             #23            //
+   #3 = Fieldref           #5.#24         // com/company/Foo.name_:Ljava/lang/String;
+   #4 = Fieldref           #5.#25         // com/company/Foo.id_:I
+   #5 = Class              #26            // com/company/Foo
+   #6 = Class              #27            // java/lang/Object
+   #7 = Utf8               name_
+   #8 = Utf8               Ljava/lang/String;
+   #9 = Utf8               id_
+  #10 = Utf8               I
+  #11 = Utf8               <init>
+  #12 = Utf8               ()V
+  #13 = Utf8               Code
+  #14 = Utf8               LineNumberTable
+  #15 = Utf8               SetName
+  #16 = Utf8               (Ljava/lang/String;)V
+  #17 = Utf8               GetName
+  #18 = Utf8               ()Ljava/lang/String;
+  #19 = Utf8               IncreaseId
+  #20 = Utf8               SourceFile
+  #21 = Utf8               Foo.java
+  #22 = NameAndType        #11:#12        // "<init>":()V
+  #23 = Utf8
+  #24 = NameAndType        #7:#8          // name_:Ljava/lang/String;
+  #25 = NameAndType        #9:#10         // id_:I
+  #26 = Utf8               com/company/Foo
+  #27 = Utf8               java/lang/Object
+{
+  private java.lang.String name_;
+    descriptor: Ljava/lang/String;
+    flags: (0x0002) ACC_PRIVATE
+
+  private int id_;
+    descriptor: I
+    flags: (0x0002) ACC_PRIVATE
+
+  public com.company.Foo();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: ldc           #2                  // String
+         7: putfield      #3                  // Field name_:Ljava/lang/String;
+        10: aload_0
+        11: iconst_0
+        12: putfield      #4                  // Field id_:I
+        15: return
+      LineNumberTable:
+        line 7: 0
+        line 8: 4
+        line 9: 10
+        line 10: 15
+
+  public void SetName(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #3                  // Field name_:Ljava/lang/String;
+         5: return
+      LineNumberTable:
+        line 13: 0
+        line 14: 5
+
+  public java.lang.String GetName();
+    descriptor: ()Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #3                  // Field name_:Ljava/lang/String;
+         4: areturn
+      LineNumberTable:
+        line 17: 0
+
+  public void IncreaseId();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=3, locals=1, args_size=1
+         0: aload_0
+         1: dup
+         2: getfield      #4                  // Field id_:I
+         5: iconst_1
+         6: iadd
+         7: putfield      #4                  // Field id_:I
+        10: return
+      LineNumberTable:
+        line 21: 0
+        line 22: 10
+}
+SourceFile: "Foo.java"
