@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "Dictionary-impl.h"
 
-const int BIG_NUM = 1e5;
+const int BIG_NUM = 1e6;
 
 TEST(HashTable, Length){
     HashTable ht1;
@@ -93,7 +93,7 @@ TEST(Dictionary, FilterWord){
 
 TEST(Dictionary, Update){
     Dictionary dk(2, 8);
-    std::string path = "../../Tests/lord_of_ring.txt";
+    std::string path = "../../Tests/lord_of_rings.txt";
     dk.Update(path);
 
     std::map<std::string, int> m;
@@ -101,8 +101,6 @@ TEST(Dictionary, Update){
     std::string next_word;
     while (is >> next_word){
         FilterWord(next_word);
-        std::cout << "NEXT WORD = " << next_word << ", ";
-
         if (next_word.length() <= 8 && next_word.length() >= 2){
             m[next_word]++;
         }
