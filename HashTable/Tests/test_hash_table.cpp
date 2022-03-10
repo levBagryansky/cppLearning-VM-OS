@@ -84,12 +84,19 @@ TEST(HashTable, HaveKey){
     }
 }
 
-TEST(Dictionary, FilterWord){
+TEST(syntax_functions, FilterWord){
     std::string word = "[]Hi,,,{}";
     ASSERT_EQ("hi", FilterWord(word));
 
     word = "[]H;i,,,{}";
     ASSERT_EQ("", FilterWord(word));
+}
+
+TEST(syntax_functions, Levenshtein){
+    ASSERT_EQ(Levenshtein("qwerty", "qwdfgt"), 4);
+    ASSERT_EQ(Levenshtein("cnhjrf", "cj,frf"), 3);
+    ASSERT_EQ(Levenshtein("qwerty", "qwerty"), 0);
+    ASSERT_EQ(Levenshtein("doctor", "dogtor"), 1);
 }
 
 TEST(Dictionary, Update){
@@ -117,6 +124,7 @@ TEST(TextEditor, HaveWord){
     te.Upload(path);
 
     std::ifstream is{path};
+    ASSERT_TRUE(is.is_open());
     std::string next_word;
     while (is >> next_word){
         FilterWord(next_word);
