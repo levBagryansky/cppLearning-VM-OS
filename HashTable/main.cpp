@@ -4,7 +4,7 @@
 #include "TextEditor-impl.h"
 
 int main() {
-    std::string path = "./Tests/lord_of_rings.txt";
+    std::string path = "../Tests/lord_of_rings.txt";
     //std::string path = "../Tests/lord_of_rings.txt";
 
     TextEditor te;

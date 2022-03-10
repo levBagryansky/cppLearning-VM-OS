@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
-#include "Dictionary-impl.h"
+#include "TextEditor-impl.h"
 
 const int BIG_NUM = 1e6;
+const std::string path = "../../Tests/lord_of_rings.txt";
 
 TEST(HashTable, Length){
     HashTable ht1;
@@ -93,7 +94,6 @@ TEST(Dictionary, FilterWord){
 
 TEST(Dictionary, Update){
     Dictionary dk(2, 8);
-    std::string path = "../../Tests/lord_of_rings.txt";
     dk.Update(path);
 
     std::map<std::string, int> m;
@@ -110,6 +110,24 @@ TEST(Dictionary, Update){
     for (const auto& pair: m) {
         ASSERT_EQ(pair.second, dk.GetValue(pair.first));
     }
+}
+
+TEST(TextEditor, HaveWord){
+    TextEditor te;
+    te.Upload(path);
+
+    std::ifstream is{path};
+    std::string next_word;
+    while (is >> next_word){
+        FilterWord(next_word);
+        if (next_word.length() <= MAX_WORD_LEN && next_word.length() >= 2){
+            ASSERT_TRUE(te.HaveWord(next_word));
+        } else{
+            ASSERT_FALSE(te.HaveWord(next_word));
+        }
+    }
+
+    ASSERT_FALSE(te.HaveWord("1234567890123456789012345"));
 }
 
 int main(int argc, char *argv[]) {
