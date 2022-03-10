@@ -15,16 +15,16 @@ class TextEditor{
     void Upload(const std::string& path);
     void DumpStatistics();
     bool HaveWord(const std::string& word);
-    void EditWord(std::string& word);
+    std::string& EditWord(std::string& word);
 
    private:
     uint num_of_tables_;
     Dictionary* tables_;
 };
 
-TextEditor::TextEditor(uint num_of_tables): num_of_tables_(10) {
+TextEditor::TextEditor(uint num_of_tables): num_of_tables_(num_of_tables) {
     tables_ = new Dictionary[num_of_tables_];
-    for (int i = 0; i < num_of_tables_ - 1; ++i) {
+    for (uint i = 0; i < num_of_tables_ - 1; ++i) {
         tables_[i].SetLen(i + 2);
     }
     tables_[num_of_tables_ - 1].SetLen(num_of_tables_ + 1, MAX_WORD_LEN);
@@ -36,7 +36,7 @@ TextEditor::~TextEditor() {
 
 void TextEditor::Upload(const std::string& path) {
     std::vector<std::thread> threads(num_of_tables_);
-    for (int i = 0; i < num_of_tables_; ++i) {
+    for (uint i = 0; i < num_of_tables_; ++i) {
         threads[i] = std::thread(&Dictionary::Update, &tables_[i], path);
         //tables_[i].Update(path);
     }
@@ -48,7 +48,7 @@ void TextEditor::Upload(const std::string& path) {
 }
 
 void TextEditor::DumpStatistics() {
-    for (int i = 0; i < num_of_tables_; ++i) {
+    for (uint i = 0; i < num_of_tables_; ++i) {
         std::cout << "Count of tables[" << i << "] = " << tables_[i].Length() <<
             ", collisions = " << tables_[i].GetCollisions() << std::endl;
     }
@@ -64,19 +64,32 @@ bool TextEditor::HaveWord(const std::string &word) {
     return tables_[num_of_tables_ - 1].HaveKey(word);
 }
 
-void TextEditor::EditWord(std::string &word) {
-    char first_sym = word[0];
-    char last_sym = word[word.length() - 1];
+std::string& TextEditor::EditWord(std::string &str) { // example: "{(_:cit{__}" --> "{(_:cat{__}"
+    int first_letter_pos = 0, last_letter_pos = str.length() - 1;
+    while (first_letter_pos < static_cast<int>(str.length()) && !CorrectSymbol(str[first_letter_pos])){
+        first_letter_pos++;
+    }
+    while (!CorrectSymbol(str[last_letter_pos]) && last_letter_pos >= first_letter_pos){
+        last_letter_pos--;
+    }
+
+    std::string word = str.substr(first_letter_pos, last_letter_pos - first_letter_pos + 1);
+    bool capital = (word[0] >= 'A' && word[0] <= 'Z');
     FilterWord(word);
 
     if (!HaveWord(word)){
-        //code..
+        if(word.length() < num_of_tables_ + 2 && word.length() >= 2){
+            word = tables_[word.length() - 2].BestWord(word);
+        } else if(word.length() >= num_of_tables_ + 2){
+            word = tables_[num_of_tables_ - 1].BestWord(word);
+        }
+    }
+    if (capital){
+        word[0] += 'A' - 'a';
     }
 
-    if(first_sym > 'A' && first_sym < 'Z'){
-        word[0] += 'a' - 'A';
-    }
-    if(last_sym == '.' || last_sym ==)
+    str.replace(first_letter_pos, last_letter_pos - first_letter_pos + 1, word);
+    return str;
 }
 
 #endif //TEXTEDITOR_H
