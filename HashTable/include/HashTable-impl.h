@@ -57,7 +57,7 @@ HashTable::~HashTable() {
 
 size_t HashTable::HashFunction(const std::string &key) {
     size_t result = 0;
-    for (int i = 0; i < key.length(); ++i) {
+    for (uint i = 0; i < key.length(); ++i) {
         result = (result + key[i] * static_cast<size_t>(pow(hash_val, i))) % capacity_;
     }
     return result;
@@ -96,7 +96,7 @@ void HashTable::Resize() {
     Item* prev_data = data_;
     data_ = new Item[capacity_];
     count_ = 0;
-    for (int i = 0; i < prev_capacity; ++i) {
+    for (size_t i = 0; i < prev_capacity; ++i) {
         if (prev_data[i].value != -1){
             AddPair(prev_data[i].key, prev_data[i].value);
         }
@@ -133,7 +133,7 @@ int HashTable::GetValue(const std::string &key) {
 
 int HashTable::GetCollisions() {
     int result = 0;
-    for (int i = 0; i < capacity_; ++i) {
+    for (size_t i = 0; i < capacity_; ++i) {
         if ((data_[i].value != -1) && (i != HashFunction(data_[i].key))){
             result++;
         }
@@ -145,7 +145,7 @@ int HashTable::GetCollisions() {
 void HashTable::Print() {
     int figure_of_words = 0;
 
-    for (int i = 0; i < capacity_; ++i) {
+    for (size_t i = 0; i < capacity_; ++i) {
         if (data_[i].value != -1){
             std::cout << data_[i].key << " -> " << data_[i].value << std::endl;
             figure_of_words += data_[i].value;

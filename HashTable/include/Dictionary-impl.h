@@ -11,31 +11,31 @@ int Levenshtein(const std::string& str1, const std::string& str2);
 class Dictionary : public HashTable{
    public:
     Dictionary(int min_len, int max_len);
-    Dictionary(int len = 0);
+    explicit Dictionary(int len = 0);
     void SetLen(int len);
     void SetLen(int min_len, int max_len);
     void Update(const std::string& path);
     const std::string& BestWord(const std::string& word);
 
    private:
-    int min_len_;
-    int max_len_;
+    uint min_len_;
+    uint max_len_;
 
     void AddKey(const std::string& key);
 };
 
 bool CorrectSymbol(char c){
-    return (c >= 'a' && c <= 'z' || c == '-' || c == ' ');
+    return ((c >= 'a' && c <= 'z')|| c == '-' || c == ' ');
 }
 
 std::string& FilterWord(std::string& word){ // filters to normal word
-    for (int i = word.length() - 1; i >= 0; --i) {
+    for (int i = static_cast<int>(word.length() - 1); i >= 0; --i) {
         if (word[i] >= 'A' && word[i] <= 'Z'){
             word[i] += 'a' - 'A';
         }
     }
 
-    int i = word.length() -1;
+    int i = static_cast<int>(word.length() -1);
     while (i >= 0 && !CorrectSymbol(word[i])){
         word.erase(i, 1);
         i--;
@@ -47,8 +47,8 @@ std::string& FilterWord(std::string& word){ // filters to normal word
     }
     word.erase(0, i);
 
-    for (int j = 0; j < word.length(); ++j) {
-        if (!(word[j] >= 'a' && word[j] <= 'z' || word[j] == '-')){
+    for (size_t j = 0; j < word.length(); ++j) {
+        if (!((word[j] >= 'a' && word[j] <= 'z') || word[j] == '-')){
             word = "";
             break;
         }
@@ -61,7 +61,8 @@ int Levenshtein(const std::string& str1, const std::string& str2){
         return Levenshtein(str2, str1);
     }
     
-    const int min_size = str1.size(), max_size = str2.size();
+    const int min_size = str1.size();
+    const int max_size = str2.size();
     std::vector<int> lev_dist(min_size + 1);
 
     for (int i = 0; i <= min_size; ++i) {
@@ -69,7 +70,8 @@ int Levenshtein(const std::string& str1, const std::string& str2){
     }
 
     for (int j = 1; j <= max_size; ++j) {
-        int previous_diagonal = lev_dist[0], previous_diagonal_save;
+        int previous_diagonal = lev_dist[0];
+        int previous_diagonal_save;
         ++lev_dist[0];
 
         for (int i = 1; i <= min_size; ++i) {
@@ -100,9 +102,9 @@ void Dictionary::SetLen(int min_len, int max_len) {
 }
 
 void Dictionary::Update(const std::string& path) {
-    std::ifstream is{path};
+    std::ifstream ifstream{path};
     std::string next_word;
-    while (is >> next_word){
+    while (ifstream >> next_word){
         FilterWord(next_word);
         if (next_word.length() <= max_len_ && next_word.length() >= min_len_){
             AddKey(next_word);
@@ -117,7 +119,7 @@ void Dictionary::AddKey(const std::string& key){
     }
 
     size_t index = HashFunction(key);
-    int i = 0;
+    size_t i = 0;
 
     //Looking for empty cell or cell with the same key
     while (data_[index].value != -1){
@@ -141,7 +143,7 @@ const std::string& Dictionary::BestWord(const std::string &word) {
     int min_dist = INT32_MAX;
     size_t min_dist_pos = 0;
     int min_dist_frequency = 0;
-    for (int i = 0; i < capacity_; ++i) {
+    for (size_t i = 0; i < capacity_; ++i) {
         if (data_[i].value > 0) {
             int dist = Levenshtein(word, data_[i].key);
             if (dist < min_dist || (dist == min_dist && min_dist_frequency < data_[i].value)) {

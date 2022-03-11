@@ -84,7 +84,7 @@ TEST(HashTable, HaveKey){
     }
 }
 
-TEST(syntax_functions, FilterWord){
+TEST(SyntaxFunctions, FilterWord){
     std::string word = "[]Hi,,,{}";
     ASSERT_EQ("hi", FilterWord(word));
 

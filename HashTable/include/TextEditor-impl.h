@@ -9,13 +9,13 @@ const int MAX_WORD_LEN = 20;
 
 class TextEditor{
    public:
-    TextEditor(uint num_of_tables = 10);
+    explicit TextEditor(uint num_of_tables = 10);
     ~TextEditor();
 
     void Upload(const std::string& path);
     void DumpStatistics();
     bool HaveWord(const std::string& word);
-    std::string& EditWord(std::string& word);
+    std::string& EditWord(std::string& str);
 
    private:
     uint num_of_tables_;
@@ -25,9 +25,9 @@ class TextEditor{
 TextEditor::TextEditor(uint num_of_tables): num_of_tables_(num_of_tables) {
     tables_ = new Dictionary[num_of_tables_];
     for (uint i = 0; i < num_of_tables_ - 1; ++i) {
-        tables_[i].SetLen(i + 2);
+        tables_[i].SetLen(static_cast<size_t>(i + 2));
     }
-    tables_[num_of_tables_ - 1].SetLen(num_of_tables_ + 1, MAX_WORD_LEN);
+    tables_[num_of_tables_ - 1].SetLen(static_cast<size_t>(num_of_tables_ + 1), MAX_WORD_LEN);
 }
 
 TextEditor::~TextEditor() {
@@ -65,8 +65,9 @@ bool TextEditor::HaveWord(const std::string &word) {
 }
 
 std::string& TextEditor::EditWord(std::string &str) { // example: "{(_:cit{__}" --> "{(_:cat{__}"
-    int first_letter_pos = 0, last_letter_pos = str.length() - 1;
-    while (first_letter_pos < static_cast<int>(str.length()) && !CorrectSymbol(str[first_letter_pos])){
+    size_t first_letter_pos = 0;
+    size_t last_letter_pos = str.length() - 1;
+    while (first_letter_pos < str.length() && !CorrectSymbol(str[first_letter_pos])){
         first_letter_pos++;
     }
     while (!CorrectSymbol(str[last_letter_pos]) && last_letter_pos >= first_letter_pos){
