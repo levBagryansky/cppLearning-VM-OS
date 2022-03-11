@@ -110,6 +110,8 @@ void Dictionary::Update(const std::string& path) {
             AddKey(next_word);
         }
     }
+
+    ifstream.close();
     //std::cout << "Updating, len = " << min_len_ << " count = " << Length() << std::endl;
 }
 
