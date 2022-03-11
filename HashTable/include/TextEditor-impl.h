@@ -16,6 +16,7 @@ class TextEditor{
     void DumpStatistics();
     bool HaveWord(const std::string& word);
     std::string& EditWord(std::string& str);
+    void EditText(std::string wrong_text, std::string correct_text, int n_threads = 100, int buf_len = 1e4);
 
    private:
     uint num_of_tables_;
@@ -38,7 +39,6 @@ void TextEditor::Upload(const std::string& path) {
     std::vector<std::thread> threads(num_of_tables_);
     for (uint i = 0; i < num_of_tables_; ++i) {
         threads[i] = std::thread(&Dictionary::Update, &tables_[i], path);
-        //tables_[i].Update(path);
     }
 
     for(auto& th: threads){
@@ -91,6 +91,35 @@ std::string& TextEditor::EditWord(std::string &str) { // example: "{(_:cit{__}" 
 
     str.replace(first_letter_pos, last_letter_pos - first_letter_pos + 1, word);
     return str;
+}
+
+void TextEditor::EditText(std::string wrong_text, std::string correct_text, int n_threads, int buf_len) {
+    std::vector<std::string> buf(buf_len);
+    std::ifstream ifstream(wrong_text);
+    std::ofstream ofstream(correct_text);
+    if (!ifstream.is_open() || !ofstream.is_open()){
+        std::cout << "File is not opened" << std::endl;
+    }
+
+    while (!ifstream.eof()) {
+        for (int i = 0; i < buf_len && ifstream >> buf[i]; ++i) {}
+        std::cout << std::endl;
+        ifstream.close();
+
+        for (int i = 0; i < buf_len; ++i) {
+            EditWord(buf[i]);
+        }
+
+        for (int i = 0; i < buf_len; ++i) {
+            if(!buf[i].empty()){
+                ofstream << buf[i] << ' ';
+                std::cout << buf[i] << ' ';
+            }
+        }
+        ofstream.close();
+        std::cout << std::endl;
+    }
+
 }
 
 #endif //TEXTEDITOR_H
