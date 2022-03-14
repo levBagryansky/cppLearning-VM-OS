@@ -112,7 +112,6 @@ TEST(Dictionary, Update){
             m[next_word]++;
         }
     }
-    std::cout << std::endl;
 
     for (const auto& pair: m) {
         ASSERT_EQ(pair.second, dk.GetValue(pair.first));
