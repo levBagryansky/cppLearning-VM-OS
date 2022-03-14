@@ -22,5 +22,5 @@ add_subdirectory(Tests)
 
 
 if (ADD_TESTING)
-    add_subdirectory(Tests)
+#    add_subdirectory(Tests)
 endif ()
