@@ -121,7 +121,7 @@ void TextEditor::EditText(std::string wrong_text, std::string correct_text, int 
     for (i = 0; i < n_threads - 1; ++i) {
         threads[i] = std::thread(&TextEditor::EditVectorRange, this, std::ref(buf), buf.size() / n_threads * i, buf.size() / n_threads);
     }
-    threads[i] = std::thread(&TextEditor::EditVectorRange, this, std::ref(buf), buf.size() / n_threads * i, buf.size() % n_threads);
+    threads[i] = std::thread(&TextEditor::EditVectorRange, this, std::ref(buf), buf.size() / n_threads * i, buf.size() - (buf.size() / n_threads * i));
 
     for(auto& th: threads){
         th.join();
