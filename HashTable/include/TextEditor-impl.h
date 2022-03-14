@@ -16,7 +16,8 @@ class TextEditor{
     void DumpStatistics();
     bool HaveWord(const std::string& word);
     std::string& EditWord(std::string& str);
-    void EditText(std::string wrong_text, std::string correct_text, int n_threads = 100, int buf_len = 1e4);
+    void EditVectorRange(std::vector<std::string>& vector, size_t start, size_t range_len);
+    void EditText(std::string wrong_text, std::string correct_text, int n_threads = 100);
 
    private:
     uint num_of_tables_;
@@ -93,33 +94,47 @@ std::string& TextEditor::EditWord(std::string &str) { // example: "{(_:cit{__}" 
     return str;
 }
 
-void TextEditor::EditText(std::string wrong_text, std::string correct_text, int n_threads, int buf_len) {
-    std::vector<std::string> buf(buf_len);
+void TextEditor::EditVectorRange(std::vector<std::string> &vector, size_t start, size_t range_len) {
+    for (size_t i = start; i < start + range_len; ++i) {
+        EditWord(vector[i]);
+    }
+}
+
+void TextEditor::EditText(std::string wrong_text, std::string correct_text, int n_threads) {
+    std::vector<std::string> buf;
     std::ifstream ifstream(wrong_text);
     std::ofstream ofstream(correct_text);
     if (!ifstream.is_open() || !ofstream.is_open()){
         std::cout << "File is not opened" << std::endl;
     }
 
-    while (!ifstream.eof()) {
-        for (int i = 0; i < buf_len && ifstream >> buf[i]; ++i) {}
-        std::cout << std::endl;
-        ifstream.close();
+    std::string str;
+    while (ifstream >> str){
+        buf.push_back(str);
+        std::cout << str << ' ';
+    }
+    std::cout << std::endl;
+    ifstream.close();
 
-        for (int i = 0; i < buf_len; ++i) {
-            EditWord(buf[i]);
-        }
+    std::vector<std::thread> threads(n_threads);
+    int i;
+    for (i = 0; i < n_threads - 1; ++i) {
+        threads[i] = std::thread(&TextEditor::EditVectorRange, this, std::ref(buf), buf.size() / n_threads * i, buf.size() / n_threads);
+    }
+    threads[i] = std::thread(&TextEditor::EditVectorRange, this, std::ref(buf), buf.size() / n_threads * i, buf.size() % n_threads);
 
-        for (int i = 0; i < buf_len; ++i) {
-            if(!buf[i].empty()){
-                ofstream << buf[i] << ' ';
-                std::cout << buf[i] << ' ';
-            }
-        }
-        ofstream.close();
-        std::cout << std::endl;
+    for(auto& th: threads){
+        th.join();
     }
 
+    for (size_t i = 0; i < buf.size(); ++i) {
+        if(!buf[i].empty()){
+            ofstream << buf[i] << ' ';
+            std::cout << buf[i] << ' ';
+        }
+    }
+    ofstream.close();
+    std::cout << std::endl;
 }
 
 #endif //TEXTEDITOR_H
