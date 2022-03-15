@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(HashTable)
+project(TextEditor)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -pthread")
@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra -pthread")
 include_directories(include)
 include_directories(Tests)
 
-add_executable(HashTable main.cpp)
+add_executable(${PROJECT_NAME} main.cpp)
 #target_include_directories(HashTable INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 
 if (ADD_CLANG_TIDY)
