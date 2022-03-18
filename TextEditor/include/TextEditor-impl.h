@@ -3,6 +3,7 @@
 
 #include <thread>
 #include <vector>
+#include <sstream>
 #include "Dictionary-impl.h"
 
 const int MAX_WORD_LEN = 20;
@@ -107,12 +108,17 @@ void TextEditor::EditText(std::string wrong_text, std::string correct_text, int 
         std::cout << "File is not opened" << std::endl;
     }
 
+    std::string line;
     std::string str;
-    while (ifstream >> str){
-        buf.push_back(str);
-        std::cout << str << ' ';
+    while (!ifstream.eof()){
+        std::getline(ifstream, line);
+        std::stringstream line_stream;
+        line_stream << line;
+        while (line_stream >> str){
+            buf.push_back(str);
+        }
+        buf.back().push_back('\n');
     }
-    std::cout << std::endl;
     ifstream.close();
 
     std::vector<std::thread> threads(n_threads);
@@ -128,12 +134,15 @@ void TextEditor::EditText(std::string wrong_text, std::string correct_text, int 
 
     for (size_t i = 0; i < buf.size(); ++i) {
         if(!buf[i].empty()){
-            ofstream << buf[i] << ' ';
-            std::cout << buf[i] << ' ';
+            if (buf[i].back() != '\n'){
+                ofstream << buf[i] << ' ';
+            } else{
+                ofstream << buf[i];
+            }
         }
     }
     ofstream.close();
-    std::cout << std::endl;
+
 }
 
 #endif //TEXTEDITOR_H
