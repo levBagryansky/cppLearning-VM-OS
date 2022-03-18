@@ -137,6 +137,22 @@ TEST(TextEditor, HaveWord){
     ASSERT_FALSE(te.HaveWord("1234567890123456789012345"));
 }
 
+TEST(TextEditor, EditText){
+    std::string to_edit = "Hi, mu nime os qwerty";
+    std::string correct = "Hi, my time of twenty";
+    std::ofstream of;
+    of.open("to_edit_test_file");
+    of << to_edit;
+    of.close();
+    TextEditor te;
+    te.Upload(path);
+    te.EditText("to_edit_test_file", "correct_file");
+    std::ifstream ifstream{"correct_file"};
+    std::string str;
+    std::getline(ifstream, str);
+    ASSERT_EQ(correct, str);
+}
+
 int main(int argc, char *argv[]) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

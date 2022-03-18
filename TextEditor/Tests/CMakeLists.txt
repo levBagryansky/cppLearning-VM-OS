@@ -4,7 +4,7 @@ find_package(GTest REQUIRED)
 
 include_directories(${GTEST_INCLUDE_DIRS})
 
-add_executable(${PROJECT_NAME}_tests test_hash_table.cpp ${SOURCE_FILES})
+add_executable(${PROJECT_NAME}_tests tests.cpp ${SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME}_tests PUBLIC GTest::GTest GTest::Main)
 
 enable_testing()
