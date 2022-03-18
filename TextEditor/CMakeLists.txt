@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -pthread")
 
 include_directories(include)
+file(GLOB_RECURSE SOURCE_FILES ./src/*.cpp)
 include_directories(Tests)
 
 add_executable(${PROJECT_NAME} main.cpp)
@@ -17,6 +18,13 @@ if (ADD_CLANG_TIDY)
             --format-style=file
             --header-filter=*.h)
 endif ()
+
+add_custom_target(
+        clang-format
+        COMMAND clang-format
+        -i
+        ${SOURCE_FILES}
+)
 
 add_subdirectory(Tests)
 
