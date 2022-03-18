@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
-#include "TextEditor-impl.h"
+#include "TextEditor.h"
 
-const int BIG_NUM = 1e6;
-const std::string path = "../../Tests/lord_of_rings.txt";
+const int BIG_NUM = 1e5;
+const std::string path = "../../Texts/lord_of_rings.txt";
 
 TEST(HashTable, Length){
     HashTable ht1;
