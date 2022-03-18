@@ -8,9 +8,6 @@ include_directories(include)
 file(GLOB_RECURSE SOURCE_FILES ./src/*.cpp)
 include_directories(Tests)
 
-add_executable(${PROJECT_NAME} main.cpp)
-#target_include_directories(HashTable INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-
 if (ADD_CLANG_TIDY)
     message("Build with clang-tidy")
     set(CMAKE_CXX_CLANG_TIDY
