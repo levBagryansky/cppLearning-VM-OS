@@ -25,7 +25,4 @@ add_custom_target(
 
 add_subdirectory(Tests)
 
-
-if (ADD_TESTING)
-#    add_subdirectory(Tests)
-endif ()
+add_subdirectory(Benchmark)
