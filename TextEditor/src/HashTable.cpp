@@ -124,7 +124,7 @@ HashTable& HashTable::operator=(const HashTable& other) {
     if (this != &other) {
         capacity_ = other.capacity_;
         count_ = other.count_;
-        delete[] data_;
+        data_ = new Item[capacity_];
         std::copy(other.data_, other.data_ + capacity_, data_);
     }
     return *this;
