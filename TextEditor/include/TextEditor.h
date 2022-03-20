@@ -16,9 +16,9 @@ class TextEditor{
     void Upload(const std::string& path);
     void DumpStatistics();
     bool HaveWord(const std::string& word);
-    void EditWord(std::string& str);
-    void EditVectorRange(std::vector<std::string>& vector, size_t start, size_t range_len);
-    void EditText(std::string wrong_text, std::string correct_text, int n_threads = 100);
+    void EditWord(std::string *p_str);
+    void EditVectorRange(std::vector<std::string> *p_vector, size_t start, size_t range_len);
+    void EditText(const std::string& wrong_text, const std::string& correct_text, int n_threads = 100);
 
    private:
     uint num_of_tables_;

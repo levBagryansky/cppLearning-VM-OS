@@ -5,7 +5,7 @@
 #include <fstream>
 
 bool CorrectSymbol(char c);
-std::string& FilterWord(std::string& word);
+std::string *FilterWord(std::string *p_word);
 int Levenshtein(const std::string& str1, const std::string& str2);
 
 class Dictionary : public HashTable{
