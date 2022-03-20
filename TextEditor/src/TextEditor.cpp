@@ -41,20 +41,20 @@ bool TextEditor::HaveWord(const std::string& word) {
 }
 
 void TextEditor::EditWord(
-    std::string& str) {  // example: "{(_:cit{__}" --> "{(_:cat{__}"
+    std::string* p_str) {  // example: "{(_:cit{__}" --> "{(_:cat{__}"
     size_t first_letter_pos = 0;
-    size_t last_letter_pos = str.length() - 1;
-    while (first_letter_pos < str.length() &&
-           !CorrectSymbol(str[first_letter_pos])) {
+    size_t last_letter_pos = (*p_str).length() - 1;
+    while (first_letter_pos < (*p_str).length() &&
+           !CorrectSymbol((*p_str)[first_letter_pos])) {
         first_letter_pos++;
     }
-    while (!CorrectSymbol(str[last_letter_pos]) &&
+    while (!CorrectSymbol((*p_str)[last_letter_pos]) &&
            last_letter_pos >= first_letter_pos) {
         last_letter_pos--;
     }
 
-    std::string word =
-        str.substr(first_letter_pos, last_letter_pos - first_letter_pos + 1);
+    std::string word = (*p_str).substr(first_letter_pos,
+                                       last_letter_pos - first_letter_pos + 1);
     bool capital = (word[0] >= 'A' && word[0] <= 'Z');
     FilterWord(word);
 
@@ -69,18 +69,19 @@ void TextEditor::EditWord(
         word[0] += 'A' - 'a';
     }
 
-    str.replace(first_letter_pos, last_letter_pos - first_letter_pos + 1, word);
+    (*p_str).replace(first_letter_pos, last_letter_pos - first_letter_pos + 1,
+                     word);
 }
 
-void TextEditor::EditVectorRange(std::vector<std::string>& vector, size_t start,
-                                 size_t range_len) {
+void TextEditor::EditVectorRange(std::vector<std::string>* p_vector,
+                                 size_t start, size_t range_len) {
     for (size_t i = start; i < start + range_len; ++i) {
-        EditWord(vector[i]);
+        EditWord(&((*p_vector)[i]));
     }
 }
 
-void TextEditor::EditText(std::string wrong_text, std::string correct_text,
-                          int n_threads) {
+void TextEditor::EditText(const std::string& wrong_text,
+                          const std::string& correct_text, int n_threads) {
     std::vector<std::string> buf;
     std::ifstream ifstream(wrong_text);
     std::ofstream ofstream(correct_text);
@@ -105,10 +106,10 @@ void TextEditor::EditText(std::string wrong_text, std::string correct_text,
     int i;
     for (i = 0; i < n_threads - 1; ++i) {
         threads[i] =
-            std::thread(&TextEditor::EditVectorRange, this, std::ref(buf),
+            std::thread(&TextEditor::EditVectorRange, this, &buf,
                         buf.size() / n_threads * i, buf.size() / n_threads);
     }
-    threads[i] = std::thread(&TextEditor::EditVectorRange, this, std::ref(buf),
+    threads[i] = std::thread(&TextEditor::EditVectorRange, this, &buf,
                              buf.size() / n_threads * i,
                              buf.size() - (buf.size() / n_threads * i));
 
