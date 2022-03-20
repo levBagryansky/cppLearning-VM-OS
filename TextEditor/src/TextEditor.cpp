@@ -56,7 +56,7 @@ void TextEditor::EditWord(
     std::string word = (*p_str).substr(first_letter_pos,
                                        last_letter_pos - first_letter_pos + 1);
     bool capital = (word[0] >= 'A' && word[0] <= 'Z');
-    FilterWord(word);
+    FilterWord(&word);
 
     if (!HaveWord(word)) {
         if (word.length() < num_of_tables_ + 2 && word.length() >= 2) {

@@ -4,7 +4,8 @@ bool CorrectSymbol(char c) {
     return ((c >= 'a' && c <= 'z') || c == '-' || c == ' ');
 }
 
-std::string& FilterWord(std::string& word) {  // filters to normal word
+std::string* FilterWord(std::string* p_word) {  // filters to normal word
+    std::string& word = *p_word;
     for (int i = static_cast<int>(word.length() - 1); i >= 0; --i) {
         if (word[i] >= 'A' && word[i] <= 'Z') {
             word[i] += 'a' - 'A';
@@ -29,7 +30,7 @@ std::string& FilterWord(std::string& word) {  // filters to normal word
             break;
         }
     }
-    return word;
+    return p_word;
 }
 
 int Levenshtein(const std::string& str1, const std::string& str2) {
@@ -82,7 +83,7 @@ void Dictionary::Update(const std::string& path) {
     std::ifstream ifstream{path};
     std::string next_word;
     while (ifstream >> next_word) {
-        FilterWord(next_word);
+        FilterWord(&next_word);
         if (next_word.length() <= max_len_ && next_word.length() >= min_len_) {
             AddKey(next_word);
         }
