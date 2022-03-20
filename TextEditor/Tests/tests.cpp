@@ -86,10 +86,10 @@ TEST(HashTable, HaveKey){
 
 TEST(SyntaxFunctions, FilterWord){
     std::string word = "[]Hi,,,{}";
-    ASSERT_EQ("hi", FilterWord(word));
+    ASSERT_EQ("hi", *(FilterWord(&word)));
 
     word = "[]H;i,,,{}";
-    ASSERT_EQ("", FilterWord(word));
+    ASSERT_EQ("", *(FilterWord(&word)));
 }
 
 TEST(syntax_functions, Levenshtein){
@@ -107,7 +107,7 @@ TEST(Dictionary, Update){
     std::ifstream is{path};
     std::string next_word;
     while (is >> next_word){
-        FilterWord(next_word);
+        FilterWord(&next_word);
         if (next_word.length() <= 8 && next_word.length() >= 2){
             m[next_word]++;
         }
@@ -126,7 +126,7 @@ TEST(TextEditor, HaveWord){
     ASSERT_TRUE(is.is_open());
     std::string next_word;
     while (is >> next_word){
-        FilterWord(next_word);
+        FilterWord(&next_word);
         if (next_word.length() <= MAX_WORD_LEN && next_word.length() >= 2){
             ASSERT_TRUE(te.HaveWord(next_word));
         } else{
