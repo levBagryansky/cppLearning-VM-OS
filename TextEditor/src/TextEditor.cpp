@@ -11,11 +11,41 @@ TextEditor::TextEditor(uint num_of_tables) : num_of_tables_(num_of_tables) {
 
 TextEditor::~TextEditor() { delete[] tables_; }
 
-void TextEditor::Upload(const std::string& path) {
-    std::vector<std::thread> threads(num_of_tables_);
-    for (uint i = 0; i < num_of_tables_; ++i) {
-        threads[i] = std::thread(&Dictionary::Update, &tables_[i], path);
+void TextEditor::AddWord(const std::string& str) {
+    std::string word = str;
+    FilterWord(&word);
+    if (word.length() < 2 || word.length() > MAX_WORD_LEN) {
+        return;
     }
+    if (word.length() < num_of_tables_ + 2) {
+        tables_[word.length() - 2].AddKey(word);
+    }
+    tables_[num_of_tables_ - 1].AddKey(word);
+}
+
+void TextEditor::AddVectorRange(std::vector<std::string>* p_vector, const size_t start, const size_t range_len) {
+    for (size_t i = start; i < start + range_len; ++i) {
+        AddWord((*p_vector)[i]);
+    }
+}
+
+void TextEditor::Upload(const std::string& path, int n_threads) {
+    std::vector<std::string> buf;
+    std::ifstream ifstream(path);
+
+    std::string line;
+    std::string str;
+    while (ifstream >> str) {
+        buf.push_back(str);
+    }
+    ifstream.close();
+
+    std::vector<std::thread> threads(n_threads);
+    int i;
+    for (i = 0; i < n_threads - 1; ++i) {
+        threads[i] = std::thread(&TextEditor::AddVectorRange, this, &buf, buf.size() / n_threads * i, buf.size() / n_threads);
+    }
+    threads[i] = std::thread(&TextEditor::AddVectorRange, this, &buf, buf.size() / n_threads * i, buf.size() - (buf.size() / n_threads * i));
 
     for (auto& th : threads) {
         th.join();
@@ -74,7 +104,7 @@ void TextEditor::EditWord(
 }
 
 void TextEditor::EditVectorRange(std::vector<std::string>* p_vector,
-                                 size_t start, size_t range_len) {
+                                 const size_t start, const size_t range_len) {
     for (size_t i = start; i < start + range_len; ++i) {
         EditWord(&((*p_vector)[i]));
     }

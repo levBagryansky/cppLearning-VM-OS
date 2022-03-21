@@ -68,9 +68,13 @@ int Levenshtein(const std::string& str1, const std::string& str2) {
 }
 
 Dictionary::Dictionary(int min_len, int max_len)
-    : min_len_(min_len), max_len_(max_len) {}
+    : min_len_(min_len), max_len_(max_len), mutexes_(new std::mutex[capacity_]) {}
 
-Dictionary::Dictionary(int len) : min_len_(len), max_len_(len) {}
+Dictionary::Dictionary(int len) : min_len_(len), max_len_(len), mutexes_(new std::mutex[capacity_]) {}
+
+Dictionary::~Dictionary() {
+    delete[] mutexes_;
+}
 
 void Dictionary::SetLen(int len) { max_len_ = min_len_ = len; }
 
@@ -90,16 +94,33 @@ void Dictionary::Update(const std::string& path) {
     }
 
     ifstream.close();
-    // std::cout << "Updating, len = " << min_len_ << " count = " << Length() <<
-    // std::endl;
 }
 
 void Dictionary::AddKey(const std::string& key) {
     if (2 * count_ >= capacity_) {
-        Resize();
+        /*
+        for (size_t i = 0; i < capacity_; ++i) {
+            mutexes_[i].lock();
+        }
+        std::mutex *old_mutexes = mutexes_;
+        */
+        //Resize();
+        std::cout << "RESIZING AAAAAAAAAAAAAAAAAAAAAAAA" << std::endl;
+        /*
+        for (size_t i = 0; i < capacity_; ++i) {
+            old_mutexes[i].unlock();
+        }
+        delete[] old_mutexes;
+         */
     }
 
+    size_t old_index = HashFunction(key);
+    mutexes_[old_index].lock();
     size_t index = HashFunction(key);
+    if (index != old_index){
+        mutexes_[index].lock();
+        mutexes_[old_index].unlock();
+    }
     size_t i = 0;
 
     // Looking for empty cell or cell with the same key
@@ -108,7 +129,12 @@ void Dictionary::AddKey(const std::string& key) {
             break;
         }
         i++;
+        old_index = index;
         index = (index + const_val1 * i + const_val2 * i * i) % capacity_;
+        if (index != old_index){
+            mutexes_[index].lock();
+            mutexes_[old_index].unlock();
+        }
     }
 
     if (data_[index].value == -1) {
@@ -118,6 +144,7 @@ void Dictionary::AddKey(const std::string& key) {
     } else {
         data_[index].value++;
     }
+    mutexes_[index].unlock();
 }
 
 const std::string& Dictionary::BestWord(const std::string& word) {

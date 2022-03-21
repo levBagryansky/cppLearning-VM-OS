@@ -3,6 +3,7 @@
 
 #include <valarray>
 #include <iostream>
+#include <mutex>
 
 const int const_val1 = 37;
 const int const_val2 = 3;

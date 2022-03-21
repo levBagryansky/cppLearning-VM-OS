@@ -12,16 +12,17 @@ class Dictionary : public HashTable{
    public:
     Dictionary(int min_len, int max_len);
     explicit Dictionary(int len = 0);
+    ~Dictionary();
     void SetLen(int len);
     void SetLen(int min_len, int max_len);
+    void AddKey(const std::string& key);
     void Update(const std::string& path);
     const std::string& BestWord(const std::string& word);
 
    private:
     uint min_len_;
     uint max_len_;
-
-    void AddKey(const std::string& key);
+    std::mutex* mutexes_;
 };
 
 #endif //DICTIONARY_IMPL_H

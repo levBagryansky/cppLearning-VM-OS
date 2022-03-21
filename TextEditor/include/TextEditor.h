@@ -13,11 +13,13 @@ class TextEditor{
     explicit TextEditor(uint num_of_tables = 10);
     ~TextEditor();
 
-    void Upload(const std::string& path);
+    void AddWord(const std::string& str);
+    void AddVectorRange(std::vector<std::string> *p_vector, const size_t start, const size_t range_len);
+    void Upload(const std::string& path, int n_threads = 100);
     void DumpStatistics();
     bool HaveWord(const std::string& word);
     void EditWord(std::string *p_str);
-    void EditVectorRange(std::vector<std::string> *p_vector, size_t start, size_t range_len);
+    void EditVectorRange(std::vector<std::string> *p_vector, const size_t start, const size_t range_len);
     void EditText(const std::string& wrong_text, const std::string& correct_text, int n_threads = 100);
 
    private:
