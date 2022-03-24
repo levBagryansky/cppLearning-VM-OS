@@ -1,4 +1,5 @@
 Language:        Cpp
 BasedOnStyle: Google
 PointerAlignment: Right
+ColumnLimit: 80
 IndentWidth: 4
