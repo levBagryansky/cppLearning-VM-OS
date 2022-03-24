@@ -21,7 +21,7 @@ TEST(HashTable, Length){
     }
     ASSERT_EQ(2 * BIG_NUM, ht2.Length());
 }
-/*
+
 TEST(HashTable, GetValue){
     HashTable<std::string> ht;
     for (int i = 0; i < BIG_NUM; ++i) {
@@ -152,7 +152,7 @@ TEST(TextEditor, EditText){
     std::getline(ifstream, str);
     ASSERT_EQ(correct, str);
 }
-*/
+
 int main(int argc, char *argv[]) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
