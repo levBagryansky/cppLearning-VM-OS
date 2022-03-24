@@ -8,7 +8,7 @@ bool CorrectSymbol(char c);
 std::string *FilterWord(std::string *p_word);
 int Levenshtein(const std::string& str1, const std::string& str2);
 
-class Dictionary : public HashTable{
+class Dictionary : public HashTable<std::string>{
    public:
     Dictionary(int min_len, int max_len);
     explicit Dictionary(int len = 0);
