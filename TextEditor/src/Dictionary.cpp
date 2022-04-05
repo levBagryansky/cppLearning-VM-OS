@@ -38,8 +38,8 @@ int Levenshtein(const std::string& str1, const std::string& str2) {
         return Levenshtein(str2, str1);
     }
 
-    const int min_size = str1.size();
-    const int max_size = str2.size();
+    const int min_size = static_cast<int>(str1.size());
+    const int max_size = static_cast<int>(str2.size());
     std::vector<int> lev_dist(min_size + 1);
 
     for (int i = 0; i <= min_size; ++i) {
@@ -72,9 +72,9 @@ Dictionary::Dictionary(int min_len, int max_len)
 
 Dictionary::Dictionary(int len) : min_len_(len), max_len_(len) {}
 
-void Dictionary::SetLen(int len) { max_len_ = min_len_ = len; }
+void Dictionary::SetLen(uint len) { max_len_ = min_len_ = len; }
 
-void Dictionary::SetLen(int min_len, int max_len) {
+void Dictionary::SetLen(uint min_len, uint max_len) {
     min_len_ = min_len;
     max_len_ = max_len;
 }
@@ -90,8 +90,6 @@ void Dictionary::Update(const std::string& path) {
     }
 
     ifstream.close();
-    // std::cout << "Updating, len = " << min_len_ << " count = " << Length() <<
-    // std::endl;
 }
 
 void Dictionary::AddKey(const std::string& key) {
@@ -108,7 +106,7 @@ void Dictionary::AddKey(const std::string& key) {
             break;
         }
         i++;
-        index = (index + const_val1 * i + const_val2 * i * i) % capacity_;
+        index = (index + CONST_VAL1 * i + CONST_VAL2 * i * i) % capacity_;
     }
 
     if (data_[index].value == -1) {
@@ -120,7 +118,7 @@ void Dictionary::AddKey(const std::string& key) {
     }
 }
 
-const std::string& Dictionary::BestWord(const std::string& word) {
+const std::string& Dictionary::BestWord(const std::string& word) const {
     int min_dist = INT32_MAX;
     size_t min_dist_pos = 0;
     int min_dist_frequency = 0;
