@@ -15,7 +15,7 @@ class HashTable {
     HashTable();
     HashTable(const HashTable& other);
     HashTable(HashTable&& other) noexcept;
-    ~HashTable();
+    virtual ~HashTable();
     void AddPair(const KeyT& key, int value);
     size_t Length() const;
     bool HaveKey(const KeyT& key) const;

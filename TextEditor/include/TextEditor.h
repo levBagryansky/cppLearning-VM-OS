@@ -8,7 +8,7 @@
 
 const int MAX_WORD_LEN = 20;
 
-class TextEditor{
+class TextEditor final {
    public:
     explicit TextEditor(uint num_of_tables = 10);
     ~TextEditor();
